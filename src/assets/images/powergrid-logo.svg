@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 128">
+  <defs>
+    <!-- Gerege цэнхэр: өнгийг энэ 3 stop-оос солино -->
+    <linearGradient id="pg-blue" gradientUnits="userSpaceOnUse" x1="232" y1="160" x2="148" y2="262">
+      <stop offset="0" stop-color="#0B4DB8"/>
+      <stop offset="0.55" stop-color="#1E7BF0"/>
+      <stop offset="1" stop-color="#5CB8FF"/>
+    </linearGradient>
+    <linearGradient id="pg-shade" gradientUnits="userSpaceOnUse" x1="208.86" y1="192.76" x2="209.98" y2="237.29">
+      <stop offset="0" stop-color="#062C6B"/>
+      <stop offset="1" stop-color="#062C6B" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pg-shine" gradientUnits="userSpaceOnUse" x1="239.99" y1="221.1" x2="214.9" y2="186.94">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pg-shine2" gradientUnits="userSpaceOnUse" x1="216.84" y1="146.48" x2="135.04" y2="242.41">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(52 64) scale(1.15) translate(-190.7 -216)">
+    <path fill="url(#pg-blue)" d="M232.879,169.054v37.83c0,12.118-3.98,23.297-10.717,32.3c4.805-21.777-12.759-35.311-12.759-35.311c-4.964-4.874-7.453-7.318-12.416-12.178C208.643,181.709,220.448,173.809,232.879,169.054z"/>
+    <path fill="url(#pg-blue)" d="M214.844,163.405c-17.037,3.652-34.729,12.953-51.453,25.041c0,0-2.907-1.52-2.445-5.381v-0.015c1.55-1.878,3.22-3.637,5.008-5.291c0-0.015,0.015-0.015,0.03-0.03c9.629-8.898,22.492-14.324,36.622-14.324H214.844z"/>
+    <path fill="url(#pg-blue)" d="M222.162,239.184c-0.015,0.015-0.015,0.015-0.015,0.03c-9.867,13.146-25.563,21.657-43.255,21.657h-20.644c-2.892,0-5.738,0.909-8.019,2.698c-2.802,2.206-4.352,4.278-4.531,4.531c11.403-23.312,28.499-46.698,50.41-58.637c4.248-2.325,8.69-4.218,13.296-5.59C209.403,203.873,226.962,217.407,222.162,239.184z"/>
+    <path fill="url(#pg-blue)" d="M160.946,183.065c-7.691,9.331-12.327,21.285-12.327,34.327v38.053c5.56-20.51,14.831-38.828,29.602-57.833c-5.932-3.667-8.898-5.5-14.831-9.167C163.391,188.446,160.484,186.926,160.946,183.065z"/>
+    <path opacity="0.35" fill="url(#pg-shade)" d="M222.162,239.184c0-17.588-15.919-26.099-26.054-29.721c4.248-2.325,8.69-4.218,13.296-5.59C209.403,203.873,226.962,217.407,222.162,239.184z"/>
+    <path opacity="0.45" fill="url(#pg-shine)" d="M232.879,169.054v37.83c0,12.118-3.98,23.297-10.717,32.3c1.833-8.347,0.388-15.487-2.087-21.106c1.893-3.771,3.368-7.84,4.352-12.148L232.879,169.054z"/>
+    <path opacity="0.45" fill="url(#pg-shine2)" d="M156.636,219.283c-2.926-12.71-1.091-25.399,4.31-36.217c-7.691,9.331-12.327,21.285-12.327,34.327v38.053c2.54-9.369,5.865-18.279,10.125-27.008L156.636,219.283z"/>
+  </g>
+  <text x="112" y="62" dominant-baseline="central" fill="#0B3A8C" font-family="'Segoe UI','Inter',system-ui,sans-serif" font-size="44" font-weight="700" letter-spacing="0.6">PowerGrid</text>
+</svg>
