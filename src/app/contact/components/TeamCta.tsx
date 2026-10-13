@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
-import ctaImage from '@/assets/images/other/cta-bg.jpg'
-import member1 from '@/assets/images/team/1.jpg'
-import member2 from '@/assets/images/team/2.jpg'
-import member3 from '@/assets/images/team/4.jpg'
-import member4 from '@/assets/images/team/5.jpg'
+import ctaImage from '@/assets/images/other/pylons-dusk.jpg'
+import member1 from '@/assets/images/team/domain.jpg'
+import member2 from '@/assets/images/team/backend.jpg'
+import member3 from '@/assets/images/team/qa.jpg'
+import member4 from '@/assets/images/team/devops.jpg'
 import { Icon } from '@iconify/react'
 import { useLang, type Text } from '@/i18n/context'
 
 type MemberType = {
-  image: StaticImageData
+  image: ImageSrc
   name: Text
   alt: string
 }

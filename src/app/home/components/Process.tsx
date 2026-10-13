@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import workStep from '@/assets/images/other/work-step.jpg'
+import workStep from '@/assets/images/other/tower-crew.jpg'
 import { useLang } from '@/i18n/context'
 
 const Process = () => {

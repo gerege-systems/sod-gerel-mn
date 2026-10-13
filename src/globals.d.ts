@@ -1,12 +1,7 @@
 import { IStaticMethods } from 'preline/preline'
-import { ReactNode } from 'react'
 
 declare global {
-  type ChildrenType = {
-    children: ReactNode
-  }
-
-  type StaticImageData = string
+  type ImageSrc = string
 
   interface Window {
     HSStaticMethods: IStaticMethods

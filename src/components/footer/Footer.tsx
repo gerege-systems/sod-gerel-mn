@@ -1,7 +1,7 @@
-import exp1 from '@/assets/images/experience/1.webp'
-import exp2 from '@/assets/images/experience/2.webp'
-import exp3 from '@/assets/images/experience/3.webp'
-import exp4 from '@/assets/images/experience/4.webp'
+import exp1 from '@/assets/images/experience/sydney.webp'
+import exp2 from '@/assets/images/experience/london.webp'
+import exp3 from '@/assets/images/experience/paris.webp'
+import exp4 from '@/assets/images/experience/tashkent.webp'
 import logoLight from '@/assets/images/powergrid-logo-light.svg'
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
@@ -11,7 +11,7 @@ import LanguageSwitch from '@/components/LanguageSwitch'
 import { useLang, type Text } from '@/i18n/context'
 
 type ThumbType = {
-  image: StaticImageData
+  image: ImageSrc
   link: string
 }
 

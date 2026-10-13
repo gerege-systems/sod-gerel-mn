@@ -5,23 +5,23 @@ const Home = lazy(() => import('@/app/home/index'))
 const About = lazy(() => import('@/app/about/index'))
 const Experience = lazy(() => import('@/app/experience/index'))
 const Knowledge = lazy(() => import('@/app/knowledge/index'))
-const Architecture = lazy(() => import('@/app/(pages)/architecture/index'))
+const Architecture = lazy(() => import('@/app/architecture/index'))
 const Trust = lazy(() => import('@/app/trust/index'))
 const Privacy = lazy(() => import('@/app/privacy/index'))
-const Contact = lazy(() => import('@/app/(pages)/contact/index'))
-const Platform = lazy(() => import('@/app/(pages)/platform/index'))
-const Error404 = lazy(() => import('@/app/(pages)/error-404/index'))
+const Contact = lazy(() => import('@/app/contact/index'))
+const Platform = lazy(() => import('@/app/platform/index'))
+const Error404 = lazy(() => import('@/app/error-404/index'))
 
 export const AllRoutes = [
   {
     path: '/',
-    name: 'Root',
-    element: <Navigate to="/home" replace />,
+    name: 'Home',
+    element: <Home />,
   },
   {
     path: '/home',
-    name: 'Home',
-    element: <Home />,
+    name: 'HomeAlias',
+    element: <Navigate to="/" replace />,
   },
   {
     path: '/about',

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
-import contactBg from '@/assets/images/other/contact-bg.jpg'
+import contactBg from '@/assets/images/other/ulaanbaatar-night.jpg'
 import { CONTACT_EMAIL } from '@/config'
 import { useLang, type Text } from '@/i18n/context'
 import { submitForm, type SubmitResult } from '@/lib/submitForm'

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import aboutBg from '@/assets/images/other/about-bg.jpg'
-import aboutImage1 from '@/assets/images/other/about-image-1.jpg'
+import aboutBg from '@/assets/images/other/power-lines-sky.jpg'
+import aboutImage1 from '@/assets/images/other/ulaanbaatar-sunrise.jpg'
 import { useLang } from '@/i18n/context'
 
 const Hero = () => {

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import aboutImage from '@/assets/images/other/about-image.jpg'
+import aboutImage from '@/assets/images/other/pylons-sunset.jpg'
 import { useLang, type Text } from '@/i18n/context'
 
 type StatType = {

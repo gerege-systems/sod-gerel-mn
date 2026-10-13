@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import module1 from '@/assets/images/platform/1.jpg'
+import module1 from '@/assets/images/platform/smart-meter.jpg'
 import { useLang, type Text } from '@/i18n/context'
 
 const componentsData: Text[] = [

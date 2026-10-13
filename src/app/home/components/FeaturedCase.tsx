@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import featuredCase from '@/assets/images/other/featured-case.webp'
+import featuredCase from '@/assets/images/other/helsinki-harbour.webp'
 import { useLang } from '@/i18n/context'
 
 const FeaturedCase = () => {

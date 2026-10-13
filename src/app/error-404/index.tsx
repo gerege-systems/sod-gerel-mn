@@ -21,7 +21,7 @@ const Index = () => {
               </p>
               <div className="grid">
                 <Link
-                  to="/home"
+                  to="/"
                   className="group bg-primary inline-flex items-center justify-center gap-5 rounded-lg px-10 py-5 font-medium text-white transition-all"
                 >
                   <span className="relative block overflow-hidden">

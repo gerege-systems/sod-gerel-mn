@@ -1,12 +1,12 @@
-import team1 from '@/assets/images/team/1.jpg'
-import team2 from '@/assets/images/team/2.jpg'
-import team3 from '@/assets/images/team/3.jpg'
-import team4 from '@/assets/images/team/4.jpg'
-import team5 from '@/assets/images/team/5.jpg'
+import team1 from '@/assets/images/team/domain.jpg'
+import team2 from '@/assets/images/team/backend.jpg'
+import team3 from '@/assets/images/team/frontend.jpg'
+import team4 from '@/assets/images/team/qa.jpg'
+import team5 from '@/assets/images/team/devops.jpg'
 import { useLang, type Text } from '@/i18n/context'
 
 type MemberType = {
-  image: StaticImageData
+  image: ImageSrc
   title: Text
   role: Text
 }

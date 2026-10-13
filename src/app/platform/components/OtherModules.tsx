@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom'
-import module2 from '@/assets/images/platform/2.jpg'
-import module3 from '@/assets/images/platform/3.jpg'
-import module4 from '@/assets/images/platform/4.jpg'
+import module2 from '@/assets/images/platform/servers.jpg'
+import module3 from '@/assets/images/platform/substation.jpg'
+import module4 from '@/assets/images/platform/control-panel.jpg'
 import { useLang, type Text } from '@/i18n/context'
 
-type ServiceType = {
-  image: StaticImageData
+type ModuleType = {
+  image: ImageSrc
   title: Text
   link: string
 }
 
-const modulesData: ServiceType[] = [
+const modulesData: ModuleType[] = [
   { image: module2, title: { mn: 'Хэрэглэгчийн портал', en: 'Customer portal' }, link: '/platform' },
   { image: module3, title: { mn: 'Эрх ба нууцлал', en: 'Access & privacy' }, link: '/architecture' },
   { image: module4, title: { mn: 'Бүлэглэл ба аналитик', en: 'Grouping and analytics' }, link: '/platform' },

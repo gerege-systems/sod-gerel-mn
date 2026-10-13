@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-import module1 from '@/assets/images/platform/1.jpg'
-import module2 from '@/assets/images/platform/2.jpg'
-import module3 from '@/assets/images/platform/3.jpg'
-import module4 from '@/assets/images/platform/4.jpg'
+import module1 from '@/assets/images/platform/smart-meter.jpg'
+import module2 from '@/assets/images/platform/servers.jpg'
+import module3 from '@/assets/images/platform/substation.jpg'
+import module4 from '@/assets/images/platform/control-panel.jpg'
 import { useLang, type Text } from '@/i18n/context'
 
-type ServiceType = {
-  image: StaticImageData
+type ModuleType = {
+  image: ImageSrc
   title: Text
   url: string
 }
@@ -24,7 +24,7 @@ const standardsData: Text[] = [
   { mn: 'TEAMI', en: 'TEAMI' },
 ]
 
-const modulesData: ServiceType[] = [
+const modulesData: ModuleType[] = [
   {
     image: module1,
     title: { mn: 'Бодит заалт цуглуулалт', en: 'Real meter collection' },
@@ -60,14 +60,14 @@ const Modules = () => {
         </p>
         <div className="relative flex w-full flex-nowrap gap-5 overflow-hidden md:gap-16">
           <div className="from-default-100 absolute inset-0 end-auto z-10 hidden w-25 bg-linear-to-tr from-18% to-transparent lg:flex"></div>
-          <div className="infinite-scroll-inverse inline-flex gap-5 md:gap-16">
+          <div className="marquee inline-flex gap-5 md:gap-16">
             {standardsData.map((item, index) => (
               <div key={index} className="inline-flex items-center">
                 <span className="text-default-700 text-base font-semibold text-nowrap md:text-lg">{t(item)}</span>
               </div>
             ))}
           </div>
-          <div className="infinite-scroll-inverse inline-flex gap-5 md:gap-16">
+          <div className="marquee inline-flex gap-5 md:gap-16">
             {standardsData.map((item, index) => (
               <div key={index} className="inline-flex items-center">
                 <span className="text-default-700 text-base font-semibold text-nowrap md:text-lg">{t(item)}</span>

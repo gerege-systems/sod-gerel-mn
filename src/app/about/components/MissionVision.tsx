@@ -1,4 +1,4 @@
-import ctaImage from '@/assets/images/other/cta-bg.jpg'
+import ctaImage from '@/assets/images/other/pylons-dusk.jpg'
 import { useLang } from '@/i18n/context'
 
 const MissionVision = () => {

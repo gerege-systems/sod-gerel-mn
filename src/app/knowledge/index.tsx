@@ -1,9 +1,9 @@
-import article1 from '@/assets/images/knowledge/1.webp'
-import article2 from '@/assets/images/knowledge/2.webp'
-import article3 from '@/assets/images/knowledge/3.webp'
-import article4 from '@/assets/images/knowledge/4.webp'
-import article5 from '@/assets/images/knowledge/5.webp'
-import article6 from '@/assets/images/knowledge/6.webp'
+import article1 from '@/assets/images/knowledge/data-center.webp'
+import article2 from '@/assets/images/knowledge/server-rack.webp'
+import article3 from '@/assets/images/knowledge/control-switches.webp'
+import article4 from '@/assets/images/knowledge/pylons-field.webp'
+import article5 from '@/assets/images/knowledge/server-room.webp'
+import article6 from '@/assets/images/knowledge/meters-wall.webp'
 import Footer from '@/components/footer/Footer'
 import Navbar from '@/components/navbar/Navbar'
 import { Icon } from '@iconify/react'
@@ -12,7 +12,7 @@ import PageMeta from '@/components/PageMeta'
 import { useLang, type Text } from '@/i18n/context'
 
 type ArticleType = {
-  image: StaticImageData
+  image: ImageSrc
   category: Text
   date: string
   title: Text

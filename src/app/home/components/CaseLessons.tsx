@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
-import exp1 from '@/assets/images/experience/1.webp'
-import exp2 from '@/assets/images/experience/2.webp'
-import exp3 from '@/assets/images/experience/3.webp'
-import exp4 from '@/assets/images/experience/4.webp'
+import exp1 from '@/assets/images/experience/sydney.webp'
+import exp2 from '@/assets/images/experience/london.webp'
+import exp3 from '@/assets/images/experience/paris.webp'
+import exp4 from '@/assets/images/experience/tashkent.webp'
 import { Icon } from '@iconify/react'
 import { useLang, type Text } from '@/i18n/context'
 
 type CaseType = {
-  image: StaticImageData
+  image: ImageSrc
   country: Text
   title: Text
   description: Text

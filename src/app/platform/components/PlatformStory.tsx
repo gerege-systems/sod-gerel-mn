@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import detailsImage from '@/assets/images/platform/details-image.jpg'
+import detailsImage from '@/assets/images/platform/control-panel-team.jpg'
 import { useLang } from '@/i18n/context'
 
 const PlatformStory = () => {

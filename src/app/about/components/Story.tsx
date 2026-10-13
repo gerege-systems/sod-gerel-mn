@@ -1,4 +1,4 @@
-import aboutImage2 from '@/assets/images/other/about-image-2.jpg'
+import aboutImage2 from '@/assets/images/other/field-engineer.jpg'
 import storyControlRoom from '@/assets/images/other/story-control-room.jpg'
 import logoIcon from '@/assets/images/powergrid-icon.svg'
 import { useLang } from '@/i18n/context'

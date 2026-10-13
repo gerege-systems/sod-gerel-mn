@@ -1,5 +1,5 @@
 import { CONTACT_EMAIL, LOGIN_URL } from '@/config'
-import contactInfo from '@/assets/images/other/contact-info.jpg'
+import contactInfo from '@/assets/images/other/ulaanbaatar-winter.jpg'
 import { Icon } from '@iconify/react'
 import { useLang } from '@/i18n/context'
 

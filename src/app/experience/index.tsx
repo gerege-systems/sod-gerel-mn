@@ -1,14 +1,14 @@
-import exp1 from '@/assets/images/experience/1.webp'
-import exp2 from '@/assets/images/experience/2.webp'
-import exp3 from '@/assets/images/experience/3.webp'
-import exp4 from '@/assets/images/experience/4.webp'
+import exp1 from '@/assets/images/experience/sydney.webp'
+import exp2 from '@/assets/images/experience/london.webp'
+import exp3 from '@/assets/images/experience/paris.webp'
+import exp4 from '@/assets/images/experience/tashkent.webp'
 import Footer from '@/components/footer/Footer'
 import Navbar from '@/components/navbar/Navbar'
 import PageMeta from '@/components/PageMeta'
 import { useLang, type Text } from '@/i18n/context'
 
 type ExperienceType = {
-  image: StaticImageData
+  image: ImageSrc
   category: Text
   title: Text
 }
