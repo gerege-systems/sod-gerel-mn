@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 
 export default defineConfig({
+  // Дэд зам дээр байрлуулбал (жишээ нь GitHub Pages: /sod-gerel-mn/) BASE_PATH-аар өгнө.
+  base: process.env.BASE_PATH || '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
