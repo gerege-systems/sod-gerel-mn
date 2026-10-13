@@ -1,0 +1,668 @@
+/*
+ * BY.SHIVA дизайны хэл — PowerGrid-д тохируулсан бүрэлдэхүүнүүд.
+ * Бүх өнгө _config.css-ийн токеноос уншина. Зөвхөн transform/opacity анимацилна.
+ * @layer components дотор байгаа тул Tailwind utility (w-full, hidden …) давуулж болно.
+ */
+@layer components {
+  /* ============ Display үсэг ============ */
+  .display {
+    font-size: clamp(2.625rem, 1.55rem + 3.9vw, 5rem);
+    font-weight: 800;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .h-section {
+    font-size: clamp(1.875rem, 1.05rem + 2.5vw, 3.375rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: var(--tracking-title);
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  /* Холимог жин: гол үг хар, үргэлжлэл саарал */
+  .mixed {
+    color: var(--color-mute);
+  }
+  .mixed b,
+  .mixed strong {
+    font-weight: inherit;
+    color: var(--color-ink);
+  }
+  .on-ink.mixed {
+    color: rgb(255 255 255 / 0.5);
+  }
+  .on-ink.mixed b,
+  .on-ink.mixed strong {
+    color: #fff;
+  }
+  .on-ink.display,
+  .on-ink.h-section {
+    color: #fff;
+  }
+
+  .accent {
+    color: var(--color-accent);
+  }
+
+  /* ============ Булангийн meta ============ */
+  .meta {
+    font-family: var(--font-body);
+    font-size: var(--meta-size);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: var(--meta-track);
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-hair);
+    font-family: var(--font-body);
+    font-size: var(--meta-size);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: var(--meta-track);
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+  .meta-r {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .meta-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--color-accent);
+  }
+  .meta-row.on-ink,
+  .meta.on-ink {
+    color: rgb(255 255 255 / 0.48);
+    border-color: rgb(255 255 255 / 0.12);
+  }
+  .meta-row.on-ink .meta-dot {
+    background: var(--color-accent-bright);
+  }
+
+  /* ============ Асар том тоо ============ */
+  .num {
+    font-weight: 700;
+    font-size: clamp(3.5rem, 2rem + 4.5vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: var(--tracking-display);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+  .num--md {
+    font-size: clamp(2.5rem, 1.6rem + 2.4vw, 4rem);
+  }
+  .num--sm {
+    font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem);
+  }
+  .num-sfx {
+    font-size: 0.42em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-mute);
+    margin-inline-start: 0.12em;
+    white-space: normal;
+  }
+  .on-ink .num,
+  .num.on-ink {
+    color: #fff;
+  }
+  .on-ink .num-sfx {
+    color: rgb(255 255 255 / 0.48);
+  }
+
+  /* ============ Pill tag / chip ============ */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-ink);
+    font: 500 13px/1.2 var(--font-body);
+    text-decoration: none;
+    cursor: default;
+    transition: border-color 250ms ease, color 250ms ease;
+  }
+  a.chip,
+  button.chip {
+    cursor: pointer;
+  }
+  a.chip:hover,
+  button.chip:hover {
+    border-color: var(--color-ink);
+  }
+  .chip[aria-pressed='true'],
+  .chip--solid {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: #fff;
+  }
+  .chip--up {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .chip--accent {
+    border-color: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: var(--color-accent);
+  }
+  .chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-accent);
+  }
+  .on-ink .chip,
+  .chip.on-ink {
+    border-color: rgb(255 255 255 / 0.22);
+    color: #fff;
+  }
+
+  /* Eyebrow: жижиг акцент дөрвөлжинтэй pill */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    font: 500 13px/1.2 var(--font-body);
+    color: var(--color-ink);
+  }
+  .eyebrow i {
+    width: 7px;
+    height: 7px;
+    background: var(--color-accent);
+    flex: none;
+  }
+
+  /* ============ Тайзны rail ============ */
+  .rails {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+  }
+  .rails i {
+    width: 1px;
+    border-left: 1px dashed var(--rail);
+  }
+  .on-ink .rails i {
+    border-color: rgb(255 255 255 / 0.08);
+  }
+
+  /* ============ Карт ============ */
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-hair);
+    border-radius: var(--radius-card);
+    box-shadow: 0 30px 60px -40px rgb(9 12 30 / 0.35);
+  }
+  .card--ink {
+    background: var(--color-ink);
+    border-color: rgb(255 255 255 / 0.08);
+    color: #fff;
+  }
+
+  /* ============ Underline input ============ */
+  .u-input {
+    width: 100%;
+    min-height: 2.625rem;
+    padding: 0.5rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-ink);
+    font: 400 15px/1.45 var(--font-body);
+    transition: border-color 250ms ease, box-shadow 250ms ease;
+  }
+  textarea.u-input {
+    resize: vertical;
+  }
+  select.u-input {
+    padding-inline-end: 2rem;
+  }
+  .u-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 1px 0 0 var(--color-accent);
+  }
+  .u-input[aria-invalid='true'] {
+    border-color: #ef4444;
+    box-shadow: 0 1px 0 0 #ef4444;
+  }
+
+  /* ============ Pill товч: дугуй сум chip + "bloom" hover ============ */
+  .gb {
+    --gb-bg: var(--color-primary);
+    --gb-fg: #fff;
+    --gb-ring: transparent;
+    --gb-chip: var(--color-accent);
+    --gb-chip-fg: #fff;
+    --gb-bloom: var(--color-accent);
+    --gb-bloom-fg: #fff;
+    --gb-chip-on: #fff;
+    --gb-chip-fg-on: var(--color-accent);
+    --gb-hi: 0.14;
+    --gb-glow: color-mix(in oklab, var(--color-accent) 45%, transparent);
+    --gb-h: 52px;
+    --gb-chip-size: 40px;
+    --gb-pad: 6px;
+
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    height: var(--gb-h);
+    padding-inline: 24px var(--gb-pad);
+    border: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--gb-bg);
+    color: var(--gb-fg);
+    font: 500 15px/1 var(--font-body);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow:
+      inset 0 0 0 1px var(--gb-ring),
+      inset 0 1px 0 rgb(255 255 255 / var(--gb-hi)),
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 10px 24px -16px rgb(0 0 0 / 0.35);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+      transform 220ms var(--ease-soft),
+      box-shadow 400ms var(--ease-soft),
+      opacity 200ms ease;
+  }
+  .gb--sm {
+    --gb-h: 44px;
+    --gb-chip-size: 34px;
+    --gb-pad: 5px;
+    gap: 12px;
+    padding-inline-start: 20px;
+    font-size: 14.5px;
+  }
+  .gb--bare {
+    padding-inline: 24px;
+  }
+  .gb--sm.gb--bare {
+    padding-inline: 20px;
+  }
+  .gb--full {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .gb-bloom {
+    position: absolute;
+    z-index: -1;
+    inset-block-start: 50%;
+    inset-inline-end: var(--gb-pad);
+    width: var(--gb-chip-size);
+    height: var(--gb-chip-size);
+    margin-block-start: calc(var(--gb-chip-size) / -2);
+    border-radius: 50%;
+    background: var(--gb-bloom);
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+      transform 700ms var(--ease-soft),
+      opacity 250ms ease;
+  }
+  .gb--bare .gb-bloom {
+    inset-inline-end: 50%;
+    margin-inline-end: calc(var(--gb-chip-size) / -2);
+  }
+  .gb-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 450ms var(--ease-soft);
+  }
+  .gb-lead {
+    width: 18px;
+    height: 18px;
+    flex: none;
+  }
+  .gb-chip {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--gb-chip-size);
+    height: var(--gb-chip-size);
+    border-radius: 50%;
+    background: var(--gb-chip);
+    color: var(--gb-chip-fg);
+    transition:
+      background-color 450ms var(--ease-soft),
+      color 450ms var(--ease-soft),
+      transform 600ms var(--ease-spring);
+  }
+  .gb-arrow {
+    display: block;
+    width: 18px;
+    height: 18px;
+    transition: transform 600ms var(--ease-spring);
+  }
+  .gb--sm .gb-arrow {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media (hover: hover) {
+    .gb:hover:not(:disabled) {
+      box-shadow:
+        inset 0 0 0 1px var(--gb-ring),
+        inset 0 1px 0 rgb(255 255 255 / var(--gb-hi)),
+        0 1px 2px rgb(0 0 0 / 0.06),
+        0 18px 34px -16px var(--gb-glow);
+    }
+    .gb:hover:not(:disabled) .gb-bloom {
+      opacity: 1;
+      transform: scale(18); /* 18 × 40px ≈ 360px өргөн товчийг бүрхэнэ */
+    }
+    .gb--full:hover:not(:disabled) .gb-bloom {
+      transform: scale(40);
+    }
+    .gb:hover:not(:disabled) .gb-label {
+      color: var(--gb-bloom-fg);
+    }
+    .gb:hover:not(:disabled) .gb-chip {
+      background: var(--gb-chip-on);
+      color: var(--gb-chip-fg-on);
+      transform: scale(1.06);
+    }
+    .gb:hover:not(:disabled) .gb-arrow {
+      transform: translateX(2px);
+    }
+    .gb[data-arrow='up-right']:hover:not(:disabled) .gb-arrow {
+      transform: translate(2px, -2px);
+    }
+  }
+  .gb:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  .gb:focus-visible {
+    outline: 2px solid var(--color-accent-bright);
+    outline-offset: 3px;
+  }
+  .gb:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Хувилбарууд — гадаргуугаар нь сонгоно */
+  .gb--soft {
+    --gb-bg: #f1f1f3;
+    --gb-fg: var(--color-ink);
+    --gb-ring: rgb(0 0 0 / 0.06);
+    --gb-chip: var(--color-ink);
+    --gb-chip-fg: #fff;
+    --gb-bloom: var(--color-primary);
+    --gb-bloom-fg: #fff;
+    --gb-chip-on: #fff;
+    --gb-chip-fg-on: var(--color-primary);
+    --gb-hi: 0.7;
+    --gb-glow: rgb(15 42 61 / 0.35);
+  }
+  .gb--primary {
+    --gb-bg: var(--color-accent);
+    --gb-fg: #fff;
+    --gb-chip: #fff;
+    --gb-chip-fg: var(--color-accent);
+    --gb-bloom: var(--color-primary);
+    --gb-bloom-fg: #fff;
+    --gb-chip-on: #fff;
+    --gb-chip-fg-on: var(--color-primary);
+    --gb-hi: 0.22;
+  }
+  .gb--ghost {
+    --gb-bg: rgb(255 255 255 / 0.96);
+    --gb-fg: var(--color-ink);
+    --gb-ring: rgb(255 255 255 / 0.5);
+    --gb-chip: var(--color-accent);
+    --gb-chip-fg: #fff;
+    --gb-bloom: var(--color-accent);
+    --gb-bloom-fg: #fff;
+    --gb-chip-on: #fff;
+    --gb-chip-fg-on: var(--color-accent);
+    --gb-hi: 0.9;
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  }
+
+  /* ============ MN | EN хоёр төлөвт switch ============ */
+  .seg {
+    display: inline-flex;
+    padding: 0;
+    border: 0;
+    background: none;
+    border-radius: 999px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .seg-track {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    padding: 4px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.7);
+    box-shadow:
+      inset 0 0 0 1px var(--color-hair),
+      inset 0 1px 0 rgb(255 255 255 / 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .seg-thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 42px;
+    height: 36px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      0 4px 10px -4px rgb(0 0 0 / 0.45);
+    transition: transform 550ms var(--ease-spring);
+  }
+  .seg[aria-checked='true'] .seg-thumb {
+    transform: translateX(42px);
+  }
+  .seg-label {
+    position: relative;
+    z-index: 1;
+    width: 42px;
+    text-align: center;
+    font: 600 13px/36px var(--font-body);
+    letter-spacing: 0.04em;
+    color: var(--color-mute);
+    transition: color 350ms ease;
+  }
+  .seg-label[data-on] {
+    color: #fff;
+  }
+  @media (hover: hover) {
+    .seg:hover .seg-label:not([data-on]) {
+      color: var(--color-accent);
+    }
+  }
+  .seg:focus-visible {
+    outline: 2px solid var(--color-accent-bright);
+    outline-offset: 3px;
+  }
+  .seg--dark .seg-track {
+    background: rgb(255 255 255 / 0.06);
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.12),
+      inset 0 1px 0 rgb(255 255 255 / 0.06);
+  }
+  .seg--dark .seg-thumb {
+    background: #fafafa;
+  }
+  .seg--dark .seg-label {
+    color: rgb(255 255 255 / 0.55);
+  }
+  .seg--dark .seg-label[data-on] {
+    color: var(--color-ink);
+  }
+
+  /* ============ Хөвөгч nav арал ============ */
+  .nav-island {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 64px;
+    padding-inline: 14px 10px;
+    border-radius: 999px;
+  }
+  .nav-island::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background: rgb(255 255 255 / 0.84);
+    box-shadow:
+      inset 0 0 0 1px var(--color-hair),
+      inset 0 1px 0 #fff,
+      0 16px 40px -24px rgb(15 42 61 / 0.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  .is-stuck .nav-island::before {
+    opacity: 1;
+  }
+  .nav-island > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font: 500 15px/1 var(--font-body);
+    letter-spacing: -0.01em;
+    color: var(--color-zinc-700);
+    text-decoration: none;
+    transition: color 250ms ease;
+  }
+  .nav-link::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    flex: none;
+    background: var(--color-accent);
+    transform: scale(0);
+    transition: transform 400ms var(--ease-spring);
+  }
+  .nav-link:hover,
+  .nav-link.is-active {
+    color: var(--color-ink);
+  }
+  .nav-link:hover::before,
+  .nav-link.is-active::before {
+    transform: scale(1);
+  }
+  .nav-link:focus-visible {
+    outline: 2px solid var(--color-accent-bright);
+    outline-offset: 2px;
+  }
+
+  /* Дугуй burger */
+  .nav-burger {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
+    transition: transform 220ms var(--ease-soft);
+  }
+  .nav-burger:active {
+    transform: scale(0.94);
+  }
+
+  /* Дугуй сум chip (картын буланд) */
+  .arrow-chip {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: #fff;
+    transition:
+      background-color 350ms var(--ease-soft),
+      transform 500ms var(--ease-spring);
+  }
+  .group:hover .arrow-chip {
+    background: var(--color-accent);
+    transform: rotate(-45deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gb,
+    .gb-bloom,
+    .gb-label,
+    .gb-chip,
+    .gb-arrow,
+    .seg-thumb,
+    .seg-label,
+    .nav-link::before,
+    .nav-island::before,
+    .arrow-chip,
+    .chip {
+      transition-duration: 1ms;
+    }
+  }
+}

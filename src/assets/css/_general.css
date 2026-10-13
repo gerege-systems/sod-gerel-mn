@@ -1,0 +1,55 @@
+@layer base {
+  html {
+    @apply w-full scroll-smooth;
+  }
+
+  body {
+    @apply font-body bg-body-bg text-body-color md:text-base text-sm leading-[1.5em] font-normal overflow-x-clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading leading-[1.2em] font-semibold tracking-[-0.02em] text-default-950;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+select,
+input,
+textarea {
+  @apply transition-all duration-200 focus:ring-0 focus:outline-0;
+}
+
+.container {
+  @apply lg:px-7.5 px-5 max-w-[1500px] mx-auto;
+}
+
+/* Стандарт ба технологийн гүйдэг мөр */
+@keyframes marquee {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.marquee {
+  animation: marquee 100s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+}
