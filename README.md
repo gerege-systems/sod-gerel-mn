@@ -63,7 +63,7 @@ JSON-оор шууд илгээнэ. Хоосон бол хэрэглэгчий�
   мөргөлдөнө — тусдаа дэд домэйн (жишээ нь `www.` эсвэл `about.`) эсвэл Nexus-ийн нүүр хуудсыг
   энэ сайтаар солих шийдвэр хэрэгтэй.
 - Дэд зам (`/site/`) дээр байрлуулбал `vite.config.ts`-д `base: '/site/'` тохируулна.
-- `index.html`-ийн `og:image` ба `public/sitemap.xml`, `robots.txt` нь `https://powergrid.mn`
+- `index.html`-ийн `og:image`, `public/sitemap.xml`, `robots.txt`, `public/CNAME` нь одоо `https://sod-gerel.mn`
   гэж үзсэн — эцсийн домэйноор солино.
 - Гадагш хандалт: Google Fonts (фонт), `api.iconify.design` (icon), `powergrid.mn/login`.
   CSP тохируулж байгаа бол эдгээрийг зөвшөөрнө.
