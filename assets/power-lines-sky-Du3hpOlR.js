@@ -1,0 +1,1 @@
+var e=`/sod-gerel-mn/assets/power-lines-sky-BeQW_asr.jpg`;export{e as t};

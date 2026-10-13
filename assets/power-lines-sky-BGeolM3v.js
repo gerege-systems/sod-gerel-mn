@@ -1,1 +1,0 @@
-var e=`/Users/sodgerel.e/AppData/Local/Programs/Git/sod-gerel-mn/assets/power-lines-sky-BeQW_asr.jpg`;export{e as t};
