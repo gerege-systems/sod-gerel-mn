@@ -13,7 +13,7 @@
   h4,
   h5,
   h6 {
-    @apply font-heading leading-[1.3em] font-medium text-default-900;
+    @apply font-heading leading-[1.2em] font-semibold tracking-[-0.02em] text-default-950;
   }
 
   button:not(:disabled),

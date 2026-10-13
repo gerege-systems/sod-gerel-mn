@@ -1,4 +1,5 @@
 import { useLang, type Text } from '@/i18n/context'
+import SectionMeta from '@/components/SectionMeta'
 
 type FaqType = {
   question: Text
@@ -62,12 +63,15 @@ const Faqs = () => {
   const { t } = useLang()
 
   return (
-    <section className="py-15 md:py-25 lg:py-27.5">
+    <section className="bg-stage py-15 md:py-25 lg:py-27.5">
       <div className="container max-w-250!">
-        <div className="mb-12.5 text-center">
-          <div className="text-default-950 mb-2 text-sm">{t('Түгээмэл асуулт', 'FAQ')}</div>
-          <h2 className="mb-2.5 text-3xl md:text-4xl lg:text-5xl">{t('Асуулт ба хариулт', 'Questions and answers')}</h2>
-          <p className="mx-auto lg:max-w-3/4">
+        <SectionMeta left={t('Түгээмэл асуулт', 'FAQ')} right="06 — 08" />
+        <div className="mt-10 mb-12 lg:mt-14 lg:mb-16">
+          <h2 className="h-section mixed">
+            <b>{t('Асуулт', 'Questions')}</b> {t('ба хариулт', 'and answers')}
+            <span className="accent">.</span>
+          </h2>
+          <p className="mt-6 max-w-[34rem]">
             {t(
               'PowerGrid-ийн хамрах хүрээ, тоолуурын нийцэл, хугацаа, нууцлалын талаар хамгийн их асуудаг асуултууд.',
               "The questions we hear most about PowerGrid's scope, meter compatibility, timeline and privacy.",
@@ -75,23 +79,23 @@ const Faqs = () => {
           </p>
         </div>
 
-        <div>
+        <div className="card divide-hair divide-y p-2 md:p-3">
           {faqsData.map((faq, index) => (
-            <div key={index}>
-              {index > 0 && <hr className="border-default-200 my-5" />}
-              <div className={`hs-accordion p-5 ${index === 0 ? 'active' : ''}`}>
-                <button className="hs-accordion-toggle flex w-full items-center justify-between gap-2.5 text-start">
-                  <h3 className="text-xl font-semibold">{t(faq.question)}</h3>
-                  <div className="relative flex size-4.5 shrink-0 items-center justify-center">
-                    <i className="bg-default-950 hs-accordion-active:rotate-90 absolute flex h-4.5 w-0.5 transition duration-500"></i>
-                    <i className="bg-default-950 flex h-0.5 w-4.5"></i>
-                  </div>
-                </button>
-                <div
-                  className={`hs-accordion-content w-full ${index !== 0 ? 'hidden' : ''} overflow-hidden text-start transition-[height] duration-300`}
-                >
-                  <p className="mt-5">{t(faq.answer)}</p>
+            <div key={index} className={`hs-accordion px-4 py-2 md:px-6 ${index === 0 ? 'active' : ''}`}>
+              <button className="hs-accordion-toggle flex w-full items-start justify-between gap-4 py-4 text-start md:items-center">
+                <div className="flex items-start gap-4 md:items-center md:gap-6">
+                  <span className="meta mt-1.5 w-6 shrink-0 tabular-nums md:mt-0">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 className="text-lg md:text-xl">{t(faq.question)}</h3>
                 </div>
+                <span className="relative mt-1.5 flex size-4.5 shrink-0 items-center justify-center md:mt-0" aria-hidden="true">
+                  <i className="bg-ink hs-accordion-active:rotate-90 absolute flex h-4.5 w-0.5 transition duration-500"></i>
+                  <i className="bg-ink flex h-0.5 w-4.5"></i>
+                </span>
+              </button>
+              <div
+                className={`hs-accordion-content w-full ${index !== 0 ? 'hidden' : ''} overflow-hidden text-start transition-[height] duration-300`}
+              >
+                <p className="pb-5 md:ps-12">{t(faq.answer)}</p>
               </div>
             </div>
           ))}

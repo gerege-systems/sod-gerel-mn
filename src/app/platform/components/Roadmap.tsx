@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import { useLang, type Text } from '@/i18n/context'
+import SectionMeta from '@/components/SectionMeta'
 
 type PhaseType = {
   phase: Text
@@ -118,12 +119,13 @@ const Roadmap = () => {
   return (
     <section id="roadmap" className="scroll-mt-28 py-15 md:py-25 lg:py-27.5">
       <div className="container">
-        <div className="mb-12.5">
-          <div className="text-default-950 mb-2.5 text-sm">{t('Хаана явна', 'Where we are')}</div>
-          <h2 className="mb-2.5 text-3xl md:text-4xl lg:text-5xl">
-            {t('Одоо юу ажиллаж, юу ирэх вэ', 'What runs today and what comes next')}
+        <SectionMeta left={t('Хаана явна', 'Where we are')} right="02 — 08" />
+        <div className="mt-10 mb-12 grid gap-6 lg:mt-14 lg:mb-16 lg:grid-cols-12 lg:gap-12">
+          <h2 className="h-section mixed lg:col-span-7">
+            <b>{t('Одоо юу ажиллаж,', 'What runs today')}</b> {t('юу ирэх вэ', 'and what comes next')}
+            <span className="accent">.</span>
           </h2>
-          <p className="lg:max-w-3/5">
+          <p className="max-w-[34rem] lg:col-span-5 lg:pt-2">
             {t(
               'Үе бүр гарах нөхцөлөө биелүүлсэн үед л дараагийнх руу шилжинэ. Хугацаа нь ажлын төлөвлөлтийн жишиг бөгөөд гэрээний амлалт биш.',
               'Each phase moves on only once its exit criterion is met. Durations are planning estimates, not contractual commitments.',
@@ -131,10 +133,10 @@ const Roadmap = () => {
           </p>
         </div>
 
-        <div className="grid gap-7.5 lg:grid-cols-3">
-          <div className="bg-primary rounded-xl p-6 text-white lg:p-8">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs">
-              <span className="size-1.5 rounded-full bg-green-400"></span>
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="bg-primary rounded-card p-7 text-white lg:p-9">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium">
+              <span className="size-1.5 rounded-full bg-green-400" aria-hidden="true"></span>
               {t('Одоо ажиллаж байна', 'Live today')}
             </div>
             <ul className="space-y-4">
@@ -145,7 +147,7 @@ const Roadmap = () => {
                 </li>
               ))}
             </ul>
-            <p className="text-default-400 mt-8 text-sm">
+            <p className="mt-10 text-sm text-white/55">
               {t(
                 'Хэмжилтийн бизнес модулиуд (бүртгэл, заалт, VEE, баланс, тариф, команд) хараахан нэвтрээгүй.',
                 'The metering business modules (registry, readings, VEE, balance, tariff, commands) are not live yet.',
@@ -153,36 +155,46 @@ const Roadmap = () => {
             </p>
           </div>
 
-          <ol className="relative space-y-4 lg:col-span-2">
-            {phasesData.map((item) => (
-              <li
-                key={item.phase.en}
-                className={`rounded-xl border p-5 lg:p-6 ${item.status === 'active' ? 'border-accent bg-accent/5' : 'border-default-200'}`}
-              >
-                <div className="mb-2.5 flex flex-wrap items-center justify-between gap-2.5">
-                  <h3 className="text-xl">
-                    <span className="text-accent me-2">{t(item.phase)}</span>
-                    {t(item.title)}
-                  </h3>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="bg-default-100 rounded-full px-2.5 py-1">{t(item.duration)}</span>
-                    {item.status === 'active' ? (
-                      <span className="bg-accent rounded-full px-2.5 py-1 text-white">
-                        {t('Явагдаж байна', 'In progress')}
-                      </span>
-                    ) : (
-                      <span className="border-default-200 rounded-full border px-2.5 py-1">
-                        {t('Төлөвлөгдсөн', 'Planned')}
-                      </span>
-                    )}
+          <ol className="border-hair border-t lg:col-span-2">
+            {phasesData.map((item, index) => {
+              const active = item.status === 'active'
+              return (
+                <li
+                  key={item.phase.en}
+                  className={`border-hair grid gap-4 border-b py-6 md:grid-cols-[4.5rem_1fr] md:gap-8 lg:py-7 ${active ? 'relative' : ''}`}
+                >
+                  <div
+                    className={`num num--sm ${active ? 'text-accent' : 'text-hair'}`}
+                    aria-hidden="true"
+                  >
+                    {index}
                   </div>
-                </div>
-                <p className="text-default-950 mb-1.5">{t(item.outcome)}</p>
-                <p className="text-sm">
-                  <span className="font-medium">{t('Гарах нөхцөл:', 'Exit criterion:')}</span> {t(item.exit)}
-                </p>
-              </li>
-            ))}
+                  <div>
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                      <h3 className="text-xl">
+                        <span className={`me-2 ${active ? 'text-accent' : 'text-mute'}`}>{t(item.phase)}</span>
+                        {t(item.title)}
+                      </h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="chip chip--up">{t(item.duration)}</span>
+                        {active ? (
+                          <span className="chip chip--up chip--solid">
+                            <span className="size-1.5 animate-pulse rounded-full bg-green-400" aria-hidden="true"></span>
+                            {t('Явагдаж байна', 'In progress')}
+                          </span>
+                        ) : (
+                          <span className="chip chip--up text-mute">{t('Төлөвлөгдсөн', 'Planned')}</span>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-ink mb-1.5">{t(item.outcome)}</p>
+                    <p className="text-sm">
+                      <span className="text-ink font-medium">{t('Гарах нөхцөл:', 'Exit criterion:')}</span> {t(item.exit)}
+                    </p>
+                  </div>
+                </li>
+              )
+            })}
           </ol>
         </div>
       </div>

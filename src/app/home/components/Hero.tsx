@@ -7,61 +7,48 @@ import sydney from '@/assets/images/other/sydney.jpg'
 import { Icon } from '@iconify/react'
 import { LOGIN_URL } from '@/config'
 import { useLang } from '@/i18n/context'
+import PillButton from '@/components/PillButton'
+import SectionMeta from '@/components/SectionMeta'
 
 const Hero = () => {
   const { t } = useLang()
   return (
     <section className="relative size-full overflow-hidden py-10 md:py-14.5">
       <div className="container">
+        <SectionMeta
+          left={t('Ухаалаг тоолуурын үндэсний платформ', 'National Smart Metering Platform')}
+          right={t('Улаанбаатар', 'Ulaanbaatar')}
+          className="mb-10 md:mb-14"
+        />
         <div className="grid gap-7.5 md:gap-16 lg:grid-cols-2 lg:gap-25">
           <div className="flex h-full flex-col gap-7.5 lg:gap-15">
             <div>
-              <div className="mb-4 flex flex-wrap items-center gap-3">
-                <span className="text-default-950 text-sm font-medium tracking-wide uppercase">
-                  {t('Ухаалаг тоолуурын үндэсний платформ', 'National Smart Metering Platform')}
-                </span>
-                <Link
-                  to="/platform#roadmap"
-                  className="bg-accent/10 text-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
-                >
-                  <span className="bg-accent size-1.5 animate-pulse rounded-full"></span>
+              <div className="mb-6">
+                <Link to="/platform#roadmap" className="chip chip--accent">
+                  <span className="bg-accent size-1.5 animate-pulse rounded-full" aria-hidden="true"></span>
                   {t('Хөгжүүлэлтийн шатанд · Үе 0', 'In development · Phase 0')}
                 </Link>
               </div>
-              <h1 className="text-default-950 mb-2.5 text-4xl md:text-5xl lg:text-[56px]">
-                {t('Нэг сая тоолуур.', 'One million meters.')}{' '}
-                <span className="text-accent">{t('Нэг', 'One')}</span>{' '}
-                {t('баталгаатай үнэн.', 'source of truth.')}
+              <h1 className="display mixed mb-6">
+                <b>{t('Нэг сая тоолуур.', 'One million meters.')}</b>{' '}
+                {t('Нэг баталгаатай үнэн', 'One source of truth')}
+                <span className="accent">.</span>
               </h1>
 
-              <p>
+              <p className="max-w-[36rem]">
                 {t(
                   'PowerGrid бол Монгол Улсын ~1,000,000 цахилгааны тоолуурт зориулан эхнээс нь бүтээж буй хэмжилтийн өгөгдлийн платформ. Тоолуурын заалтыг эх төхөөрөмжөөс нь авч, хэзээ ч дарж бичихгүйгээр хадгалж, шалгаж, баланс, тариф, төлбөр хүртэл тайлбарлаж болох нэг урсгалд холбохоор зорьж байна.',
                   "PowerGrid is a metering data platform being built from the ground up for Mongolia's ~1,000,000 electricity meters. It aims to take each reading from its source device, keep it without ever overwriting it, validate it, and carry it through balance, tariff and billing in one explainable flow.",
                 )}
               </p>
 
-              <div className="mt-11 inline-flex flex-wrap items-center gap-4 md:gap-7.5">
-                <a
-                  href={LOGIN_URL}
-                  className="group bg-primary inline-flex items-center justify-center gap-3 rounded-lg px-8 py-5 font-medium text-white transition-all"
-                >
-                  <Icon icon="tabler:fingerprint" className="size-5" />
-                  <span className="relative block overflow-hidden">
-                    <span className="block duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-7">
-                      {t('eID-ээр нэвтрэх', 'Sign in with eID')}
-                    </span>
-                    <span className="absolute inset-s-0 top-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:top-0">
-                      {t('eID-ээр нэвтрэх', 'Sign in with eID')}
-                    </span>
-                  </span>
-                </a>
-                <Link
-                  to="/platform"
-                  className="border-default-200 text-default-950 hover:border-primary inline-flex items-center justify-center rounded-lg border px-8 py-5 font-medium transition-all"
-                >
+              <div className="mt-9 flex flex-wrap items-center gap-3 md:gap-4">
+                <PillButton href={LOGIN_URL} variant="dark" leadingIcon="tabler:fingerprint">
+                  {t('eID-ээр нэвтрэх', 'Sign in with eID')}
+                </PillButton>
+                <PillButton to="/platform" variant="soft">
                   {t('Хэрхэн ажилладгийг үзэх', 'See how it works')}
-                </Link>
+                </PillButton>
               </div>
               <p className="text-default-500 mt-4 text-xs">
                 {t(
@@ -73,10 +60,10 @@ const Hero = () => {
 
             <div className="mt-auto flex items-end justify-between gap-2.5">
               <div className="lg:w-3/4">
-                <div className="text-default-700 mb-2.5">
+                <div className="meta mb-2.5">
                   {t('10 гаруй улсын туршлага дээр суурилсан', 'Built on the experience of 10+ countries')}
                 </div>
-                <p className="text-primary">
+                <p className="text-default-900 text-sm">
                   {t(
                     'Финланд, Австрали, Франц, Их Британи, Япон, Энэтхэг, Узбекистан болон ЕХ-ны 2023/1162 журмын лавлагаа загвар.',
                     'Finland, Australia, France, the UK, Japan, India, Uzbekistan and the EU 2023/1162 reference model.',
@@ -85,16 +72,16 @@ const Hero = () => {
               </div>
 
               <div className="shrink-0">
-                <div className="text-default-950 mb-1.5 text-nowrap">{t('Жишиг', 'References')}</div>
+                <div className="meta mb-2.5 text-nowrap">{t('Жишиг', 'References')}</div>
 
                 <div className="flex gap-2.5">
                   <div className="group relative">
                     <img
                       src={helsinki}
                       alt={t('Финланд', 'Finland')}
-                      className="size-20 shrink-0 rounded object-cover md:size-25"
+                      className="size-20 shrink-0 rounded-2xl object-cover md:size-25"
                     />
-                    <div className="bg-default-100 absolute inset-s-0 -bottom-2 w-full translate-y-full rounded px-2.5 py-1 text-center text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="bg-stage absolute inset-s-0 -bottom-2 w-full translate-y-full rounded-full px-2.5 py-1 text-center text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       {t('Финланд', 'Finland')}
                     </div>
                   </div>
@@ -102,9 +89,9 @@ const Hero = () => {
                     <img
                       src={sydney}
                       alt={t('Австрали', 'Australia')}
-                      className="size-20 shrink-0 rounded object-cover md:size-25"
+                      className="size-20 shrink-0 rounded-2xl object-cover md:size-25"
                     />
-                    <div className="bg-default-100 absolute inset-s-0 -bottom-2 w-full translate-y-full rounded px-2.5 py-1 text-center text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="bg-stage absolute inset-s-0 -bottom-2 w-full translate-y-full rounded-full px-2.5 py-1 text-center text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       {t('Австрали', 'Australia')}
                     </div>
                   </div>
@@ -115,11 +102,11 @@ const Hero = () => {
 
           <div className="grid gap-2.5 md:grid-cols-2">
             <div>
-              <img className="size-full rounded-lg object-cover" src={heroImage1} alt="PowerGrid" />
+              <img className="rounded-card size-full object-cover" src={heroImage1} alt="PowerGrid" />
             </div>
 
             <div className="space-y-2.5">
-              <div className="bg-primary rounded-lg p-6">
+              <div className="bg-primary rounded-card p-6">
                 <p className="mb-25 text-white">
                   {t(
                     'Түүхий заалтыг хэзээ ч дарж засахгүй. Засвар бүр шалтгаан, дүрэм, гүйцэтгэгчтэйгээ шинэ хувилбар болж хадгалагдана.',
@@ -133,25 +120,25 @@ const Hero = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <div className="text-lg text-white">
+                    <div className="text-lg font-semibold tracking-[-0.02em] text-white">
                       {t('Бүтээгдэхүүний зарчим №1', 'Product principle #1')}
                     </div>
-                    <div className="text-default-400 text-sm">
+                    <div className="meta text-white/50!">
                       {t('PowerGrid архитектур', 'PowerGrid architecture')}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="relative overflow-hidden">
-                <img src={aboutBg} alt="Image" className="rounded-lg object-cover" />
+              <div className="relative overflow-hidden rounded-card">
+                <img src={aboutBg} alt="Image" className="rounded-card object-cover" />
 
                 <div className="absolute inset-0 m-7.5 text-center">
-                  <div className="text-default-950 mb-2.5 rounded bg-white/50 px-4 py-3">
+                  <div className="text-default-950 mb-2.5 rounded-full bg-white/70 px-4 py-2.5 text-sm font-medium backdrop-blur">
                     {t('1,000,000 тоолуурт зориулсан', 'Built for 1,000,000 meters')}
                   </div>
 
-                  <img src={heroImage2} alt="Image" className="rounded" />
+                  <img src={heroImage2} alt="Image" className="rounded-2xl" />
                 </div>
               </div>
             </div>

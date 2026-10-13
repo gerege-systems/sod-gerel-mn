@@ -1,38 +1,36 @@
-import { Link } from 'react-router-dom'
 import { useLang } from '@/i18n/context'
+import PillButton from '@/components/PillButton'
+import SectionMeta from '@/components/SectionMeta'
 
 const CTA = () => {
   const { t } = useLang()
   return (
-    <section className="py-15 md:py-25 lg:py-27.5">
-      <div className="container max-w-315!">
-        <div className="mt-12.5">
-          <div className="bg-default-100 rounded-lg px-3 py-8 text-center lg:px-25 lg:py-17.5">
-            <h2 className="mb-2.5 text-2xl md:text-3xl lg:text-4xl">
-              {t(
-                'Нэг сая тоолуурыг нэг баталгаатай платформд нэгтгэе',
-                "Let's bring one million meters onto one verified platform",
-              )}
-            </h2>
-            <p className="mx-auto mb-12.5 lg:w-3/5">
-              {t(
-                'Туршилтын трансформаторын бүлэг, тоолуурын протокол, TEAMI-ийн өгөгдлийн талаар бидэнтэй холбогдож, эхний шатыг хамтдаа төлөвлөе.',
-                "Get in touch about a pilot transformer group, meter protocols or TEAMI data, and let's plan the first stage together.",
-              )}
-            </p>
-            <Link
-              to="/contact"
-              className="group bg-primary inline-flex items-center justify-center rounded-lg px-10 py-5 font-medium text-white transition-all"
-            >
-              <span className="relative block overflow-hidden">
-                <span className="block duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-7">
-                  {t('Холбогдох', 'Contact us')}
-                </span>
-                <span className="absolute inset-s-0 top-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:top-0">
-                  {t('Холбогдох', 'Contact us')}
-                </span>
-              </span>
-            </Link>
+    <section className="relative overflow-hidden py-15 md:py-25 lg:py-27.5">
+      <div className="rails" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+      <div className="container relative">
+        <SectionMeta left={t('Холбоо барих', 'Contact')} right="04 — 04" className="mb-12 lg:mb-16" />
+        <div className="mx-auto max-w-[56rem] text-center">
+          <h2 className="display mixed">
+            <b>{t('Нэг сая тоолуурыг', "Let's bring one million meters")}</b>{' '}
+            {t('нэг баталгаатай платформд нэгтгэе', 'onto one verified platform')}
+            <span className="accent">.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-[36rem]">
+            {t(
+              'Туршилтын трансформаторын бүлэг, тоолуурын протокол, TEAMI-ийн өгөгдлийн талаар бидэнтэй холбогдож, эхний шатыг хамтдаа төлөвлөе.',
+              "Get in touch about a pilot transformer group, meter protocols or TEAMI data, and let's plan the first stage together.",
+            )}
+          </p>
+          <div className="mt-10">
+            <PillButton to="/contact" variant="dark">
+              {t('Холбогдох', 'Contact us')}
+            </PillButton>
           </div>
         </div>
       </div>

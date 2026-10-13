@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
+import { Icon } from '@iconify/react'
 import module2 from '@/assets/images/platform/servers.jpg'
 import module3 from '@/assets/images/platform/substation.jpg'
 import module4 from '@/assets/images/platform/control-panel.jpg'
 import { useLang, type Text } from '@/i18n/context'
+import SectionMeta from '@/components/SectionMeta'
 
 type ModuleType = {
   image: ImageSrc
@@ -22,20 +24,25 @@ const OtherModules = () => {
   return (
     <section className="py-15 md:py-25 lg:py-27.5">
       <div className="container">
-        <h2 className="mb-12.5 text-3xl md:text-4xl lg:text-5xl">{t('Бусад модуль', 'Other modules')}</h2>
-        <div className="grid grid-cols-2 gap-7.5 lg:grid-cols-3">
+        <SectionMeta left={t('Бусад модуль', 'Other modules')} right="07 — 08" />
+        <h2 className="h-section mt-10 mb-12 lg:mt-14">
+          {t('Бусад модуль', 'Other modules')}
+          <span className="accent">.</span>
+        </h2>
+        <div className="grid gap-4 md:grid-cols-3 lg:gap-6">
           {modulesData.map((module, index) => (
-            <div key={index} className="group relative h-100 w-full overflow-hidden rounded-lg">
-              <Link to={module.link} className="absolute inset-0 z-1"></Link>
+            <div key={index} className="group rounded-card relative h-80 w-full overflow-hidden lg:h-100">
+              <Link to={module.link} className="absolute inset-0 z-1" aria-label={t(module.title)}></Link>
               <img
                 src={module.image}
-                alt={t(module.title)}
-                className="size-full rounded-lg object-cover transition-all duration-300 group-hover:scale-105"
+                alt=""
+                className="size-full object-cover transition-transform duration-500 ease-soft group-hover:scale-[1.04]"
               />
-              <div className="absolute inset-x-0 bottom-5 text-center">
-                <div className="text-default-950 inline-flex rounded bg-white px-4 py-2">
-                  {t(module.title)}
-                </div>
+              <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-full bg-white/92 py-2 ps-5 pe-2 backdrop-blur">
+                <span className="text-ink text-sm font-medium">{t(module.title)}</span>
+                <span className="arrow-chip" aria-hidden="true">
+                  <Icon icon="tabler:arrow-up-right" className="size-5" />
+                </span>
               </div>
             </div>
           ))}

@@ -5,6 +5,8 @@ import exp3 from '@/assets/images/experience/paris.webp'
 import exp4 from '@/assets/images/experience/tashkent.webp'
 import { Icon } from '@iconify/react'
 import { useLang, type Text } from '@/i18n/context'
+import PillButton from '@/components/PillButton'
+import SectionMeta from '@/components/SectionMeta'
 
 type CaseType = {
   image: ImageSrc
@@ -77,93 +79,80 @@ const casesData: CaseType[] = [
 const CaseLessons = () => {
   const { t } = useLang()
   return (
-    <section>
+    <section className="pb-15 md:pb-25 lg:pb-27.5">
       <div className="container">
-        <div className="flex flex-wrap items-center justify-between gap-7.5">
-          <div>
-            <div className="text-default-950 text-sm">
-              {t('Судалгаанаас авсан сургамж', 'Lessons from our research')}
-            </div>
-          </div>
-          <div>
-            <Link to="/contact" className="text-default-950 flex items-center gap-1 underline">
-              <div>{t('Хамтран ажиллах', 'Work with us')}</div>
-              <Icon icon="tabler:arrow-up-right" />
-            </Link>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="grow">
+            <SectionMeta left={t('Судалгаанаас авсан сургамж', 'Lessons from our research')} right="05 — 08" />
           </div>
         </div>
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+          <p className="meta">
+            {String(casesData.length).padStart(2, '0')} {t('улс', 'countries')}
+          </p>
+          <Link to="/contact" className="chip">
+            {t('Хамтран ажиллах', 'Work with us')}
+            <Icon icon="tabler:arrow-up-right" className="size-3.5" aria-hidden="true" />
+          </Link>
+        </div>
 
-        <hr className="border-default-200 my-4 md:my-10 lg:my-12.5" />
-
-        {casesData.map((item, index) => (
-          <div key={index}>
-            {index > 0 && <hr className="border-default-200" />}
-            <div className="hs-accordion rounded-2xl">
-              <button className="hs-accordion-toggle flex w-full items-center justify-between gap-2.5 py-4 text-start md:py-10 lg:py-12.5">
-                <div className="space-y-2.5">
-                  <div className="border-default-200 inline-flex rounded-md border px-2.5 py-1.5 text-sm/none font-medium">
-                    {t(item.country)}
-                  </div>
-                  <h3 className="text-base md:text-3xl">{t(item.title)}</h3>
-                </div>
-                <div className="relative flex size-4.5 shrink-0 items-center justify-center">
-                  <i className="bg-default-950 hs-accordion-active:rotate-90 absolute flex h-4.5 w-0.5 transition duration-500"></i>
-                  <i className="bg-default-950 flex h-0.5 w-4.5"></i>
-                </div>
-              </button>
-              <div className="hs-accordion-content hidden w-full overflow-hidden text-start transition-[height] duration-300">
-                <div className="mb-12.5 grid gap-25 lg:grid-cols-7">
-                  <div className="lg:col-span-3">
-                    <div className="flex flex-col justify-between gap-10 md:gap-25 lg:gap-50">
-                      <p className="text-default-600">{t(item.description)}</p>
-                      <div className="bg-default-100 flex items-center justify-between gap-2.5 rounded-lg p-2 ps-4">
-                        <div className="flex flex-wrap gap-1.25">
-                          <div className="text-sm">{t(item.metricLabel)}</div>
-                          <div className="text-default-950 font-medium">{t(item.metricValue)}</div>
-                        </div>
-                        <Link
-                          to="/experience"
-                          className="group bg-primary inline-flex items-center justify-center rounded-lg px-4.5 py-3 font-medium text-nowrap text-white transition-all"
-                        >
-                          <span className="relative block overflow-hidden">
-                            <span className="block duration-[1.125s] group-hover:-translate-y-7">
-                              {t('Дэлгэрэнгүй', 'Learn more')}
-                            </span>
-                            <span className="absolute inset-s-0 top-7 duration-[1.125s] group-hover:top-0">
-                              {t('Дэлгэрэнгүй', 'Learn more')}
-                            </span>
-                          </span>
-                        </Link>
-                      </div>
+        <div className="mt-4">
+          {casesData.map((item, index) => (
+            <div key={index}>
+              <hr className="border-hair" />
+              <div className="hs-accordion">
+                <button className="hs-accordion-toggle flex w-full items-center justify-between gap-4 py-6 text-start md:py-8 lg:py-10">
+                  <div className="flex items-start gap-5 md:items-center md:gap-10">
+                    <span className="meta mt-1 hidden w-8 shrink-0 tabular-nums md:mt-0 md:block">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <div className="space-y-3">
+                      <span className="chip chip--up">{t(item.country)}</span>
+                      <h3 className="text-xl md:text-3xl">{t(item.title)}</h3>
                     </div>
                   </div>
-                  <div className="lg:col-span-4">
-                    <img
-                      src={item.image}
-                      alt={t(item.country)}
-                      className="size-full rounded-xl object-cover"
-                    />
+                  <span className="relative flex size-4.5 shrink-0 items-center justify-center" aria-hidden="true">
+                    <i className="bg-ink hs-accordion-active:rotate-90 absolute flex h-4.5 w-0.5 transition duration-500"></i>
+                    <i className="bg-ink flex h-0.5 w-4.5"></i>
+                  </span>
+                </button>
+                <div className="hs-accordion-content hidden w-full overflow-hidden text-start transition-[height] duration-300">
+                  <div className="mb-10 grid gap-8 lg:grid-cols-7 lg:gap-16 lg:ps-18">
+                    <div className="lg:col-span-3">
+                      <div className="flex h-full flex-col justify-between gap-8">
+                        <p className="text-default-600">{t(item.description)}</p>
+                        <div className="bg-stage flex flex-wrap items-center justify-between gap-3 rounded-card p-2 ps-5">
+                          <div className="flex flex-col py-1">
+                            <span className="meta">{t(item.metricLabel)}</span>
+                            <span className="text-ink mt-1 text-lg font-semibold tracking-[-0.02em]">
+                              {t(item.metricValue)}
+                            </span>
+                          </div>
+                          <PillButton to="/experience" variant="dark" size="sm">
+                            {t('Дэлгэрэнгүй', 'Learn more')}
+                          </PillButton>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="lg:col-span-4">
+                      <img
+                        src={item.image}
+                        alt={t(item.country)}
+                        className="rounded-card size-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+          <hr className="border-hair" />
+        </div>
 
-        <div className="mt-7.5 grid">
-          <Link
-            to="/experience"
-            className="group bg-primary inline-flex items-center justify-center gap-5 rounded-lg px-10 py-5 font-medium text-white transition-all"
-          >
-            <span className="relative block overflow-hidden">
-              <span className="block duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-7">
-                {t('Бүх туршлагыг үзэх', 'See all international experience')}
-              </span>
-              <span className="absolute inset-s-0 top-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:top-0">
-                {t('Бүх туршлагыг үзэх', 'See all international experience')}
-              </span>
-            </span>
-          </Link>
+        <div className="mt-10">
+          <PillButton to="/experience" variant="dark">
+            {t('Бүх туршлагыг үзэх', 'See all international experience')}
+          </PillButton>
         </div>
       </div>
     </section>

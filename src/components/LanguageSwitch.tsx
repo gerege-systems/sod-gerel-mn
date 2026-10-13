@@ -1,43 +1,33 @@
-import { useLang, type Lang } from '@/i18n/context'
+import { useLang } from '@/i18n/context'
 
-const options: { value: Lang; label: string; title: string }[] = [
-  { value: 'mn', label: 'MN', title: 'Монгол' },
-  { value: 'en', label: 'EN', title: 'English' },
-]
-
-const LanguageSwitch = ({ dark = false }: { dark?: boolean }) => {
-  const { lang, setLang } = useLang()
+/**
+ * MN | EN — хоёр төлөвт pill switch. Нэг role="switch" товч, pull-тай гүйдэг thumb.
+ * aria-checked=true нь English идэвхтэй гэсэн үг.
+ */
+const LanguageSwitch = ({ dark = false, className = '' }: { dark?: boolean; className?: string }) => {
+  const { lang, setLang, t } = useLang()
+  const isEn = lang === 'en'
 
   return (
-    <div
-      role="group"
-      aria-label={lang === 'en' ? 'Language' : 'Хэл'}
-      className={`flex rounded-lg border p-0.5 text-xs font-semibold ${dark ? 'border-default-800' : 'border-default-200'}`}
+    <button
+      type="button"
+      role="switch"
+      aria-checked={isEn}
+      aria-label={t('Хэл: Монгол / English', 'Language: Mongolian / English')}
+      title={isEn ? 'Монгол' : 'English'}
+      onClick={() => setLang(isEn ? 'mn' : 'en')}
+      className={`seg ${dark ? 'seg--dark' : ''} ${className}`.trim()}
     >
-      {options.map((option) => {
-        const active = lang === option.value
-        return (
-          <button
-            key={option.value}
-            type="button"
-            title={option.title}
-            aria-pressed={active}
-            onClick={() => setLang(option.value)}
-            className={`rounded-md px-2.5 py-1.5 transition ${
-              active
-                ? dark
-                  ? 'text-default-950 bg-white'
-                  : 'bg-primary text-white'
-                : dark
-                  ? 'text-default-400 hover:text-white'
-                  : 'text-default-600 hover:text-primary'
-            }`}
-          >
-            {option.label}
-          </button>
-        )
-      })}
-    </div>
+      <span className="seg-track" aria-hidden="true">
+        <span className="seg-thumb" />
+        <span className="seg-label" data-on={isEn ? undefined : ''}>
+          MN
+        </span>
+        <span className="seg-label" data-on={isEn ? '' : undefined}>
+          EN
+        </span>
+      </span>
+    </button>
   )
 }
 

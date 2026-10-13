@@ -1,6 +1,7 @@
 import Navbar from '@/components/navbar/Navbar'
 import Footer from '@/components/footer/Footer'
 import PageMeta from '@/components/PageMeta'
+import SectionMeta from '@/components/SectionMeta'
 import { APP_URL, CONTACT_EMAIL } from '@/config'
 import { useLang, type Text } from '@/i18n/context'
 import { Link } from 'react-router-dom'
@@ -86,41 +87,50 @@ const Index = () => {
       <Navbar />
       <section className="py-10 md:py-14.5">
         <div className="container max-w-245!">
-          <div className="mb-12.5">
-            <div className="text-default-950 mb-2.5 text-sm">
-              {t('Хүчинтэй: 2026.10.13', 'Effective: 2026-10-13')}
-            </div>
-            <h1 className="text-default-950 mb-5 text-4xl md:text-5xl">
+          <SectionMeta
+            left={t('Нууцлалын бодлого', 'Privacy policy')}
+            right={t('Хүчинтэй: 2026.10.13', 'Effective: 2026-10-13')}
+            year={false}
+            className="mb-10 md:mb-14"
+          />
+          <div className="mb-12 lg:mb-16">
+            <h1 className="display">
               {t('Нууцлалын бодлого', 'Privacy policy')}
+              <span className="accent">.</span>
             </h1>
-            <p className="text-lg">
+            <p className="mt-6 max-w-[40rem] text-lg">
               {t(
                 'Энэ бодлого нь PowerGrid-ийн танилцуулга сайтад хамаарна. Ухаалаг тоолуурын платформ дахь хэмжилтийн өгөгдлийн эрх, нууцлалын хамгаалалтыг «Эрх ба нууцлал» хуудаснаас үзнэ үү.',
                 'This policy covers the PowerGrid information site. For how the metering platform itself protects metering data, see the Access & privacy page.',
               )}{' '}
-              <Link to="/trust" className="text-accent underline">
+              <Link to="/trust" className="text-ink underline underline-offset-4">
                 {t('Эрх ба нууцлал', 'Access & privacy')}
               </Link>
             </p>
           </div>
 
-          <div className="space-y-10">
-            {sectionsData.map((section) => (
-              <div key={section.title.en}>
-                <h2 className="mb-4 text-2xl">{t(section.title)}</h2>
-                <ul className="list-disc space-y-2.5 ps-5">
-                  {section.items.map((item) => (
-                    <li key={item.en}>{t(item)}</li>
-                  ))}
-                </ul>
+          <div className="space-y-12">
+            {sectionsData.map((section, index) => (
+              <div key={section.title.en} className="grid gap-4 md:grid-cols-[6rem_1fr] md:gap-8">
+                <span className="meta pt-2">{String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <h2 className="mb-4 text-2xl">{t(section.title)}</h2>
+                  <ul className="border-hair border-t">
+                    {section.items.map((item) => (
+                      <li key={item.en} className="border-hair border-b py-3">
+                        {t(item)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
 
-            <div className="bg-default-100 rounded-xl p-6">
+            <div className="card p-7 lg:p-9">
               <h2 className="mb-2.5 text-2xl">{t('Холбоо барих', 'Contact')}</h2>
               <p>
                 {t('Нууцлалтай холбоотой асуулт, хүсэлт: ', 'Privacy questions and requests: ')}
-                <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent underline">
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-ink font-medium underline underline-offset-4">
                   {CONTACT_EMAIL}
                 </a>
               </p>
@@ -129,7 +139,7 @@ const Index = () => {
                   'PowerGrid платформд нэвтэрсний дараах өгөгдлийн боловсруулалт тухайн системийн нөхцөлөөр зохицуулагдана: ',
                   'Data processing after you sign in to the PowerGrid platform is governed by that system’s own terms: ',
                 )}
-                <a href={APP_URL} className="underline">
+                <a href={APP_URL} className="underline underline-offset-4">
                   powergrid.mn
                 </a>
               </p>

@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import { useLang, type Text } from '@/i18n/context'
+import SectionMeta from '@/components/SectionMeta'
 
 type AdvantageType = {
   icon: string
@@ -62,27 +63,32 @@ const Advantages = () => {
   const { t } = useLang()
 
   return (
-    <section className="bg-default-100 py-15 md:py-25 lg:py-27.5">
+    <section className="bg-stage py-15 md:py-25 lg:py-27.5">
       <div className="container">
-        <div className="mb-12.5 text-center">
-          <div className="text-default-950 mb-2.5 text-sm">{t('Давуу тал', 'Why PowerGrid')}</div>
-          <h2 className="mb-2.5 text-3xl md:text-4xl lg:text-5xl">
-            {t('Дэлхийн шилдэг туршлагыг Монголд тохируулсан', "The world's best practice, fitted to Mongolia")}
+        <SectionMeta left={t('Давуу тал', 'Why PowerGrid')} right="03 — 08" />
+        <div className="mx-auto mt-10 mb-12 max-w-[52rem] text-center lg:mt-14 lg:mb-16">
+          <h2 className="h-section mixed">
+            <b>{t('Дэлхийн шилдэг туршлагыг', "The world's best practice,")}</b>{' '}
+            {t('Монголд тохируулсан', 'fitted to Mongolia')}
+            <span className="accent">.</span>
           </h2>
-          <p className="mx-auto lg:max-w-1/2">
+          <p className="mx-auto mt-6 max-w-[34rem]">
             {t(
               'Нэг бүтээгдэхүүнийг хуулбарласангүй. Улс бүрээс хамгийн сайн шийдлийг нь авч, Монголын тариф, хууль, сүлжээнд тохируулан нэг платформд нэгтгэв.',
               "We did not copy one product. We took the best answer from each country and fitted it to Mongolia's tariffs, laws and grid in one platform.",
             )}
           </p>
         </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {advantagesData.map((item) => (
-            <div key={item.icon} className="rounded-xl bg-white p-6 lg:p-8">
-              <div className="bg-accent/10 text-accent mb-6 flex size-12 items-center justify-center rounded-lg">
-                <Icon icon={item.icon} className="size-6" />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {advantagesData.map((item, index) => (
+            <div key={item.icon} className="card flex flex-col p-7 lg:p-8">
+              <div className="mb-8 flex items-start justify-between gap-4">
+                <div className="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-full">
+                  <Icon icon={item.icon} className="size-6" aria-hidden="true" />
+                </div>
+                <span className="meta">{String(index + 1).padStart(2, '0')} — 06</span>
               </div>
-              <h3 className="mb-2.5 text-xl">{t(item.title)}</h3>
+              <h3 className="mb-3 text-xl">{t(item.title)}</h3>
               <p>{t(item.body)}</p>
             </div>
           ))}

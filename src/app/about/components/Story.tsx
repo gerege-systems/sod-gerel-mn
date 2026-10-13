@@ -2,20 +2,22 @@ import aboutImage2 from '@/assets/images/other/field-engineer.jpg'
 import storyControlRoom from '@/assets/images/other/story-control-room.jpg'
 import logoIcon from '@/assets/images/powergrid-icon.svg'
 import { useLang } from '@/i18n/context'
+import SectionMeta from '@/components/SectionMeta'
 
 const Story = () => {
   const { t } = useLang()
   return (
-    <section className="bg-default-100 py-15 md:py-25 lg:py-27.5">
-      <div className="container mb-12.5">
-        <div className="mb-12.5">
-          <h5 className="text-3xl md:text-4xl lg:text-5xl">
-            {t('Судалгаанаас төрсөн платформ — бидний тухай', 'A platform born from research — about us')}
-          </h5>
-        </div>
-        <div className="grid gap-7.5 lg:grid-cols-2 lg:gap-30">
+    <section className="bg-stage py-15 md:py-25 lg:py-27.5">
+      <div className="container">
+        <SectionMeta left={t('Бидний тухай', 'About')} right="01 — 04" />
+        <h2 className="h-section mixed mt-10 mb-12 max-w-[52rem] lg:mt-14 lg:mb-16">
+          <b>{t('Судалгаанаас төрсөн платформ', 'A platform born from research')}</b>{' '}
+          {t('— бидний тухай', '— about us')}
+          <span className="accent">.</span>
+        </h2>
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-24">
           <div>
-            <p className="text-default-800 mb-7.5 text-xl">
+            <p className="text-ink mb-7 text-xl font-medium tracking-[-0.015em]">
               {t(
                 'PowerGrid нэг бүтээгдэхүүнийг хуулбарлахаас эхэлсэнгүй. Финландын өгөгдөл солилцоо, Австралийн заалтын чанар ба хувилбарын түүх, Францын өгөгдөлд хандах зохицуулалт, Японы байнгын ашиглалт, Энэтхэгийн хэрэглэгчийн хамгаалалт — улс бүрийн хамгийн сайн шийдлийг судалж, Монголын тариф, хууль, сүлжээнд тохируулсан.',
                 "PowerGrid did not start by copying one product. Finland's data exchange, Australia's reading quality and version history, France's data-access rules, Japan's continuous operation, India's consumer protection — we studied the best answer from each country and fitted it to Mongolia's tariffs, laws and grid.",
@@ -29,23 +31,23 @@ const Story = () => {
             </p>
           </div>
           <div>
-            <div className="grid grid-cols-2 gap-5">
-              <div>
-                <img src={aboutImage2} alt={t('Талбайн инженер', 'Field engineer')} className="size-full rounded-lg object-cover" />
-              </div>
-              <div className="relative size-full overflow-hidden rounded-lg">
-                <img
-                  src={storyControlRoom}
-                  alt={t('Удирдлагын төв', 'Control centre')}
-                  className="size-full rounded-lg object-cover"
-                />
-              </div>
+            <div className="grid grid-cols-2 gap-4">
+              <img
+                src={aboutImage2}
+                alt={t('Талбайн инженер', 'Field engineer')}
+                className="rounded-card size-full object-cover"
+              />
+              <img
+                src={storyControlRoom}
+                alt={t('Удирдлагын төв', 'Control centre')}
+                className="rounded-card size-full object-cover"
+              />
             </div>
-            <div className="mt-7.5">
+            <div className="border-hair mt-8 flex items-center gap-4 border-t pt-6">
               <img src={logoIcon} alt="PowerGrid" className="size-10" />
-              <div className="mt-2.5">
-                <h3 className="mb-2.5 text-lg">Gerege Systems</h3>
-                <div className="text-default-600">{t('PowerGrid-ийн хөгжүүлэгч', 'Developer of PowerGrid')}</div>
+              <div>
+                <h3 className="text-lg">Gerege Systems</h3>
+                <div className="meta mt-1">{t('PowerGrid-ийн хөгжүүлэгч', 'Developer of PowerGrid')}</div>
               </div>
             </div>
           </div>

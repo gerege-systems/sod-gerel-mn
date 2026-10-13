@@ -41,7 +41,7 @@ const NewsletterForm = () => {
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="border-default-800 flex overflow-hidden rounded-lg border"
+        className="flex items-center rounded-full border border-white/15 p-1.5 ps-5 transition-colors focus-within:border-white/40"
       >
         <input
           type="email"
@@ -49,17 +49,17 @@ const NewsletterForm = () => {
           autoComplete="email"
           aria-label={t('Имэйл хаяг', 'Email address')}
           placeholder={t('Имэйл хаягаа оруулна уу', 'Enter your email address')}
-          className="placeholder-default-500 focus:bg-default-800 h-14 w-full border-0 bg-transparent px-5 py-2.5 text-white transition duration-400 outline-none"
+          className="placeholder-default-500 h-10 w-full border-0 bg-transparent p-0 text-white outline-none"
         />
         <button
           type="submit"
           disabled={status === 'sending'}
           aria-label={t('Бүртгүүлэх', 'Subscribe')}
-          className="border-default-800 hover:text-default-950 flex items-center justify-center border-s px-6 text-white transition duration-400 hover:bg-white disabled:opacity-60"
+          className="text-ink hover:bg-accent-bright flex size-10 shrink-0 items-center justify-center rounded-full bg-white transition-colors duration-300 ease-soft hover:text-white disabled:opacity-60"
         >
           <Icon
             icon={status === 'sending' ? 'tabler:loader-2' : 'tabler:arrow-up-right'}
-            className={`size-6 ${status === 'sending' ? 'animate-spin' : ''}`}
+            className={`size-5 ${status === 'sending' ? 'animate-spin' : ''}`}
           />
         </button>
       </form>

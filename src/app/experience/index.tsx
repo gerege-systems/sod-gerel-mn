@@ -5,6 +5,7 @@ import exp4 from '@/assets/images/experience/tashkent.webp'
 import Footer from '@/components/footer/Footer'
 import Navbar from '@/components/navbar/Navbar'
 import PageMeta from '@/components/PageMeta'
+import SectionMeta from '@/components/SectionMeta'
 import { useLang, type Text } from '@/i18n/context'
 
 type ExperienceType = {
@@ -56,31 +57,34 @@ const Index = () => {
       <Navbar />
       <section className="relative size-full overflow-hidden py-10 md:py-14.5">
         <div className="container">
-          <div className="mb-12.5 text-center">
-            <h1 className="mb-2.5 text-4xl md:text-5xl lg:text-[56px]">{t('Олон улсын туршлага', 'International experience')}</h1>
-            <p className="mx-auto md:max-w-1/2">
+          <SectionMeta left={t('Олон улсын туршлага', 'International experience')} right="PowerGrid" className="mb-10 md:mb-14" />
+          <div className="mx-auto mb-12 max-w-[52rem] text-center lg:mb-16">
+            <h1 className="display mixed">
+              <b>{t('Олон улсын', 'International')}</b> {t('туршлага', 'experience')}
+              <span className="accent">.</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-[36rem]">
               {t(
                 'Узбекистан болон дэлхийн өөр есөн улс, ЕХ-ны журмын туршлагаас PowerGrid-д шууд хамаатай шаардлагыг ялгаж авсан. Эрэмбэ нь чансаа биш — хэрэгжүүлэх дараалал.',
                 'We distilled the requirements that matter directly to PowerGrid from Uzbekistan, nine other countries and EU regulation. The order is not a ranking — it is the implementation sequence.',
               )}
             </p>
           </div>
-          <div className="grid gap-7.5 lg:grid-cols-2">
+          <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
             {experienceData.map((item, index) => (
-              <div key={index} className="group relative overflow-hidden rounded-lg">
+              <div key={index} className="group rounded-card relative overflow-hidden">
                 <img
                   src={item.image}
-                  className="rounded-lg object-cover transition-all duration-300 group-hover:scale-105"
+                  className="w-full object-cover transition-transform duration-500 ease-soft group-hover:scale-[1.03]"
                   alt={t(item.category)}
                 />
-                <div className="absolute bottom-0 m-5">
-                  <div className="inline-flex rounded bg-white p-4">
-                    <div className="space-y-2.5">
-                      <div className="bg-default-100 border-default-200 inline-flex rounded border px-2.5 py-1.5 text-sm/none font-medium">
-                        {t(item.category)}
-                      </div>
-                      <h2 className="text-xl">{t(item.title)}</h2>
+                <div className="absolute inset-x-4 bottom-4 lg:inset-x-6 lg:bottom-6">
+                  <div className="rounded-[22px] bg-white/92 p-5 backdrop-blur md:max-w-[80%]">
+                    <div className="mb-3 flex items-center gap-3">
+                      <span className="meta">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="chip chip--up">{t(item.category)}</span>
                     </div>
+                    <h2 className="text-lg md:text-xl">{t(item.title)}</h2>
                   </div>
                 </div>
               </div>

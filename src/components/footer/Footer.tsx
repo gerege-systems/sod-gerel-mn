@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { CONTACT_EMAIL, LOGIN_URL } from '@/config'
 import NewsletterForm from './NewsletterForm'
 import LanguageSwitch from '@/components/LanguageSwitch'
+import SectionMeta from '@/components/SectionMeta'
 import { useLang, type Text } from '@/i18n/context'
 
 type ThumbType = {
@@ -46,42 +47,49 @@ const otherPagesData: FooterLinkType[] = [
 const FooterLinks = ({ title, links }: { title: string; links: FooterLinkType[] }) => {
   const { t } = useLang()
   return (
-  <div className="flex flex-wrap items-start gap-2.5 md:flex-row lg:flex-col">
-    <h3 className="text-default-400 mb-1.5 w-full text-sm">{title}</h3>
-    {links.map((link) => (
-      <Link
-        key={link.route}
-        to={link.route}
-        target={link.external ? '_blank' : undefined}
-        className="hover:text-default-400 inline-flex text-white transition duration-300"
-      >
-        {t(link.label)}
-      </Link>
-    ))}
-  </div>
+    <div className="flex flex-wrap items-start gap-2.5 md:flex-row lg:flex-col">
+      <h3 className="meta on-ink mb-2 w-full">{title}</h3>
+      {links.map((link) => (
+        <Link
+          key={link.route}
+          to={link.route}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+          className="inline-flex text-white/85 transition duration-300 hover:text-white hover:underline hover:underline-offset-4"
+        >
+          {t(link.label)}
+        </Link>
+      ))}
+    </div>
   )
 }
 
 const Footer = () => {
   const { t } = useLang()
   return (
-    <footer className="bg-default-950 pt-20 pb-10 md:pt-8 lg:pt-27.5">
+    <footer className="bg-ink pt-16 pb-10 md:pt-20 lg:pt-24">
       <div className="container">
-        <div className="grid gap-7.5 lg:grid-cols-9 lg:gap-20">
+        <SectionMeta
+          dark
+          left="PowerGrid"
+          right={t('Ухаалаг тоолуурын үндэсний платформ', 'National Smart Metering Platform')}
+          className="mb-12 lg:mb-16"
+        />
+        <div className="grid gap-10 lg:grid-cols-9 lg:gap-20">
           <div className="lg:col-span-2">
             <div className="flex h-full flex-wrap items-start justify-between gap-12 md:flex-row lg:flex-col">
-              <img src={logoLight} className="h-12 w-auto" alt="PowerGrid" />
+              <img src={logoLight} className="h-11 w-auto" alt="PowerGrid" />
               <div className="space-y-3">
-                <h3 className="text-default-400 text-sm">{t('Бидэнтэй холбогдох', 'Get in touch')}</h3>
+                <h3 className="meta on-ink">{t('Бидэнтэй холбогдох', 'Get in touch')}</h3>
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="hover:text-default-400 block text-white transition duration-300"
+                  className="block text-white/85 transition duration-300 hover:text-white"
                 >
                   {CONTACT_EMAIL}
                 </a>
                 <a
                   href="https://powergrid.mn"
-                  className="hover:text-default-400 block text-white transition duration-300"
+                  className="block text-white/85 transition duration-300 hover:text-white"
                 >
                   powergrid.mn
                 </a>
@@ -90,27 +98,27 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-5">
-            <div>
-              <div className="grid gap-7.5 lg:grid-cols-2">
-                <FooterLinks title={t('Хуудсууд', 'Pages')} links={pagesData} />
-                <FooterLinks title={t('Бусад', 'More')} links={otherPagesData} />
-              </div>
+            <div className="grid gap-10 lg:grid-cols-2">
+              <FooterLinks title={t('Хуудсууд', 'Pages')} links={pagesData} />
+              <FooterLinks title={t('Бусад', 'More')} links={otherPagesData} />
             </div>
 
-            <div className="mt-7.5 flex flex-wrap items-center gap-6 lg:mt-15 lg:gap-10">
-              <h3 className="text-xl text-white">{t('Шинэ мэдээлэл авах', 'Stay informed')}</h3>
+            <div className="mt-10 flex flex-wrap items-center gap-6 lg:mt-14 lg:gap-10">
+              <h3 className="text-xl font-semibold tracking-[-0.02em] text-white">
+                {t('Шинэ мэдээлэл авах', 'Stay informed')}
+              </h3>
               <NewsletterForm />
             </div>
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="mb-4 font-medium text-white">{t('Олон улсын туршлага', 'International experience')}</h3>
+            <h3 className="meta on-ink mb-4">{t('Олон улсын туршлага', 'International experience')}</h3>
             <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-2">
               {experienceThumbs.map((work, index) => (
                 <Link
                   key={index}
                   to={work.link}
-                  className="group relative overflow-hidden rounded-lg lg:h-27.5"
+                  className="group relative overflow-hidden rounded-2xl lg:h-27.5"
                 >
                   <img
                     src={work.image}
@@ -129,22 +137,27 @@ const Footer = () => {
           </div>
         </div>
 
-        <hr className="border-default-800 my-10" />
+        <hr className="my-10 border-white/10" />
 
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex flex-wrap items-center gap-5">
             <LanguageSwitch dark />
             <Link
               to="/privacy"
-              className="text-default-400 text-sm transition duration-300 hover:text-white"
+              className="text-sm text-white/60 transition duration-300 hover:text-white"
             >
               {t('Нууцлалын бодлого', 'Privacy policy')}
             </Link>
           </div>
-          <p className="text-center text-sm text-white md:text-right">
+          <p className="text-center text-sm text-white/70 md:text-right">
             © {new Date().getFullYear()} PowerGrid ·{' '}
             {t('Ухаалаг тоолуурын үндэсний платформ', 'National Smart Metering Platform')} ·{' '}
-            <a href="https://github.com/gerege-systems" target="_blank" className="underline">
+            <a
+              href="https://github.com/gerege-systems"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white underline underline-offset-4"
+            >
               Gerege Systems
             </a>
           </p>

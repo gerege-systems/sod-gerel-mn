@@ -1,10 +1,11 @@
 import logo from '@/assets/images/powergrid-logo.svg'
 import { Icon } from '@iconify/react'
 import { Link, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { LOGIN_URL } from '@/config'
 import { useLang, type Text } from '@/i18n/context'
 import LanguageSwitch from '@/components/LanguageSwitch'
+import PillButton from '@/components/PillButton'
 
 type SubNavigationType = {
   label: Text
@@ -34,6 +35,7 @@ const desktopMenuData: NavigationType[] = [
 const Navbar = () => {
   const { pathname } = useLocation()
   const { t } = useLang()
+  const [stuck, setStuck] = useState(false)
 
   useEffect(() => {
     const mobileMenu = document.querySelector('#mobile-menu')
@@ -50,18 +52,30 @@ const Navbar = () => {
     document.body.style.paddingRight = ''
   }, [pathname])
 
+  // Гүйлгэсний дараа арал шилэн капсул болж харагдана (opacity-оор, background биш).
+  useEffect(() => {
+    const onScroll = () => setStuck(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="bg-body-bg sticky top-0 z-50 transition-all duration-300">
-      <div className="container">
-        <div className="flex w-full items-center justify-between py-5 md:py-6.5">
-          <Link to="/" className="flex items-center">
-            <img src={logo} className="flex h-11 w-auto md:h-12" alt="PowerGrid" />
+    <header className={`sticky top-0 z-50 ${stuck ? 'is-stuck' : ''}`}>
+      <div className="container pt-3 md:pt-4">
+        <div className="nav-island">
+          <Link to="/" className="flex items-center ps-1" aria-label="PowerGrid">
+            <img src={logo} className="h-9 w-auto md:h-10" alt="PowerGrid" />
           </Link>
 
-          <div id="navbar" className="mx-auto hidden items-center justify-center lg:flex">
+          <nav
+            id="navbar"
+            className="mx-auto hidden items-center gap-1 lg:flex"
+            aria-label={t('Үндсэн цэс', 'Main menu')}
+          >
             {desktopMenuData.map((item) => {
               if (item.children) {
-                const isDropdownActive = false
+                const isDropdownActive = item.children.some((child) => child.route === pathname)
                 return (
                   <div
                     key={item.label.en}
@@ -69,34 +83,32 @@ const Navbar = () => {
                   >
                     <button
                       type="button"
-                      className={`hs-dropdown-toggle group hover:text-primary flex items-center p-2.5 font-medium underline underline-offset-3 transition-all duration-300 hover:decoration-current ${isDropdownActive ? 'text-primary decoration-primary' : 'text-default-600 decoration-transparent'}`}
+                      className={`hs-dropdown-toggle nav-link ${isDropdownActive ? 'is-active' : ''}`}
                       aria-haspopup="menu"
                       aria-expanded="false"
-                      aria-label="Dropdown"
+                      aria-label={t('Бусад хуудас', 'More pages')}
                     >
                       {t(item.label)}
-                      <Icon icon="tabler:chevron-down" className="ms-3" />
+                      <Icon icon="tabler:chevron-down" className="size-4" />
                     </button>
                     <div
-                      className="hs-dropdown-menu hs-dropdown-open:opacity-100 border-default-100 from-default-100/90 to-default-100 top-2.5! mt-2 hidden w-56 rounded-xl border bg-linear-to-b p-1 opacity-0 transition-[opacity,margin] duration-300 before:absolute before:inset-s-0 before:-top-6 before:h-6 before:w-full after:absolute after:inset-s-0 after:-bottom-6 after:h-6 after:w-full"
+                      className="hs-dropdown-menu hs-dropdown-open:opacity-100 top-2.5! mt-2 hidden w-60 rounded-[20px] border border-hair bg-white p-2 opacity-0 shadow-[0_30px_60px_-40px_rgb(9_12_30/0.45)] transition-[opacity,margin] duration-300 before:absolute before:inset-s-0 before:-top-6 before:h-6 before:w-full after:absolute after:inset-s-0 after:-bottom-6 after:h-6 after:w-full"
                       role="menu"
                       aria-orientation="vertical"
                     >
-                      <div className="border-default-200 rounded-lg border bg-white p-2.5">
-                        <div className="space-y-1">
-                          {item.children.map((subItem) => {
-                            const isSubActive = pathname === subItem.route
-                            return (
-                              <Link
-                                key={subItem.route}
-                                to={subItem.route}
-                                className={`block rounded-sm px-3 py-2 text-sm font-semibold transition-all ${isSubActive ? 'text-primary bg-primary/6' : 'text-default-600 hover:bg-primary/6 hover:text-primary'}`}
-                              >
-                                {t(subItem.label)}
-                              </Link>
-                            )
-                          })}
-                        </div>
+                      <div className="space-y-0.5">
+                        {item.children.map((subItem) => {
+                          const isSubActive = pathname === subItem.route
+                          return (
+                            <Link
+                              key={subItem.route}
+                              to={subItem.route}
+                              className={`nav-link w-full text-[14.5px] ${isSubActive ? 'is-active bg-stage' : 'hover:bg-stage'}`}
+                            >
+                              {t(subItem.label)}
+                            </Link>
+                          )
+                        })}
                       </div>
                     </div>
                   </div>
@@ -107,43 +119,29 @@ const Navbar = () => {
                   <Link
                     key={item.route}
                     to={item.route}
-                    className={`group hover:text-primary flex items-center p-2.5 font-medium underline underline-offset-3 transition-all duration-300 hover:decoration-current ${isActive ? 'text-primary decoration-primary' : 'text-default-600 decoration-transparent'}`}
+                    className={`nav-link ${isActive ? 'is-active' : ''}`}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     {t(item.label)}
-                    <Icon
-                      icon="tabler:arrow-up-right"
-                      className={`ms-1.25 flex size-4 transition-all duration-300 ${isActive ? 'text-primary scale-100' : 'text-primary scale-0 group-hover:scale-100'}`}
-                    />
                   </Link>
                 )
               }
               return null
             })}
-          </div>
+          </nav>
 
-          <div className="flex items-center justify-end gap-4">
+          <div className="flex items-center gap-2 md:gap-3">
             <LanguageSwitch />
             <Link
               to="/contact"
-              className="text-default-900 hover:text-primary hidden font-medium transition duration-300 xl:flex"
+              className={`nav-link hidden xl:inline-flex ${pathname === '/contact' ? 'is-active' : ''}`}
             >
               {t('Холбогдох', 'Contact')}
             </Link>
-            <div className="hidden items-center md:flex">
-              <a
-                href={LOGIN_URL}
-                className="group bg-primary inline-flex items-center justify-center gap-2 rounded-lg px-4.5 py-2.5 font-medium text-white transition-all"
-              >
-                <Icon icon="tabler:fingerprint" className="size-5" />
-                <span className="relative block overflow-hidden">
-                  <span className="block duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-7">
-                    {t('Нэвтрэх', 'Sign in')}
-                  </span>
-                  <span className="absolute inset-s-0 top-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:top-0">
-                    {t('Нэвтрэх', 'Sign in')}
-                  </span>
-                </span>
-              </a>
+            <div className="hidden md:block">
+              <PillButton href={LOGIN_URL} variant="primary" size="sm" leadingIcon="tabler:fingerprint">
+                {t('Нэвтрэх', 'Sign in')}
+              </PillButton>
             </div>
             <div className="flex items-center lg:hidden">
               <button
@@ -151,10 +149,11 @@ const Navbar = () => {
                 aria-haspopup="dialog"
                 aria-expanded="false"
                 aria-controls="mobile-menu"
+                aria-label={t('Цэс нээх', 'Open menu')}
                 data-hs-overlay="#mobile-menu"
-                className="bg-primary inline-flex size-10 items-center justify-center rounded-md font-medium text-white transition-all"
+                className="nav-burger"
               >
-                <Icon icon="tabler:align-right" className="size-6" />
+                <Icon icon="tabler:menu-2" className="size-5" />
               </button>
             </div>
           </div>
@@ -166,36 +165,36 @@ const Navbar = () => {
         className="hs-overlay hs-overlay-open:translate-y-0 hs-overlay-open:opacity-100 hs-overlay-open:top-auto fixed inset-x-0 top-0 z-40 h-100 -translate-y-full transform opacity-0 transition-all duration-500 [--body-scroll:true] lg:hidden"
         role="dialog"
         tabIndex={-1}
-        aria-labelledby="mobile-menu-label"
+        aria-label={t('Цэс', 'Menu')}
       >
-        <div className="container">
-          <div className="bg-body-bg border-default-200 mb-4 rounded-lg border shadow">
-            <div className="divide-default-200 flex max-h-100 flex-col gap-1 divide-y overflow-y-auto">
+        <div className="container pt-3">
+          <div className="border-hair mb-4 rounded-[24px] border bg-white p-2 shadow-[0_30px_60px_-40px_rgb(9_12_30/0.45)]">
+            <div className="flex max-h-[calc(100dvh-8rem)] flex-col gap-0.5 overflow-y-auto">
               {desktopMenuData.map((item) => {
                 if (item.children) {
                   return (
                     <div key={'mobile-' + item.label.en} className="hs-accordion">
                       <button
                         type="button"
-                        className="hs-accordion-toggle group text-default-600 hover:text-primary flex w-full items-center p-2.5 font-medium underline decoration-transparent underline-offset-3 transition-all duration-300 hover:decoration-current"
+                        className="hs-accordion-toggle nav-link w-full justify-between py-3"
                         aria-haspopup="menu"
                         aria-expanded="false"
-                        aria-label="Dropdown"
+                        aria-label={t('Бусад хуудас', 'More pages')}
                       >
                         {t(item.label)}
                         <Icon
                           icon="tabler:chevron-down"
-                          className="hs-accordion-active:rotate-180 ms-4 transition-all"
+                          className="hs-accordion-active:rotate-180 ms-auto size-4 transition-all"
                         />
                       </button>
-                      <div className="hs-accordion-content hidden w-full overflow-hidden ps-5 pb-4 transition-[height]">
-                        <div className="space-y-1">
+                      <div className="hs-accordion-content hidden w-full overflow-hidden ps-4 pb-2 transition-[height]">
+                        <div className="space-y-0.5">
                           {item.children.map((subItem) => {
                             return (
                               <Link
                                 key={'mobile-sub-' + subItem.route}
                                 to={subItem.route}
-                                className="block rounded-sm px-3 py-2 text-sm font-semibold text-default-600 hover:bg-primary/6 hover:text-primary transition-all"
+                                className={`nav-link w-full text-[14.5px] ${pathname === subItem.route ? 'is-active' : ''}`}
                               >
                                 {t(subItem.label)}
                               </Link>
@@ -210,25 +209,26 @@ const Navbar = () => {
                     <Link
                       key={'mobile-' + item.route}
                       to={item.route}
-                      className="group text-default-600 hover:text-primary flex items-center p-2.5 font-medium underline decoration-transparent underline-offset-3 transition-all duration-300 hover:decoration-current"
+                      className={`nav-link w-full py-3 ${pathname === item.route ? 'is-active' : ''}`}
                     >
                       {t(item.label)}
-                      <Icon
-                        icon="tabler:arrow-up-right"
-                        className="ms-1.25 flex size-4 transition-all duration-300 text-primary scale-0 group-hover:scale-100"
-                      />
                     </Link>
                   )
                 }
                 return null
               })}
-              <a
-                href={LOGIN_URL}
-                className="text-primary flex items-center gap-2 p-2.5 font-semibold"
+              <Link
+                to="/contact"
+                className={`nav-link w-full py-3 ${pathname === '/contact' ? 'is-active' : ''}`}
               >
-                <Icon icon="tabler:fingerprint" className="size-5" />
-                {t('Нэвтрэх', 'Sign in')}
-              </a>
+                {t('Холбогдох', 'Contact')}
+              </Link>
+              <div className="border-hair mt-1 flex items-center justify-between gap-3 border-t p-2 pt-3">
+                <span className="meta">{t('Нэвтрэх', 'Sign in')}</span>
+                <PillButton href={LOGIN_URL} variant="primary" size="sm" leadingIcon="tabler:fingerprint">
+                  {t('Нэвтрэх', 'Sign in')}
+                </PillButton>
+              </div>
             </div>
           </div>
         </div>

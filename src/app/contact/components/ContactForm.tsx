@@ -5,6 +5,8 @@ import contactBg from '@/assets/images/other/ulaanbaatar-night.jpg'
 import { CONTACT_EMAIL } from '@/config'
 import { useLang, type Text } from '@/i18n/context'
 import { submitForm, type SubmitResult } from '@/lib/submitForm'
+import PillButton from '@/components/PillButton'
+import SectionMeta from '@/components/SectionMeta'
 
 type Status = 'idle' | 'sending' | SubmitResult | 'error'
 type Field = 'name' | 'email' | 'message'
@@ -18,9 +20,8 @@ const interestOptions: { value: string; label: Text }[] = [
   { value: 'data-access', label: { mn: 'Өгөгдөлд хандах эрх', en: 'Data access rights' } },
 ]
 
-const inputClass =
-  'bg-default-100 focus:border-default-200 flex h-11.25 w-full items-center rounded-lg border-transparent px-5 py-2'
-const errorInputClass = 'border-red-400! bg-red-50!'
+const inputClass = 'u-input'
+const labelClass = 'meta mb-1 block'
 
 const ContactForm = () => {
   const { t } = useLang()
@@ -70,27 +71,57 @@ const ContactForm = () => {
     )
 
   return (
-    <section className="relative size-full overflow-hidden py-10 md:py-14.5">
-      <div className="container">
-        <h1 className="text-default-950 mb-15 text-4xl md:text-5xl lg:text-[56px]">
-          {t('PowerGrid-ийг танай байгууллагад нэвтрүүлэх үү?', 'Bringing PowerGrid to your organisation?')}
-        </h1>
-        <div className="grid gap-7.5 md:gap-12.5 lg:grid-cols-5 lg:gap-17.5">
-          <div className="lg:col-span-3">
-            <div className="mb-10">
+    <section className="bg-stage relative overflow-hidden py-10 md:py-14.5">
+      <div className="rails" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+      <div className="container relative">
+        <SectionMeta
+          left={t('Холбоо барих', 'Contact')}
+          right={t('Улаанбаатар', 'Ulaanbaatar')}
+          className="mb-10 md:mb-14"
+        />
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <h1 className="display mixed">
+              <b>{t('PowerGrid-ийг танай байгууллагад', 'Bringing PowerGrid')}</b>{' '}
+              {t('нэвтрүүлэх үү', 'to your organisation')}
+              <span className="accent">?</span>
+            </h1>
+            <p className="mt-6 max-w-[32rem]">
               {t(
                 'Түгээх компани, зохицуулагч, тоолуур нийлүүлэгч эсвэл гуравдагч тал — туршилтын бүлэг, протоколын баримт, өгөгдөлд хандах эрхийн талаар бидэнд бичээрэй.',
                 'Distribution company, regulator, meter vendor or third party — write to us about a pilot group, protocol documentation or data-access rights.',
               )}
+            </p>
+            <div className="meta mt-8">{t('Эсвэл шууд', 'Or directly')}</div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="chip">
+                <Icon icon="tabler:mail" className="size-4" aria-hidden="true" />
+                {CONTACT_EMAIL}
+              </a>
             </div>
+            <div className="group rounded-card mt-10 hidden overflow-hidden lg:block">
+              <img
+                className="h-72 w-full object-cover transition-transform duration-500 ease-soft group-hover:scale-[1.03]"
+                src={contactBg}
+                alt="PowerGrid"
+              />
+            </div>
+          </div>
 
+          <div className="lg:col-span-7">
             {status === 'sent' ? (
-              <div className="rounded-xl border border-green-200 bg-green-50 p-6" role="status">
-                <div className="mb-2 flex items-center gap-2 text-lg font-medium text-green-800">
-                  <Icon icon="tabler:circle-check-filled" className="size-6" />
-                  {t('Мессеж илгээгдлээ', 'Message sent')}
+              <div className="card p-7 lg:p-9" role="status">
+                <div className="bg-accent/10 text-accent mb-5 flex size-12 items-center justify-center rounded-full">
+                  <Icon icon="tabler:circle-check-filled" className="size-6" aria-hidden="true" />
                 </div>
-                <p className="text-green-900">
+                <h2 className="mb-2 text-2xl">{t('Мессеж илгээгдлээ', 'Message sent')}</h2>
+                <p>
                   {t(
                     'Баярлалаа! Бид удахгүй таны имэйл хаяг руу хариу бичнэ.',
                     'Thank you! We will reply to your email address shortly.',
@@ -99,16 +130,16 @@ const ContactForm = () => {
                 <button
                   type="button"
                   onClick={() => setStatus('idle')}
-                  className="mt-4 text-sm font-medium text-green-800 underline"
+                  className="text-ink mt-6 text-sm font-medium underline underline-offset-4"
                 >
                   {t('Өөр мессеж илгээх', 'Send another message')}
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate>
-                <div className="mb-7.5 grid gap-7.5 md:grid-cols-2">
+              <form onSubmit={handleSubmit} noValidate className="card p-6 md:p-8 lg:p-10">
+                <div className="grid gap-6 md:grid-cols-2 md:gap-x-8">
                   <div>
-                    <label htmlFor="name" className="mb-1.5 block text-sm">
+                    <label htmlFor="name" className={labelClass}>
                       {t('Таны нэр*', 'Your name*')}
                     </label>
                     <input
@@ -117,12 +148,12 @@ const ContactForm = () => {
                       name="name"
                       autoComplete="name"
                       aria-invalid={!!errors.name}
-                      className={`${inputClass} ${errors.name ? errorInputClass : ''}`}
+                      className={inputClass}
                     />
                     {fieldError('name')}
                   </div>
                   <div>
-                    <label htmlFor="email" className="mb-1.5 block text-sm">
+                    <label htmlFor="email" className={labelClass}>
                       {t('Имэйл хаяг*', 'Email address*')}
                     </label>
                     <input
@@ -131,12 +162,12 @@ const ContactForm = () => {
                       name="email"
                       autoComplete="email"
                       aria-invalid={!!errors.email}
-                      className={`${inputClass} ${errors.email ? errorInputClass : ''}`}
+                      className={inputClass}
                     />
                     {fieldError('email')}
                   </div>
                   <div>
-                    <label htmlFor="phone-number" className="mb-1.5 block text-sm">
+                    <label htmlFor="phone-number" className={labelClass}>
                       {t('Утасны дугаар', 'Phone number')}
                     </label>
                     <input
@@ -148,7 +179,7 @@ const ContactForm = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="interest" className="mb-1.5 block text-sm">
+                    <label htmlFor="interest" className={labelClass}>
                       {t('Сонирхож буй чиглэл', 'Area of interest')}
                     </label>
                     <select id="interest" name="interest" className={inputClass}>
@@ -161,16 +192,16 @@ const ContactForm = () => {
                     </select>
                   </div>
                 </div>
-                <div className="mb-5">
-                  <label htmlFor="message" className="mb-1.5 block text-sm">
+                <div className="mt-6">
+                  <label htmlFor="message" className={labelClass}>
                     {t('Мессеж*', 'Message*')}
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     aria-invalid={!!errors.message}
-                    className={`bg-default-100 focus:border-default-200 flex w-full items-center rounded-lg border-transparent px-5 py-2 ${errors.message ? errorInputClass : ''}`}
-                    rows={8}
+                    className={inputClass}
+                    rows={5}
                   ></textarea>
                   {fieldError('message')}
                 </div>
@@ -186,7 +217,7 @@ const ContactForm = () => {
                 />
 
                 {status === 'error' && (
-                  <p className="mb-5 rounded-lg bg-red-50 p-4 text-sm text-red-700" role="alert">
+                  <p className="mt-6 rounded-2xl bg-red-50 p-4 text-sm text-red-700" role="alert">
                     {t(
                       'Илгээж чадсангүй. Дахин оролдох эсвэл шууд имэйл бичнэ үү: ',
                       'Could not send. Please try again or email us directly: ',
@@ -197,7 +228,7 @@ const ContactForm = () => {
                   </p>
                 )}
                 {status === 'mailto' && (
-                  <p className="bg-default-100 mb-5 rounded-lg p-4 text-sm" role="status">
+                  <p className="bg-stage mt-6 rounded-2xl p-4 text-sm" role="status">
                     {t(
                       'Таны имэйл програм бөглөсөн захидалтай нээгдлээ — тэндээс илгээнэ үү. Нээгдээгүй бол шууд бичнэ үү: ',
                       'Your email app has opened with the message filled in — send it from there. If it did not open, write to: ',
@@ -208,50 +239,29 @@ const ContactForm = () => {
                   </p>
                 )}
 
-                <p className="text-default-500 mb-5 text-sm">
-                  {t(
-                    'Илгээснээр та мэдээллээ зөвхөн энэ хүсэлтэд хариулахад ашиглахыг зөвшөөрч байна. ',
-                    'By sending, you agree that we use your details only to answer this enquiry. ',
-                  )}
-                  <Link to="/privacy" className="underline">
-                    {t('Нууцлалын бодлого', 'Privacy policy')}
-                  </Link>
-                </p>
-
-                <div className="lg:-mb-14">
-                  <button
-                    type="submit"
-                    disabled={status === 'sending'}
-                    className="group bg-primary inline-flex items-center justify-center gap-3 rounded-lg px-5 py-3.5 font-medium text-white transition-all disabled:opacity-60"
-                  >
+                <div className="mt-8 flex flex-col-reverse gap-6 md:flex-row md:items-center md:justify-between">
+                  <p className="text-default-500 max-w-[28rem] text-xs">
+                    {t(
+                      'Илгээснээр та мэдээллээ зөвхөн энэ хүсэлтэд хариулахад ашиглахыг зөвшөөрч байна. ',
+                      'By sending, you agree that we use your details only to answer this enquiry. ',
+                    )}
+                    <Link to="/privacy" className="underline">
+                      {t('Нууцлалын бодлого', 'Privacy policy')}
+                    </Link>
+                  </p>
+                  <PillButton type="submit" variant="dark" disabled={status === 'sending'}>
                     {status === 'sending' ? (
                       <>
-                        <Icon icon="tabler:loader-2" className="size-5 animate-spin" />
+                        <Icon icon="tabler:loader-2" className="size-4.5 animate-spin" aria-hidden="true" />
                         {t('Илгээж байна...', 'Sending...')}
                       </>
                     ) : (
-                      <span className="relative block overflow-hidden">
-                        <span className="block duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-7">
-                          {t('Илгээх', 'Send')}
-                        </span>
-                        <span className="absolute inset-s-0 top-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:top-0">
-                          {t('Илгээх', 'Send')}
-                        </span>
-                      </span>
+                      t('Илгээх', 'Send')
                     )}
-                  </button>
+                  </PillButton>
                 </div>
               </form>
             )}
-          </div>
-          <div className="lg:col-span-2">
-            <div className="group size-full overflow-hidden rounded-lg">
-              <img
-                className="size-full rounded-lg object-cover transition-all duration-300 group-hover:scale-105"
-                src={contactBg}
-                alt="PowerGrid"
-              />
-            </div>
           </div>
         </div>
       </div>

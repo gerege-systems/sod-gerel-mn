@@ -2,9 +2,17 @@
   --font-body: 'Inter', sans-serif;
   --font-heading: 'Inter', sans-serif;
 
+  /* ---- Брэнд: нэг акцент (хөх), navy primary ---- */
   --color-primary: #0f2a3d;
   --color-accent: #1557c0;
   --color-accent-bright: #1e7bf0;
+
+  /* ---- Монохром тайз (BY.SHIVA tokens → Tailwind нэрс) ---- */
+  --color-ink: var(--color-zinc-950); /* display үсэг, хар товч */
+  --color-mute: var(--color-zinc-500); /* хоёрдогч текст, гарчгийн саарал хэсэг, meta */
+  --color-stage: var(--color-zinc-100); /* картын ард саарал тайз */
+  --color-line: var(--color-zinc-300); /* input-ийн доогуур зураас, pill хүрээ */
+  --color-hair: var(--color-zinc-200); /* нарийн зураас, картын хүрээ */
 
   --color-body-bg: var(--color-white);
   --color-body-color: var(--color-zinc-600);
@@ -21,6 +29,18 @@
   --color-default-900: var(--color-zinc-900);
   --color-default-950: var(--color-zinc-950);
 
+  /* ---- Хэлбэр ---- */
+  --radius-card: 28px; /* 24–32px */
+
+  /* ---- Display үсгийн хэмжүүр ---- */
+  --tracking-display: -0.045em;
+  --tracking-title: -0.035em;
+  --leading-display: 0.92;
+
+  /* ---- Хөдөлгөөн ---- */
+  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1); /* өнгө, сүүдэр, дүүргэлт */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* chip, thumb, icon (бага зэрэг хэтрэлттэй) */
+
   --tw-leading: 1.5em;
   --text-xs--line-height: 1.5em;
   --text-sm--line-height: 1.5em;
@@ -30,4 +50,12 @@
   --text-2xl--line-height: 1.5em;
   --text-3xl--line-height: 1.5em;
   --text-7xl--line-height: 1.5em;
+}
+
+:root {
+  /* Meta мөр: 11px, 0.14em зай, том үсэг */
+  --meta-size: 0.6875rem;
+  --meta-track: 0.14em;
+  /* Dashed босоо rail (тайзны арын тор) */
+  --rail: rgb(0 0 0 / 0.07);
 }
