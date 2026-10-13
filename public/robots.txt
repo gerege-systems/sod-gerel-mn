@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sod-gerel.mn/sitemap.xml
+Sitemap: https://powergrid.sod-gerel.mn/sitemap.xml
