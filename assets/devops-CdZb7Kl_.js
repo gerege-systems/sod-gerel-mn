@@ -1,1 +1,0 @@
-var e=`/sod-gerel-mn/assets/pylons-dusk-CLyLWA33.jpg`,t=`/sod-gerel-mn/assets/domain-CDX7q5cW.jpg`,n=`/sod-gerel-mn/assets/backend-CJLM0Y9z.jpg`,r=`/sod-gerel-mn/assets/qa-BeMR3Yrf.jpg`,i=`/sod-gerel-mn/assets/devops-9yxl9wow.jpg`;export{e as a,t as i,r as n,n as r,i as t};

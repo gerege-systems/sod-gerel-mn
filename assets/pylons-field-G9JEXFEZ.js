@@ -1,1 +1,0 @@
-var e=`/sod-gerel-mn/assets/data-center-Dw2gXN09.webp`,t=`/sod-gerel-mn/assets/server-rack-B3hVAr3p.webp`,n=`/sod-gerel-mn/assets/control-switches-qKiF2vfE.webp`,r=`/sod-gerel-mn/assets/pylons-field-1dNfabyU.webp`;export{e as i,n,t as r,r as t};
