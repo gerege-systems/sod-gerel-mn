@@ -1,1 +1,0 @@
-var e=`/assets/power-lines-sky-BeQW_asr.jpg`;export{e as t};
