@@ -1,238 +1,125 @@
-import logo from '@/assets/images/powergrid-logo.svg'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 import { Icon } from '@iconify/react'
 import { Link, useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import logoIcon from '@zasvar/powergrid-logo-mark.svg'
 import { LOGIN_URL } from '@/config'
-import { useLang, type Text } from '@/i18n/context'
+import { useLang } from '@/i18n/context'
+import { getLenis } from '@/lib/motion'
 import LanguageSwitch from '@/components/LanguageSwitch'
-import PillButton from '@/components/PillButton'
+import { ABOUT_NAV, PUBLIC_NAV } from '@/components/site/nav'
 
-type SubNavigationType = {
-  label: Text
-  route: string
+/** Цонх 24px-ээс илүү гүйсэн эсэх — гадаад төлөвийг шууд уншина, effect-гүй. */
+const subscribeScroll = (notify: () => void) => {
+  window.addEventListener('scroll', notify, { passive: true })
+  return () => window.removeEventListener('scroll', notify)
 }
+const readScrolled = () => window.scrollY > 24
+const readScrolledServer = () => false
 
-type NavigationType = {
-  label: Text
-  route?: string
-  children?: SubNavigationType[]
-}
-
-const PAGES_SUBMENUData: SubNavigationType[] = [
-  { label: { mn: 'Олон улсын туршлага', en: 'International experience' }, route: '/experience' },
-  { label: { mn: 'Мэдлэг', en: 'Knowledge' }, route: '/knowledge' },
-  { label: { mn: 'Бидний тухай', en: 'About' }, route: '/about' },
-  { label: { mn: 'Холбоо барих', en: 'Contact' }, route: '/contact' },
-]
-
-const desktopMenuData: NavigationType[] = [
-  { label: { mn: 'Платформ', en: 'Platform' }, route: '/platform' },
-  { label: { mn: 'Архитектур', en: 'Architecture' }, route: '/architecture' },
-  { label: { mn: 'Эрх ба нууцлал', en: 'Access & privacy' }, route: '/trust' },
-  { label: { mn: 'Бусад', en: 'More' }, children: PAGES_SUBMENUData },
-]
-
+/**
+ * Нэг толгой, бүх хуудсанд.
+ *
+ * Нүүрэн дээр цайвар hero-гийн дээгүүр тунгалаг, гүйлгэмэгц шилэн гадаргуутай
+ * болно. Дотоод хуудсууд өөрийн hero-той тул тэнд эхнээсээ өргөгдсөн байна.
+ * Цэс нь `PUBLIC_NAV` — хөл мөн адил жагсаалтыг уншина.
+ */
 const Navbar = () => {
-  const { pathname } = useLocation()
   const { t } = useLang()
-  const [stuck, setStuck] = useState(false)
+  const { pathname, hash } = useLocation()
+  const home = pathname === '/'
+  const [drawer, setDrawer] = useState(false)
+  const scrolled = useSyncExternalStore(subscribeScroll, readScrolled, readScrolledServer)
+  const lifted = !home || scrolled
 
+  // Escape хаана; хуудас солигдоход хаагдана.
   useEffect(() => {
-    const mobileMenu = document.querySelector('#mobile-menu')
-    if (window.HSOverlay && mobileMenu) {
-      try {
-        window.HSOverlay.close('#mobile-menu')
-      } catch {
-        // Цэс аль хэдийн хаагдсан байж болно.
-      }
+    if (!drawer) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setDrawer(false)
     }
-    document.getElementById('mobile-menu-backdrop')?.remove()
-    document.body.classList.remove('hs-overlay-body-open')
-    document.body.style.overflow = ''
-    document.body.style.paddingRight = ''
-  }, [pathname])
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [drawer])
 
-  // Гүйлгэсний дараа арал шилэн капсул болж харагдана (opacity-оор, background биш).
+  // Цэс хуудсыг бүрхдэг тул ард нь хуудас гүйхгүй (Lenis ч зогсоно).
   useEffect(() => {
-    const onScroll = () => setStuck(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    if (!drawer) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    getLenis()?.stop()
+    return () => {
+      document.body.style.overflow = previous
+      getLenis()?.start()
+    }
+  }, [drawer])
+
+  const close = () => setDrawer(false)
+  const current = `${pathname}${hash}`
+  const isActive = (href: string) => (href.includes('#') ? current === href : pathname === href)
 
   return (
-    <header className={`sticky top-0 z-50 ${stuck ? 'is-stuck' : ''}`}>
-      <div className="container pt-3 md:pt-4">
-        <div className="nav-island">
-          <Link to="/" className="flex items-center ps-1" aria-label="PowerGrid">
-            <img src={logo} className="h-9 w-auto md:h-10" alt="PowerGrid" />
-          </Link>
+    <header className={`pgl-nav${lifted ? ' is-lifted' : ''}`}>
+      <div className="pgl-nav__bar">
+        <Link to="/" className="pgl-nav__brand" aria-label="PowerGrid">
+          <img className="pgl-nav__mark" src={logoIcon} alt="" width={34} height={34} aria-hidden />
+          <b>PowerGrid</b>
+        </Link>
 
-          <nav
-            id="navbar"
-            className="mx-auto hidden items-center gap-1 lg:flex"
-            aria-label={t('Үндсэн цэс', 'Main menu')}
-          >
-            {desktopMenuData.map((item) => {
-              if (item.children) {
-                const isDropdownActive = item.children.some((child) => child.route === pathname)
-                return (
-                  <div
-                    key={item.label.en}
-                    className="hs-dropdown relative inline-flex [--trigger:hover]"
-                  >
-                    <button
-                      type="button"
-                      className={`hs-dropdown-toggle nav-link ${isDropdownActive ? 'is-active' : ''}`}
-                      aria-haspopup="menu"
-                      aria-expanded="false"
-                      aria-label={t('Бусад хуудас', 'More pages')}
-                    >
-                      {t(item.label)}
-                      <Icon icon="tabler:chevron-down" className="size-4" />
-                    </button>
-                    <div
-                      className="hs-dropdown-menu hs-dropdown-open:opacity-100 top-2.5! mt-2 hidden w-60 rounded-[20px] border border-hair bg-white p-2 opacity-0 shadow-[0_30px_60px_-40px_rgb(9_12_30/0.45)] transition-[opacity,margin] duration-300 before:absolute before:inset-s-0 before:-top-6 before:h-6 before:w-full after:absolute after:inset-s-0 after:-bottom-6 after:h-6 after:w-full"
-                      role="menu"
-                      aria-orientation="vertical"
-                    >
-                      <div className="space-y-0.5">
-                        {item.children.map((subItem) => {
-                          const isSubActive = pathname === subItem.route
-                          return (
-                            <Link
-                              key={subItem.route}
-                              to={subItem.route}
-                              className={`nav-link w-full text-[14.5px] ${isSubActive ? 'is-active bg-stage' : 'hover:bg-stage'}`}
-                            >
-                              {t(subItem.label)}
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                )
-              } else if (item.route) {
-                const isActive = pathname === item.route
-                return (
-                  <Link
-                    key={item.route}
-                    to={item.route}
-                    className={`nav-link ${isActive ? 'is-active' : ''}`}
-                    aria-current={isActive ? 'page' : undefined}
-                  >
-                    {t(item.label)}
-                  </Link>
-                )
-              }
-              return null
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2 md:gap-3">
-            <LanguageSwitch />
+        <nav className="pgl-nav__links" aria-label={t('Цэс', 'Menu')}>
+          {PUBLIC_NAV.map((item) => (
             <Link
-              to="/contact"
-              className={`nav-link hidden xl:inline-flex ${pathname === '/contact' ? 'is-active' : ''}`}
+              key={item.href}
+              to={item.href}
+              className={isActive(item.href) ? 'is-active' : undefined}
+              aria-current={isActive(item.href) ? 'page' : undefined}
             >
-              {t('Холбогдох', 'Contact')}
+              {t(item.label)}
             </Link>
-            <div className="hidden md:block">
-              <PillButton href={LOGIN_URL} variant="primary" size="sm" leadingIcon="tabler:fingerprint">
-                {t('Нэвтрэх', 'Sign in')}
-              </PillButton>
-            </div>
-            <div className="flex items-center lg:hidden">
-              <button
-                type="button"
-                aria-haspopup="dialog"
-                aria-expanded="false"
-                aria-controls="mobile-menu"
-                aria-label={t('Цэс нээх', 'Open menu')}
-                data-hs-overlay="#mobile-menu"
-                className="nav-burger"
-              >
-                <Icon icon="tabler:menu-2" className="size-5" />
-              </button>
-            </div>
-          </div>
+          ))}
+        </nav>
+
+        <div className="pgl-nav__actions">
+          <a href={LOGIN_URL} className="pgl-pill pgl-pill--solid">
+            {t('Нэвтрэх', 'Sign in')} <Icon icon="lucide:arrow-right" aria-hidden />
+          </a>
+          <span className="pgl-nav__wide">
+            <LanguageSwitch />
+          </span>
+          <button
+            type="button"
+            className="pgl-nav__burger"
+            aria-label={t('Цэс', 'Menu')}
+            aria-expanded={drawer}
+            onClick={() => setDrawer((open) => !open)}
+          >
+            <Icon icon={drawer ? 'lucide:x' : 'lucide:menu'} aria-hidden />
+          </button>
         </div>
       </div>
 
-      <div
-        id="mobile-menu"
-        className="hs-overlay hs-overlay-open:translate-y-0 hs-overlay-open:opacity-100 hs-overlay-open:top-auto fixed inset-x-0 top-0 z-40 h-100 -translate-y-full transform opacity-0 transition-all duration-500 [--body-scroll:true] lg:hidden"
-        role="dialog"
-        tabIndex={-1}
-        aria-label={t('Цэс', 'Menu')}
-      >
-        <div className="container pt-3">
-          <div className="border-hair mb-4 rounded-[24px] border bg-white p-2 shadow-[0_30px_60px_-40px_rgb(9_12_30/0.45)]">
-            <div className="flex max-h-[calc(100dvh-8rem)] flex-col gap-0.5 overflow-y-auto">
-              {desktopMenuData.map((item) => {
-                if (item.children) {
-                  return (
-                    <div key={'mobile-' + item.label.en} className="hs-accordion">
-                      <button
-                        type="button"
-                        className="hs-accordion-toggle nav-link w-full justify-between py-3"
-                        aria-haspopup="menu"
-                        aria-expanded="false"
-                        aria-label={t('Бусад хуудас', 'More pages')}
-                      >
-                        {t(item.label)}
-                        <Icon
-                          icon="tabler:chevron-down"
-                          className="hs-accordion-active:rotate-180 ms-auto size-4 transition-all"
-                        />
-                      </button>
-                      <div className="hs-accordion-content hidden w-full overflow-hidden ps-4 pb-2 transition-[height]">
-                        <div className="space-y-0.5">
-                          {item.children.map((subItem) => {
-                            return (
-                              <Link
-                                key={'mobile-sub-' + subItem.route}
-                                to={subItem.route}
-                                className={`nav-link w-full text-[14.5px] ${pathname === subItem.route ? 'is-active' : ''}`}
-                              >
-                                {t(subItem.label)}
-                              </Link>
-                            )
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                } else if (item.route) {
-                  return (
-                    <Link
-                      key={'mobile-' + item.route}
-                      to={item.route}
-                      className={`nav-link w-full py-3 ${pathname === item.route ? 'is-active' : ''}`}
-                    >
-                      {t(item.label)}
-                    </Link>
-                  )
-                }
-                return null
-              })}
-              <Link
-                to="/contact"
-                className={`nav-link w-full py-3 ${pathname === '/contact' ? 'is-active' : ''}`}
-              >
-                {t('Холбогдох', 'Contact')}
+      {drawer && (
+        <div className="pgl-drawer" data-lenis-prevent>
+          <nav aria-label={t('Цэс', 'Menu')}>
+            <span className="pgl-menu__title">{t('Хуудсууд', 'Pages')}</span>
+            {PUBLIC_NAV.map((item) => (
+              <Link key={item.href} to={item.href} onClick={close} className={isActive(item.href) ? 'is-active' : undefined}>
+                {t(item.label)}
               </Link>
-              <div className="border-hair mt-1 flex items-center justify-between gap-3 border-t p-2 pt-3">
-                <span className="meta">{t('Нэвтрэх', 'Sign in')}</span>
-                <PillButton href={LOGIN_URL} variant="primary" size="sm" leadingIcon="tabler:fingerprint">
-                  {t('Нэвтрэх', 'Sign in')}
-                </PillButton>
-              </div>
-            </div>
+            ))}
+            {ABOUT_NAV.map((item) => (
+              <Link key={item.href} to={item.href} onClick={close} className={isActive(item.href) ? 'is-active' : undefined}>
+                {t(item.label)}
+              </Link>
+            ))}
+          </nav>
+          <div className="pgl-drawer__foot">
+            <LanguageSwitch />
+            <a href={LOGIN_URL} className="pgl-pill pgl-pill--solid" onClick={close}>
+              {t('Нэвтрэх', 'Sign in')} <Icon icon="lucide:arrow-right" aria-hidden />
+            </a>
           </div>
         </div>
-      </div>
+      )}
     </header>
   )
 }

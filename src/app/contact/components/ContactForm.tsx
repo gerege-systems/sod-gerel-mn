@@ -1,12 +1,9 @@
 import { useState, type FormEvent } from 'react'
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
-import contactBg from '@/assets/images/other/ulaanbaatar-night.jpg'
 import { CONTACT_EMAIL } from '@/config'
 import { useLang, type Text } from '@/i18n/context'
 import { submitForm, type SubmitResult } from '@/lib/submitForm'
-import PillButton from '@/components/PillButton'
-import SectionMeta from '@/components/SectionMeta'
 
 type Status = 'idle' | 'sending' | SubmitResult | 'error'
 type Field = 'name' | 'email' | 'message'
@@ -20,10 +17,12 @@ const interestOptions: { value: string; label: Text }[] = [
   { value: 'data-access', label: { mn: 'Өгөгдөлд хандах эрх', en: 'Data access rights' } },
 ]
 
-const inputClass = 'u-input'
-const labelClass = 'meta mb-1 block'
-
-const ContactForm = () => {
+/**
+ * Холбоо барих форм — нэг карт. /contact хуудас ба нүүрийн «Холбогдох» хэсэг
+ * хоёулаа үүнийг зурна. Илгээх логик (`submitForm`): endpoint тохируулсан бол
+ * JSON-оор илгээнэ, үгүй бол имэйл програмыг бөглөсөн захидалтай нээнэ.
+ */
+const ContactForm = ({ title }: { title?: string }) => {
   const { t } = useLang()
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Partial<Record<Field, Text>>>({})
@@ -65,207 +64,111 @@ const ContactForm = () => {
 
   const fieldError = (field: Field) =>
     errors[field] && (
-      <p className="mt-1.5 text-sm text-red-600" role="alert">
+      <span className="pgl-contact__error" role="alert">
         {t(errors[field])}
-      </p>
+      </span>
     )
 
-  return (
-    <section className="bg-stage relative overflow-hidden py-10 md:py-14.5">
-      <div className="rails" aria-hidden="true">
-        <i></i>
-        <i></i>
-        <i></i>
-        <i></i>
-        <i></i>
-      </div>
-      <div className="container relative">
-        <SectionMeta
-          left={t('Холбоо барих', 'Contact')}
-          right={t('Улаанбаатар', 'Ulaanbaatar')}
-          className="mb-10 md:mb-14"
-        />
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <h1 className="display mixed">
-              <b>{t('PowerGrid-ийг танай байгууллагад', 'Bringing PowerGrid')}</b>{' '}
-              {t('нэвтрүүлэх үү', 'to your organisation')}
-              <span className="accent">?</span>
-            </h1>
-            <p className="mt-6 max-w-[32rem]">
-              {t(
-                'Түгээх компани, зохицуулагч, тоолуур нийлүүлэгч эсвэл гуравдагч тал — туршилтын бүлэг, протоколын баримт, өгөгдөлд хандах эрхийн талаар бидэнд бичээрэй.',
-                'Distribution company, regulator, meter vendor or third party — write to us about a pilot group, protocol documentation or data-access rights.',
-              )}
-            </p>
-            <div className="meta mt-8">{t('Эсвэл шууд', 'Or directly')}</div>
-            <div className="mt-2 flex flex-wrap gap-2">
-              <a href={`mailto:${CONTACT_EMAIL}`} className="chip">
-                <Icon icon="tabler:mail" className="size-4" aria-hidden="true" />
-                {CONTACT_EMAIL}
-              </a>
-            </div>
-            <div className="group rounded-card mt-10 hidden overflow-hidden lg:block">
-              <img
-                className="h-72 w-full object-cover transition-transform duration-500 ease-soft group-hover:scale-[1.03]"
-                src={contactBg}
-                alt="PowerGrid"
-              />
-            </div>
-          </div>
-
-          <div className="lg:col-span-7">
-            {status === 'sent' ? (
-              <div className="card p-7 lg:p-9" role="status">
-                <div className="bg-accent/10 text-accent mb-5 flex size-12 items-center justify-center rounded-full">
-                  <Icon icon="tabler:circle-check-filled" className="size-6" aria-hidden="true" />
-                </div>
-                <h2 className="mb-2 text-2xl">{t('Мессеж илгээгдлээ', 'Message sent')}</h2>
-                <p>
-                  {t(
-                    'Баярлалаа! Бид удахгүй таны имэйл хаяг руу хариу бичнэ.',
-                    'Thank you! We will reply to your email address shortly.',
-                  )}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setStatus('idle')}
-                  className="text-ink mt-6 text-sm font-medium underline underline-offset-4"
-                >
-                  {t('Өөр мессеж илгээх', 'Send another message')}
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate className="card p-6 md:p-8 lg:p-10">
-                <div className="grid gap-6 md:grid-cols-2 md:gap-x-8">
-                  <div>
-                    <label htmlFor="name" className={labelClass}>
-                      {t('Таны нэр*', 'Your name*')}
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      autoComplete="name"
-                      aria-invalid={!!errors.name}
-                      className={inputClass}
-                    />
-                    {fieldError('name')}
-                  </div>
-                  <div>
-                    <label htmlFor="email" className={labelClass}>
-                      {t('Имэйл хаяг*', 'Email address*')}
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      autoComplete="email"
-                      aria-invalid={!!errors.email}
-                      className={inputClass}
-                    />
-                    {fieldError('email')}
-                  </div>
-                  <div>
-                    <label htmlFor="phone-number" className={labelClass}>
-                      {t('Утасны дугаар', 'Phone number')}
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone-number"
-                      name="phone"
-                      autoComplete="tel"
-                      className={inputClass}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="interest" className={labelClass}>
-                      {t('Сонирхож буй чиглэл', 'Area of interest')}
-                    </label>
-                    <select id="interest" name="interest" className={inputClass}>
-                      <option value="">{t('Сонгоно уу...', 'Please select...')}</option>
-                      {interestOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {t(option.label)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <label htmlFor="message" className={labelClass}>
-                    {t('Мессеж*', 'Message*')}
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    aria-invalid={!!errors.message}
-                    className={inputClass}
-                    rows={5}
-                  ></textarea>
-                  {fieldError('message')}
-                </div>
-
-                {/* Spam хамгаалалт: хүнд харагдахгүй */}
-                <input
-                  type="text"
-                  name="company_website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
-                />
-
-                {status === 'error' && (
-                  <p className="mt-6 rounded-2xl bg-red-50 p-4 text-sm text-red-700" role="alert">
-                    {t(
-                      'Илгээж чадсангүй. Дахин оролдох эсвэл шууд имэйл бичнэ үү: ',
-                      'Could not send. Please try again or email us directly: ',
-                    )}
-                    <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium underline">
-                      {CONTACT_EMAIL}
-                    </a>
-                  </p>
-                )}
-                {status === 'mailto' && (
-                  <p className="bg-stage mt-6 rounded-2xl p-4 text-sm" role="status">
-                    {t(
-                      'Таны имэйл програм бөглөсөн захидалтай нээгдлээ — тэндээс илгээнэ үү. Нээгдээгүй бол шууд бичнэ үү: ',
-                      'Your email app has opened with the message filled in — send it from there. If it did not open, write to: ',
-                    )}
-                    <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium underline">
-                      {CONTACT_EMAIL}
-                    </a>
-                  </p>
-                )}
-
-                <div className="mt-8 flex flex-col-reverse gap-6 md:flex-row md:items-center md:justify-between">
-                  <p className="text-default-500 max-w-[28rem] text-xs">
-                    {t(
-                      'Илгээснээр та мэдээллээ зөвхөн энэ хүсэлтэд хариулахад ашиглахыг зөвшөөрч байна. ',
-                      'By sending, you agree that we use your details only to answer this enquiry. ',
-                    )}
-                    <Link to="/privacy" className="underline">
-                      {t('Нууцлалын бодлого', 'Privacy policy')}
-                    </Link>
-                  </p>
-                  <PillButton type="submit" variant="dark" disabled={status === 'sending'}>
-                    {status === 'sending' ? (
-                      <>
-                        <Icon icon="tabler:loader-2" className="size-4.5 animate-spin" aria-hidden="true" />
-                        {t('Илгээж байна...', 'Sending...')}
-                      </>
-                    ) : (
-                      t('Илгээх', 'Send')
-                    )}
-                  </PillButton>
-                </div>
-              </form>
-            )}
-          </div>
+  if (status === 'sent') {
+    return (
+      <div className="pgl-contact__panel" role="status">
+        <div className="pgl-contact__fallback">
+          <span className="pgl-report__badge" style={{ justifySelf: 'start' }}>
+            <Icon icon="lucide:check" aria-hidden /> {t('Мессеж илгээгдлээ', 'Message sent')}
+          </span>
+          <h3>{t('Баярлалаа!', 'Thank you!')}</h3>
+          <p>{t('Бид удахгүй таны имэйл хаяг руу хариу бичнэ.', 'We will reply to your email address shortly.')}</p>
+          <button type="button" className="pgl-pill pgl-pill--outline" onClick={() => setStatus('idle')}>
+            {t('Өөр мессеж илгээх', 'Send another message')}
+          </button>
         </div>
       </div>
-    </section>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate className="pgl-contact__panel">
+      <h3>{title ?? t('Хүсэлт бичих', 'Write to us')}</h3>
+      <div className="pgl-contact__two">
+        <label>
+          {t('Таны нэр*', 'Your name*')}
+          <input type="text" name="name" autoComplete="name" aria-invalid={!!errors.name} placeholder={t('бүтэн нэр', 'your full name')} />
+          {fieldError('name')}
+        </label>
+        <label>
+          {t('Имэйл хаяг*', 'Email address*')}
+          <input type="email" name="email" autoComplete="email" aria-invalid={!!errors.email} placeholder="name@example.mn" />
+          {fieldError('email')}
+        </label>
+      </div>
+      <div className="pgl-contact__two">
+        <label>
+          {t('Утасны дугаар', 'Phone number')}
+          <input type="tel" name="phone" autoComplete="tel" />
+        </label>
+        <label>
+          {t('Сонирхож буй чиглэл', 'Area of interest')}
+          <select name="interest" defaultValue="">
+            <option value="">{t('Сонгоно уу...', 'Please select...')}</option>
+            {interestOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <label>
+        {t('Мессеж*', 'Message*')}
+        <textarea
+          name="message"
+          rows={4}
+          aria-invalid={!!errors.message}
+          placeholder={t('туршилтын бүлэг, тоолуурын тоо, одоогийн систем…', 'pilot group, number of meters, current system…')}
+        />
+        {fieldError('message')}
+      </label>
+
+      {/* Spam хамгаалалт: хүнд харагдахгүй */}
+      <input type="text" name="company_website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="pgl-contact__honeypot" />
+
+      {status === 'error' && (
+        <p className="pgl-contact__alert pgl-contact__alert--err" role="alert">
+          {t('Илгээж чадсангүй. Дахин оролдох эсвэл шууд имэйл бичнэ үү: ', 'Could not send. Please try again or email us directly: ')}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        </p>
+      )}
+      {status === 'mailto' && (
+        <p className="pgl-contact__alert pgl-contact__alert--info" role="status">
+          {t(
+            'Таны имэйл програм бөглөсөн захидалтай нээгдлээ — тэндээс илгээнэ үү. Нээгдээгүй бол шууд бичнэ үү: ',
+            'Your email app has opened with the message filled in — send it from there. If it did not open, write to: ',
+          )}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        </p>
+      )}
+
+      <button type="submit" className="pgl-pill pgl-pill--solid pgl-pill--block" disabled={status === 'sending'}>
+        {status === 'sending' ? (
+          <>
+            <Icon icon="lucide:loader-2" className="animate-spin" aria-hidden /> {t('Илгээж байна...', 'Sending...')}
+          </>
+        ) : (
+          <>
+            {t('Хүсэлт илгээх', 'Send the request')} <Icon icon="lucide:arrow-right" aria-hidden />
+          </>
+        )}
+      </button>
+      <small className="pgl-contact__note">
+        {t(
+          'Илгээснээр та мэдээллээ зөвхөн энэ хүсэлтэд хариулахад ашиглахыг зөвшөөрч байна. ',
+          'By sending, you agree that we use your details only to answer this enquiry. ',
+        )}
+        <Link to="/privacy" className="underline">
+          {t('Нууцлалын бодлого', 'Privacy policy')}
+        </Link>
+      </small>
+    </form>
   )
 }
 

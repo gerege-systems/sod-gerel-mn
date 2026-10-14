@@ -36,42 +36,31 @@ const NewsletterForm = () => {
     error: t('Бүртгэж чадсангүй. Дахин оролдоно уу.', 'Could not subscribe. Please try again.'),
   }[status as 'invalid' | 'sent' | 'mailto' | 'error']
 
+  const tone = status === 'sent' ? 'ok' : status === 'mailto' ? 'info' : 'err'
+
   return (
-    <div className="grow">
-      <form
-        onSubmit={handleSubmit}
-        noValidate
-        className="flex items-center rounded-full border border-white/15 p-1.5 ps-5 transition-colors focus-within:border-white/40"
-      >
+    <>
+      <form onSubmit={handleSubmit} noValidate>
         <input
           type="email"
           name="email"
           autoComplete="email"
           aria-label={t('Имэйл хаяг', 'Email address')}
           placeholder={t('Имэйл хаягаа оруулна уу', 'Enter your email address')}
-          className="placeholder-default-500 h-10 w-full border-0 bg-transparent p-0 text-white outline-none"
         />
-        <button
-          type="submit"
-          disabled={status === 'sending'}
-          aria-label={t('Бүртгүүлэх', 'Subscribe')}
-          className="text-ink hover:bg-accent-bright flex size-10 shrink-0 items-center justify-center rounded-full bg-white transition-colors duration-300 ease-soft hover:text-white disabled:opacity-60"
-        >
+        <button type="submit" disabled={status === 'sending'} aria-label={t('Бүртгүүлэх', 'Subscribe')}>
           <Icon
-            icon={status === 'sending' ? 'tabler:loader-2' : 'tabler:arrow-up-right'}
-            className={`size-5 ${status === 'sending' ? 'animate-spin' : ''}`}
+            icon={status === 'sending' ? 'lucide:loader-2' : 'lucide:arrow-right'}
+            className={status === 'sending' ? 'animate-spin' : undefined}
           />
         </button>
       </form>
       {message && (
-        <p
-          role={status === 'sent' || status === 'mailto' ? 'status' : 'alert'}
-          className={`mt-2 text-sm ${status === 'sent' ? 'text-green-400' : status === 'mailto' ? 'text-default-400' : 'text-red-400'}`}
-        >
+        <p role={status === 'sent' || status === 'mailto' ? 'status' : 'alert'} data-tone={tone}>
           {message}
         </p>
       )}
-    </div>
+    </>
   )
 }
 

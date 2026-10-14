@@ -1,150 +1,63 @@
-import { Link } from 'react-router-dom'
-import aboutBg from '@/assets/images/other/power-lines-sky.jpg'
-import heroImage1 from '@/assets/images/other/hero-engineer.jpg'
-import heroImage2 from '@/assets/images/other/meters-row.jpg'
-import helsinki from '@/assets/images/other/helsinki.jpg'
-import sydney from '@/assets/images/other/sydney.jpg'
 import { Icon } from '@iconify/react'
-import { LOGIN_URL } from '@/config'
+import { Link } from 'react-router-dom'
+import art from '@zasvar/hero-meter-city.webp'
 import { useLang } from '@/i18n/context'
-import PillButton from '@/components/PillButton'
-import SectionMeta from '@/components/SectionMeta'
+import { site } from '@/i18n/site'
+import { useParallax } from '@/lib/motion-hooks'
+import { icon3d } from '@/components/site/icons3d'
+import { Tile } from '@/components/site/ui'
+
+/**
+ * Эхний дэлгэц: зүүн талд гарчиг ба хоёр товч, баруун талд ухаалаг тоолуур
+ * бүхий хотын загвар. Доод зурвас нь өгөгдлийн замыг товчлон харуулна:
+ * тоолуур → холбооны сүлжээ → PowerGrid → хэрэглэгч.
+ *
+ * Хөдөлгөөн: бичвэр ээлжлэн орж ирнэ, зураг зөөлөн гулсаж орж ирээд гүйлгэхэд
+ * бичвэрээс удаан (parallax) хөдөлнө. Бүгд reduced-motion үед унтарна.
+ */
+const RAIL = [
+  [icon3d.meter, site.hero_rail_meter],
+  [icon3d.network, site.hero_rail_network],
+  [icon3d.platform, site.hero_rail_platform],
+  [icon3d.customer, site.hero_rail_customer],
+] as const
 
 const Hero = () => {
   const { t } = useLang()
+  const artRef = useParallax<HTMLImageElement>(0.1, 900)
+
   return (
-    <section className="relative size-full overflow-hidden py-10 md:py-14.5">
-      <div className="container">
-        <SectionMeta
-          left={t('Ухаалаг тоолуурын үндэсний платформ', 'National Smart Metering Platform')}
-          right={t('Улаанбаатар', 'Ulaanbaatar')}
-          className="mb-10 md:mb-14"
-        />
-        <div className="grid gap-7.5 md:gap-16 lg:grid-cols-2 lg:gap-25">
-          <div className="flex h-full flex-col gap-7.5 lg:gap-15">
-            <div>
-              <div className="mb-6">
-                <Link to="/platform#roadmap" className="chip chip--accent">
-                  <span className="bg-accent size-1.5 animate-pulse rounded-full" aria-hidden="true"></span>
-                  {t('Хөгжүүлэлтийн шатанд · Үе 0', 'In development · Phase 0')}
-                </Link>
-              </div>
-              <h1 className="display mixed mb-6">
-                <b>{t('Нэг сая тоолуур.', 'One million meters.')}</b>{' '}
-                {t('Нэг баталгаатай үнэн', 'One source of truth')}
-                <span className="accent">.</span>
-              </h1>
+    <section className="pgl-hero">
+      <img ref={artRef} className="pgl-hero__art" src={art} alt={t(site.hero_art_alt)} width={1672} height={941} fetchPriority="high" />
 
-              <p className="max-w-[36rem]">
-                {t(
-                  'PowerGrid бол Монгол Улсын ~1,000,000 цахилгааны тоолуурт зориулан эхнээс нь бүтээж буй хэмжилтийн өгөгдлийн платформ. Тоолуурын заалтыг эх төхөөрөмжөөс нь авч, хэзээ ч дарж бичихгүйгээр хадгалж, шалгаж, баланс, тариф, төлбөр хүртэл тайлбарлаж болох нэг урсгалд холбохоор зорьж байна.',
-                  "PowerGrid is a metering data platform being built from the ground up for Mongolia's ~1,000,000 electricity meters. It aims to take each reading from its source device, keep it without ever overwriting it, validate it, and carry it through balance, tariff and billing in one explainable flow.",
-                )}
-              </p>
-
-              <div className="mt-9 flex flex-wrap items-center gap-3 md:gap-4">
-                <PillButton href={LOGIN_URL} variant="dark" leadingIcon="tabler:fingerprint">
-                  {t('eID-ээр нэвтрэх', 'Sign in with eID')}
-                </PillButton>
-                <PillButton to="/platform" variant="soft">
-                  {t('Хэрхэн ажилладгийг үзэх', 'See how it works')}
-                </PillButton>
-              </div>
-              <p className="text-default-500 mt-4 text-xs">
-                {t(
-                  '1,000,000 нь захиалагчийн төлөвлөлтийн таамаглал бөгөөд албан ёсны тооллого биш.',
-                  "1,000,000 is the client's planning assumption, not an official count.",
-                )}
-              </p>
-            </div>
-
-            <div className="mt-auto flex items-end justify-between gap-2.5">
-              <div className="lg:w-3/4">
-                <div className="meta mb-2.5">
-                  {t('10 гаруй улсын туршлага дээр суурилсан', 'Built on the experience of 10+ countries')}
-                </div>
-                <p className="text-default-900 text-sm">
-                  {t(
-                    'Финланд, Австрали, Франц, Их Британи, Япон, Энэтхэг, Узбекистан болон ЕХ-ны 2023/1162 журмын лавлагаа загвар.',
-                    'Finland, Australia, France, the UK, Japan, India, Uzbekistan and the EU 2023/1162 reference model.',
-                  )}
-                </p>
-              </div>
-
-              <div className="shrink-0">
-                <div className="meta mb-2.5 text-nowrap">{t('Жишиг', 'References')}</div>
-
-                <div className="flex gap-2.5">
-                  <div className="group relative">
-                    <img
-                      src={helsinki}
-                      alt={t('Финланд', 'Finland')}
-                      className="size-20 shrink-0 rounded-2xl object-cover md:size-25"
-                    />
-                    <div className="bg-stage absolute inset-s-0 -bottom-2 w-full translate-y-full rounded-full px-2.5 py-1 text-center text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                      {t('Финланд', 'Finland')}
-                    </div>
-                  </div>
-                  <div className="group relative">
-                    <img
-                      src={sydney}
-                      alt={t('Австрали', 'Australia')}
-                      className="size-20 shrink-0 rounded-2xl object-cover md:size-25"
-                    />
-                    <div className="bg-stage absolute inset-s-0 -bottom-2 w-full translate-y-full rounded-full px-2.5 py-1 text-center text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                      {t('Австрали', 'Australia')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-2.5 md:grid-cols-2">
-            <div>
-              <img className="rounded-card size-full object-cover" src={heroImage1} alt="PowerGrid" />
-            </div>
-
-            <div className="space-y-2.5">
-              <div className="bg-primary rounded-card p-6">
-                <p className="mb-25 text-white">
-                  {t(
-                    'Түүхий заалтыг хэзээ ч дарж засахгүй. Засвар бүр шалтгаан, дүрэм, гүйцэтгэгчтэйгээ шинэ хувилбар болж хадгалагдана.',
-                    'Raw readings are never overwritten. Every correction is kept as a new version with its reason, rule and author.',
-                  )}
-                </p>
-
-                <div className="flex items-center gap-4">
-                  <div className="text-primary flex size-11.5 shrink-0 items-center justify-center rounded-full bg-white">
-                    <Icon icon="tabler:shield-check" className="size-6" />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <div className="text-lg font-semibold tracking-[-0.02em] text-white">
-                      {t('Бүтээгдэхүүний зарчим №1', 'Product principle #1')}
-                    </div>
-                    <div className="meta text-white/50!">
-                      {t('PowerGrid архитектур', 'PowerGrid architecture')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative overflow-hidden rounded-card">
-                <img src={aboutBg} alt="Image" className="rounded-card object-cover" />
-
-                <div className="absolute inset-0 m-7.5 text-center">
-                  <div className="text-default-950 mb-2.5 rounded-full bg-white/70 px-4 py-2.5 text-sm font-medium backdrop-blur">
-                    {t('1,000,000 тоолуурт зориулсан', 'Built for 1,000,000 meters')}
-                  </div>
-
-                  <img src={heroImage2} alt="Image" className="rounded-2xl" />
-                </div>
-              </div>
-            </div>
+      <div className="pgl-hero__inner">
+        <div className="pgl-hero__copy pgl-enter">
+          <p className="pgl-eyebrow pgl-hero__eyebrow">{t(site.hero_eyebrow)}</p>
+          <h1 className="pgl-hero__title">
+            {t(site.hero_title_a)}
+            <span>{t(site.hero_title_b)}</span>
+          </h1>
+          <p className="pgl-lede pgl-hero__lede">{t(site.hero_lede)}</p>
+          <div className="pgl-hero__actions">
+            <Link to="/platform" className="pgl-pill pgl-pill--solid pgl-pill--xl">
+              {t(site.hero_cta)} <Icon icon="lucide:arrow-right" aria-hidden />
+            </Link>
+            <Link to="/contact" className="pgl-pill pgl-pill--outline pgl-pill--xl">
+              {t(site.hero_cta2)}
+            </Link>
           </div>
         </div>
       </div>
+
+      <ol className="pgl-hero__rail pgl-enter pgl-enter--late">
+        {RAIL.map(([icon, label], index) => (
+          <li key={icon}>
+            {index > 0 && <Icon icon="lucide:arrow-right" className="pgl-hero__rail-arrow" aria-hidden />}
+            <Tile image={icon} size="xs" />
+            {t(label)}
+          </li>
+        ))}
+      </ol>
     </section>
   )
 }

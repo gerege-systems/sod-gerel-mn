@@ -1,0 +1,1633 @@
+/* PowerGrid — сайтын загвар (petronet.mn-ийн `pnl-*` системийн порт, угтвар `pgl-`).
+ *
+ * Өнгө бүгд `_config.css`-ийн брэнд токен дээр суурилна: --pg-blue = --color-accent,
+ * --pg-navy = --color-primary. Бусад саарал нь PetroNet-ийн semantic токенуудтай ижил
+ * утгатай. Tailwind-тэй мөргөлдөхгүйн тулд бүх ангид `pgl-` угтвар бий.
+ */
+
+.pgl {
+  /* ── Өнгө: navy + нэг хөх акцент, цагаан/цайвар хөх гадаргуу. ── */
+  --pg-blue: var(--color-accent);
+  --pg-navy: var(--color-primary);
+  --pg-navy-3: color-mix(in srgb, var(--pg-navy) 72%, black);
+  --pg-paper: #f8fafc;
+  --pg-white: #fff;
+  --pg-ink: #0f1729;
+  --pg-muted: #48566a;
+  --pg-soft: #f1f5f9;
+  --pg-line: #e1e7ef;
+  --pg-line-strong: #cbd5e1;
+  --pg-accent-soft: color-mix(in srgb, var(--pg-blue) 10%, white);
+  --pg-accent-hover: color-mix(in oklab, var(--pg-blue) 88%, black);
+  --pg-on-accent: #fff;
+  --pg-on-navy: #fff;
+  --pg-accent-on-dark: color-mix(in srgb, var(--pg-blue) 45%, white);
+  --pg-green: #197b5d;
+  --pg-success-soft: #edfdf5;
+  --pg-font: var(--font-body);
+
+  /* ── Гадаргуу, сүүдэр, шил. ── */
+  --pgl-glass: color-mix(in srgb, var(--pg-white) 78%, transparent);
+  --pgl-glass-line: color-mix(in srgb, var(--pg-white) 94%, transparent);
+  --pgl-glass-blur: 16px;
+  --pgl-sky: color-mix(in srgb, var(--pg-blue) 9%, var(--pg-paper));
+  --pgl-sky-deep: color-mix(in srgb, var(--pg-blue) 16%, var(--pg-paper));
+  --pgl-sky-veil: color-mix(in srgb, var(--pg-blue) 7%, transparent);
+  --pgl-shadow-xs: 0 1px 2px 0 rgb(15 42 61 / 0.05);
+  --pgl-shadow-sm: 0 1px 3px 0 rgb(15 42 61 / 0.06), 0 1px 2px -1px rgb(15 42 61 / 0.04);
+  --pgl-shadow: 0 1px 2px rgb(15 42 61 / 0.04), 0 18px 50px -12px color-mix(in srgb, var(--pg-navy) 16%, transparent);
+  --pgl-shadow-lg: 0 2px 4px rgb(15 42 61 / 0.04), 0 32px 80px -16px color-mix(in srgb, var(--pg-navy) 24%, transparent);
+  --pgl-edge: inset 0 1px 0 color-mix(in srgb, var(--pg-white) 80%, transparent);
+
+  /* ── Хэлбэр: нэг радиусын гэр бүл. ── */
+  --pgl-radius: 22px;        /* карт, самбарын зураг */
+  --pgl-radius-sm: 16px;     /* жижиг карт, мөр */
+  --pgl-radius-xs: 12px;     /* оролт, дүрсний хавтан */
+  --pgl-radius-panel: 32px;  /* хэсгийн том самбар */
+
+  /* ── Хэмнэл: хэсгийн босоо зай, толгойн зай, торны зай. ── */
+  --pgl-gutter: clamp(16px, 4vw, 44px);
+  --pgl-max: 1240px;
+  --pgl-section-y: clamp(56px, 8vw, 112px);
+  --pgl-section-y-tight: clamp(28px, 4vw, 56px);
+  --pgl-head-gap: 14px;
+  --pgl-head-mb: clamp(28px, 4vw, 52px);
+  --pgl-gap: 14px;
+  --pgl-card-pad: clamp(20px, 2.4vw, 28px);
+  --pgl-panel-pad: clamp(22px, 4vw, 56px);
+
+  /* ── Бичгийн масштаб: нэг л тодорхойлолт, хаа сайгүй ижил. ── */
+  --pgl-fs-eyebrow: 0.78rem;
+  --pgl-fs-tag: 0.75rem;
+  --pgl-fs-h1: clamp(2.4rem, 4.6vw, 4.5rem);
+  --pgl-fs-h1-page: clamp(2.2rem, 4.4vw, 3.6rem);
+  --pgl-fs-h2: clamp(1.9rem, 3.5vw, 2.75rem);
+  --pgl-fs-h3: 1.2rem;
+  --pgl-fs-h4: 1rem;
+  --pgl-fs-lede: clamp(1rem, 1.2vw, 1.125rem);
+  --pgl-fs-text: 1rem;
+  --pgl-fs-body: 0.86rem;
+  --pgl-fs-small: 0.78rem;
+  --pgl-fs-stat: clamp(1.75rem, 2.6vw, 2.25rem);
+  --pgl-w-display: 800;
+  --pgl-w-head: 700;
+  --pgl-w-sub: 600;
+  --pgl-ls-display: -0.035em;
+  --pgl-ls-head: -0.028em;
+  --pgl-ls-sub: -0.015em;
+  --pgl-ls-tag: 0.08em;
+  --pgl-lh-display: 1.04;
+  --pgl-lh-head: 1.1;
+  --pgl-lh-sub: 1.25;
+  --pgl-lh-lede: 1.65;
+  --pgl-lh-body: 1.6;
+
+  /* ── Дүрс: нэг 3D гэр бүл, дөрвөн хэмжээ; нөөц шугаман хавтан. ── */
+  --pgl-icon-3d: 64px;
+  --pgl-icon-3d-xs: 44px;
+  --pgl-icon-3d-sm: 56px;
+  --pgl-icon-3d-lg: 88px;
+  --pgl-icon-3d-shadow: 0 10px 14px color-mix(in srgb, var(--pg-navy) 18%, transparent);
+  --pgl-icon: 44px;
+  --pgl-icon-r: 13px;
+  --pgl-icon-svg: 20px;
+  --pgl-icon-sm: 36px;
+  --pgl-icon-sm-r: 11px;
+
+  /* ── Хөдөлгөөн. ── */
+  --pgl-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --pgl-ease-rise: cubic-bezier(0.22, 0.75, 0.2, 1);
+  --pgl-dur-reveal: 700ms;
+  --pgl-dur-rise: 900ms;
+  --pgl-word-dim: color-mix(in srgb, var(--pg-ink) 22%, var(--pg-line));
+  --pgl-spot: color-mix(in srgb, var(--pg-blue) 9%, transparent);
+
+  position: relative;
+  color: var(--pg-ink);
+  font-family: var(--pg-font);
+  background: linear-gradient(180deg, var(--pg-paper) 0%, var(--pgl-sky) 100%);
+  font-feature-settings: 'cv11', 'ss01';
+}
+.pgl-main { position: relative; z-index: 1; }
+.pgl section { position: relative; }
+.pgl [id] { scroll-margin-top: 92px; }
+.pgl h1, .pgl h2, .pgl h3, .pgl h4 { margin: 0; color: var(--pg-ink); font-weight: var(--pgl-w-sub); letter-spacing: var(--pgl-ls-sub); text-wrap: balance; }
+.pgl p { margin: 0; }
+.pgl a { color: inherit; }
+.pgl img { max-width: 100%; }
+
+/* ─────────────────────────────────────────────── стандарт: бичгийн масштаб */
+
+.pgl .pgl-h1 { font-size: var(--pgl-fs-h1-page); font-weight: var(--pgl-w-display); line-height: var(--pgl-lh-display); letter-spacing: var(--pgl-ls-display); color: var(--pg-navy); }
+.pgl .pgl-h1 em { color: var(--pg-blue); font-style: normal; }
+.pgl .pgl-h2 { font-size: var(--pgl-fs-h2); font-weight: var(--pgl-w-head); line-height: var(--pgl-lh-head); letter-spacing: var(--pgl-ls-head); }
+.pgl .pgl-h2 em { color: var(--pg-blue); font-style: normal; }
+.pgl .pgl-h2 em.pgl-block { display: block; }
+.pgl .pgl-h3 { font-size: var(--pgl-fs-h3); font-weight: var(--pgl-w-sub); line-height: var(--pgl-lh-sub); letter-spacing: var(--pgl-ls-sub); }
+.pgl .pgl-lede { color: var(--pg-muted); font-size: var(--pgl-fs-lede); line-height: var(--pgl-lh-lede); max-width: 60ch; text-wrap: pretty; }
+.pgl .pgl-eyebrow { color: var(--pg-muted); font: 600 var(--pgl-fs-eyebrow)/1.4 var(--pg-font); letter-spacing: 0.32em; text-transform: uppercase; }
+.pgl-muted { color: var(--pg-muted); }
+.pgl-small { font-size: var(--pgl-fs-small); }
+
+/* ─────────────────────────────────────────────────── стандарт: хэсгийн толгой */
+
+/* Шошго → гарчиг → тайлбар → үйлдэл. Зүүн зэрэгцүүлэлт анхдагч; тэгш хэмтэй
+   бүтэн өргөн хэсэгт (trust, chain, roles, faq) голлуулна; хоёр баганат хэсэгт split. */
+.pgl-head { display: grid; gap: var(--pgl-head-gap); margin-bottom: var(--pgl-head-mb); }
+.pgl-head__main,
+.pgl-head__aside { display: grid; gap: var(--pgl-head-gap); justify-items: start; align-content: end; }
+.pgl-head__main h2 { max-width: 22ch; }
+.pgl-head__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.pgl-head--center { justify-items: center; text-align: center; }
+.pgl-head--center .pgl-head__main { justify-items: center; }
+.pgl-head--center .pgl-head__main h2 { max-width: 24ch; }
+.pgl-head--center .pgl-head__actions { justify-content: center; }
+.pgl-head--split { grid-template-columns: 1.1fr 1fr; align-items: end; gap: clamp(20px, 4vw, 56px); }
+.pgl-head--split .pgl-head__main h2 { max-width: none; }
+.pgl-head--onnavy h2 { color: var(--pg-on-navy); }
+.pgl-head--onnavy .pgl-lede { color: color-mix(in srgb, var(--pg-on-navy) 72%, transparent); }
+.pgl-head--onnavy { --pgl-word-dim: color-mix(in srgb, var(--pg-on-navy) 30%, transparent); }
+
+/* ──────────────────────────────────────────────────────── стандарт: дүрс */
+
+/* Сайтын дүрс бүр нэг гэр бүл: цэнхэр шилэн 3D дүрс (`icon3d`), хавтангүй,
+   доор зөөлөн сүүдэртэй. Хэмжээ дөрөв: xs 44 (мөрийн зурвас), sm 56 (жагсаалт,
+   гинжин зурвас), 64 (карт), lg 88 (том тайз). Navy дэвсгэр дээр сүүдэр нь
+   гүнзгийрнэ (--pgl-icon-3d-shadow-г тухайн самбар дээр дахин тодорхойлно).
+   Доорх `.pgl-icon` суурь нь 3D дүрс олдоогүй үеийн нөөц: lucide шугаман дүрс
+   гялгар цэнхэр хавтан дээр. */
+.pgl-icon {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  flex: 0 0 auto;
+  width: var(--pgl-icon);
+  height: var(--pgl-icon);
+  display: grid;
+  place-items: center;
+  border-radius: var(--pgl-icon-r);
+  color: var(--pg-on-accent);
+  background:
+    radial-gradient(120% 95% at 28% 12%, color-mix(in srgb, var(--pg-blue) 45%, white) 0%, transparent 58%),
+    linear-gradient(165deg, color-mix(in srgb, var(--pg-blue) 78%, white) 0%, var(--pg-blue) 48%, color-mix(in srgb, var(--pg-blue) 62%, var(--pg-navy)) 100%);
+  box-shadow:
+    inset 0 1.5px 0 rgb(255 255 255 / 0.55),
+    inset 0 -4px 8px color-mix(in srgb, var(--pg-navy) 38%, transparent),
+    inset 0 0 0 1px rgb(255 255 255 / 0.14),
+    0 10px 18px -8px color-mix(in srgb, var(--pg-blue) 70%, transparent),
+    0 2px 4px color-mix(in srgb, var(--pg-navy) 14%, transparent);
+}
+/* Дээд хагасын гялбаа. */
+.pgl-icon:not(.pgl-icon--3d)::before {
+  content: "";
+  position: absolute;
+  inset: 1px 1px 52% 1px;
+  z-index: -1;
+  border-radius: inherit;
+  border-bottom-left-radius: 50% 30%;
+  border-bottom-right-radius: 50% 30%;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.42), rgb(255 255 255 / 0.04));
+  pointer-events: none;
+}
+.pgl-icon svg {
+  width: var(--pgl-icon-svg);
+  height: var(--pgl-icon-svg);
+  filter: drop-shadow(0 1.5px 1px color-mix(in srgb, var(--pg-navy) 45%, transparent));
+}
+.pgl-icon svg, .pgl-icon svg * { stroke-width: 2px; }
+.pgl-icon--3d { overflow: visible; width: var(--pgl-icon-3d); height: var(--pgl-icon-3d); border-radius: 0; background: transparent; box-shadow: none; filter: drop-shadow(var(--pgl-icon-3d-shadow)); }
+.pgl-icon--3d img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.pgl-icon--3d.pgl-icon--xs { width: var(--pgl-icon-3d-xs); height: var(--pgl-icon-3d-xs); }
+.pgl-icon--3d.pgl-icon--sm { width: var(--pgl-icon-3d-sm); height: var(--pgl-icon-3d-sm); }
+.pgl-icon--3d.pgl-icon--lg { width: var(--pgl-icon-3d-lg); height: var(--pgl-icon-3d-lg); }
+/* Navy дэвсгэр дээр: шилэн дүрс гүн сүүдэртэй, дээрээс нь бага зэрэг цэнхэр гэрэлтэнэ. */
+.pgl-panel--navy,
+.pgl-feature-card--navy,
+.pgl-role.is-featured,
+.pgl-bento__side,
+.pgl-band,
+.pgl-card--navy { --pgl-icon-3d-shadow: 0 12px 16px rgb(0 0 0 / 0.42); }
+/* Navy самбар доторх цагаан картууд буцаад цайвар сүүдэртэй. */
+.pgl-trust__features > article { --pgl-icon-3d-shadow: 0 10px 14px color-mix(in srgb, var(--pg-navy) 18%, transparent); }
+
+/* ─────────────────────────────────────────────────── стандарт: самбар, тайз */
+
+/* Хэсгийн том дугуй самбар: цайвар эсвэл гүн navy, хэмнэл үүсгэнэ. */
+.pgl-panel {
+  position: relative;
+  overflow: hidden;
+  padding: var(--pgl-panel-pad);
+  border-radius: var(--pgl-radius-panel);
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+  box-shadow: var(--pgl-shadow);
+}
+.pgl-panel--sky { background: linear-gradient(180deg, var(--pgl-sky) 0%, color-mix(in srgb, var(--pgl-sky-deep) 70%, white) 100%); border-color: color-mix(in srgb, var(--pg-blue) 12%, transparent); }
+.pgl-panel--navy {
+  color: var(--pg-on-navy);
+  background: radial-gradient(120% 90% at 85% -10%, color-mix(in srgb, var(--pg-blue) 42%, var(--pg-navy)) 0%, var(--pg-navy) 48%, var(--pg-navy-3) 100%);
+  border-color: color-mix(in srgb, var(--pg-on-navy) 10%, transparent);
+  box-shadow: var(--pgl-shadow-lg), inset 0 1px 0 color-mix(in srgb, var(--pg-on-navy) 14%, transparent);
+}
+.pgl-panel--navy::before {
+  content: '';
+  position: absolute;
+  right: -10%;
+  top: -30%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pg-blue) 38%, transparent);
+  filter: blur(120px);
+  pointer-events: none;
+}
+.pgl-panel > * { position: relative; }
+
+/* Төхөөрөмжийн тайз: зөөлөн самбар, төхөөрөмж доод ирмэгээс нь өргөгдөж гарна. */
+.pgl-stage {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10% 7% 0;
+  border-radius: var(--pgl-radius-panel);
+  background: radial-gradient(90% 70% at 50% 100%, color-mix(in srgb, var(--pg-blue) 22%, white) 0%, var(--pgl-sky) 55%, color-mix(in srgb, var(--pgl-sky) 60%, white) 100%);
+  border: 1px solid color-mix(in srgb, var(--pg-blue) 12%, transparent);
+  box-shadow: var(--pgl-shadow), var(--pgl-edge);
+  isolation: isolate;
+}
+.pgl-stage::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -18%;
+  height: 40%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pg-blue) 35%, transparent);
+  filter: blur(50px);
+  pointer-events: none;
+}
+.pgl-stage img { position: relative; display: block; width: 100%; height: auto; margin-bottom: -4%; filter: drop-shadow(0 28px 36px color-mix(in srgb, var(--pg-navy) 28%, transparent)); will-change: transform; }
+.pgl-stage--navy { background: radial-gradient(90% 70% at 50% 100%, color-mix(in srgb, var(--pg-blue) 55%, var(--pg-navy)) 0%, var(--pg-navy) 60%, var(--pg-navy-3) 100%); border-color: color-mix(in srgb, var(--pg-on-navy) 10%, transparent); }
+.pgl-stage--white { background: radial-gradient(90% 70% at 50% 100%, var(--pgl-sky-deep) 0%, var(--pg-white) 70%); }
+
+/* Шилэн гадаргуу — нэг жор. */
+.pgl-glass {
+  background: var(--pgl-glass);
+  border: 1px solid var(--pgl-glass-line);
+  backdrop-filter: blur(var(--pgl-glass-blur));
+  -webkit-backdrop-filter: blur(var(--pgl-glass-blur));
+  box-shadow: var(--pgl-shadow);
+}
+
+/* Ширхэг — шилэн жорын гурав дахь найрлага. */
+.pgl-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  opacity: 0.045;
+  background-repeat: repeat;
+  background-size: 180px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Хуучин нэр — дотоод хуудасны hero-гийн толбо. Одоо Aurora давхарга зурдаг тул хоосон. */
+.pgl-blob { display: none; }
+
+/* Хэсэг бүрийн дотоод өргөн. */
+.pgl-container,
+.pgl-hero__inner,
+.pgl-bento__grid,
+.pgl-about__grid,
+.pgl-chain__inner,
+.pgl-band__inner,
+.pgl-faq__list,
+.pgl-contact__grid,
+.pgl-footer__grid,
+.pgl-footer__bottom {
+  width: min(var(--pgl-max), calc(100% - var(--pgl-gutter) * 2));
+  margin-inline: auto;
+}
+.pgl-container--narrow { max-width: 880px; }
+
+/* ─────────────────────────────────────────────────────── стандарт: товч */
+
+/* Нэг гэр бүл: pill — solid / ghost (шил) / outline / onnavy; хэмжээ 46 / 54 / 60. */
+.pgl-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: var(--pgl-fs-small);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.25s var(--pgl-ease), border-color 0.25s var(--pgl-ease), transform 0.25s var(--pgl-ease), color 0.25s var(--pgl-ease), box-shadow 0.25s var(--pgl-ease);
+}
+.pgl-pill svg { width: 16px; height: 16px; flex: 0 0 auto; transition: transform 0.25s var(--pgl-ease); }
+.pgl-pill:hover { transform: translateY(-1px); }
+.pgl-pill:hover svg { transform: translateX(3px); }
+.pgl-pill--lg { min-height: 54px; padding: 0 28px; font-size: 0.9rem; }
+.pgl-pill--lg svg { width: 18px; height: 18px; }
+.pgl-pill--xl { min-height: 60px; padding: 0 38px; font-size: 1.05rem; gap: 10px; }
+.pgl-pill--xl svg { width: 20px; height: 20px; }
+.pgl-pill--block { width: 100%; }
+.pgl-pill--solid {
+  color: var(--pg-on-accent) !important;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--pg-blue) 88%, white) 0%, var(--pg-blue) 60%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), 0 12px 28px -10px color-mix(in srgb, var(--pg-blue) 70%, transparent);
+}
+.pgl-pill--solid:hover { background: var(--pg-accent-hover); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 16px 32px -10px color-mix(in srgb, var(--pg-blue) 80%, transparent); }
+.pgl-pill--ghost { color: var(--pg-ink); background: var(--pgl-glass); border-color: var(--pg-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.pgl-pill--ghost:hover { border-color: var(--pg-line-strong); background: var(--pg-white); }
+.pgl-pill--outline { color: var(--pg-ink) !important; background: var(--pg-white); border-color: var(--pg-line-strong); }
+.pgl-pill--outline:hover { border-color: var(--pg-navy); }
+.pgl-pill--quiet { color: var(--pg-ink); background: var(--pg-white); box-shadow: var(--pgl-shadow-xs); }
+.pgl-pill--light { color: var(--pg-ink) !important; background: var(--pg-white); box-shadow: var(--pgl-shadow-sm); }
+.pgl-pill--onnavy {
+  color: var(--pg-on-navy) !important;
+  background: color-mix(in srgb, var(--pg-on-navy) 6%, transparent);
+  border-color: color-mix(in srgb, var(--pg-on-navy) 30%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.pgl-pill--onnavy:hover { background: color-mix(in srgb, var(--pg-on-navy) 14%, transparent); border-color: color-mix(in srgb, var(--pg-on-navy) 50%, transparent); }
+.pgl-pill.is-disabled,
+.pgl-pill:disabled { opacity: 0.5; pointer-events: none; }
+.pgl-pill:focus-visible { outline: 3px solid color-mix(in srgb, var(--pg-blue) 45%, transparent); outline-offset: 2px; }
+
+/* Шошго: хэсгийн толгойн эхний мөр. */
+.pgl-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--pg-accent-soft);
+  color: var(--pg-blue);
+  font: 600 var(--pgl-fs-tag)/1.2 var(--pg-font);
+  letter-spacing: var(--pgl-ls-tag);
+  text-transform: uppercase;
+}
+.pgl-tag--onnavy { background: color-mix(in srgb, var(--pg-on-navy) 10%, transparent); color: var(--pg-accent-on-dark); border: 1px solid color-mix(in srgb, var(--pg-on-navy) 10%, transparent); }
+
+/* Текст холбоос: pill-ийн гурав дахь хэлбэр. */
+.pgl-textlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pg-blue) !important;
+  font-size: var(--pgl-fs-small);
+  font-weight: 600;
+  text-decoration: none;
+}
+.pgl-textlink svg { width: 16px; height: 16px; transition: transform 0.25s var(--pgl-ease); }
+.pgl-textlink:hover svg { transform: translateX(3px); }
+
+/* Жишээ дэлгэцийн шошго — зурсан дэлгэц бүр дээр; нэг л саарал хэлбэр. */
+.pgl-sample,
+.pgl-sample--amber {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--pg-soft);
+  border: 1px dashed var(--pg-line-strong);
+  color: var(--pg-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Хэл сонгогч — PetroNet-ийн MN | EN хоёр хэсэгт хайрцаг. */
+.pgl-lang {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--pg-line);
+  border-radius: 12px;
+  background: var(--pg-soft);
+  cursor: pointer;
+  font-family: inherit;
+}
+.pgl-lang span {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  height: 36px;
+  border-radius: 9px;
+  color: var(--pg-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pgl-lang span[data-on] { background: var(--pg-white); color: var(--pg-blue); box-shadow: var(--pgl-shadow-sm); }
+.pgl-lang:focus-visible { outline: 2px solid var(--pg-blue); outline-offset: 2px; }
+.pgl-lang--onnavy { border-color: color-mix(in srgb, var(--pg-on-navy) 16%, transparent); background: color-mix(in srgb, var(--pg-on-navy) 6%, transparent); }
+.pgl-lang--onnavy span { color: color-mix(in srgb, var(--pg-on-navy) 60%, transparent); }
+.pgl-lang--onnavy span[data-on] { background: var(--pg-white); color: var(--pg-navy); }
+
+/* ──────────────────────────────────────────────────────────────── толгой */
+
+.pgl-nav { position: sticky; top: 0; z-index: 60; }
+.pgl-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--pg-paper) 80%, transparent);
+  backdrop-filter: blur(var(--pgl-glass-blur)) saturate(1.4);
+  -webkit-backdrop-filter: blur(var(--pgl-glass-blur)) saturate(1.4);
+  border-bottom: 1px solid color-mix(in srgb, var(--pg-line) 70%, transparent);
+  opacity: 0;
+  transition: opacity 0.3s var(--pgl-ease);
+  pointer-events: none;
+}
+.pgl-nav.is-lifted::before { opacity: 1; }
+.pgl-nav__bar {
+  position: relative;
+  width: min(var(--pgl-max), calc(100% - var(--pgl-gutter) * 2));
+  margin-inline: auto;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.pgl-nav__brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--pg-ink); }
+.pgl-nav__brand b { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+.pgl-nav__mark { width: 34px; height: 34px; display: block; object-fit: contain; }
+.pgl-nav__links { display: flex; align-items: center; gap: 4px; margin-inline: auto; }
+.pgl-nav__links a {
+  padding: 9px 14px;
+  border-radius: 999px;
+  color: var(--pg-muted);
+  font-size: var(--pgl-fs-small);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.pgl-nav__links a:hover { color: var(--pg-ink); }
+.pgl-nav__links a.is-active { color: var(--pg-blue); background: var(--pg-accent-soft); }
+.pgl-nav__actions { display: flex; align-items: center; gap: 8px; }
+.pgl-nav__burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: var(--pg-ink);
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.pgl-nav__burger svg { width: 20px; height: 20px; }
+
+.pgl-drawer {
+  position: fixed;
+  inset: 76px 0 0;
+  z-index: 55;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px var(--pgl-gutter) 40px;
+  background: var(--pg-paper);
+}
+.pgl-drawer nav { display: grid; gap: 2px; }
+.pgl-drawer nav a {
+  padding: 13px 4px;
+  color: var(--pg-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--pg-line);
+}
+.pgl-drawer nav a.is-active { color: var(--pg-blue); }
+.pgl-menu__title {
+  padding: 8px 4px 6px;
+  color: var(--pg-muted);
+  font: 600 0.8rem/1.2 var(--pg-font);
+  letter-spacing: 0.06em;
+}
+.pgl-drawer__foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+
+/* ────────────────────────────────────────────────────────────────── hero */
+
+/* Зураг баруун талд, зүүн тал нь цагаан тул бичвэр шууд дээр нь сууна. */
+.pgl-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(600px, calc(100svh - 78px), 900px);
+  overflow: hidden;
+  background: var(--pg-white);
+}
+.pgl-hero__art {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 64%;
+  height: 100%;
+  padding-block: 8px 56px;
+  object-fit: contain;
+  object-position: right center;
+  --pgl-fade-x: linear-gradient(90deg, transparent 0%, black 22%);
+  --pgl-fade-y: linear-gradient(180deg, transparent 8%, black 34%, black 80%, transparent 96%);
+  mask-image: var(--pgl-fade-x), var(--pgl-fade-y);
+  mask-composite: intersect;
+  -webkit-mask-image: var(--pgl-fade-x), var(--pgl-fade-y);
+  -webkit-mask-composite: source-in;
+  pointer-events: none;
+  user-select: none;
+}
+.pgl-hero__inner { position: relative; z-index: 2; display: flex; flex: 1; align-items: center; padding-block: 56px 32px; }
+.pgl-hero__copy { min-width: 0; max-width: 700px; }
+.pgl .pgl-hero__eyebrow { margin: 0 0 28px; }
+.pgl .pgl-hero__title {
+  margin: 0;
+  color: var(--pg-navy);
+  font-size: var(--pgl-fs-h1);
+  font-weight: var(--pgl-w-display);
+  line-height: var(--pgl-lh-display);
+  letter-spacing: var(--pgl-ls-display);
+}
+.pgl .pgl-hero__title span { display: block; color: var(--pg-blue); }
+.pgl .pgl-hero__lede { max-width: 520px; margin: 28px 0 0; font-size: clamp(1.05rem, 1.5vw, 1.35rem); line-height: 1.6; }
+.pgl-hero__actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
+
+/* Доод зурвас: өгөгдлийн зам, хоёр талдаа нимгэн шугамтай. */
+.pgl-hero__rail {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2.6vw, 36px);
+  width: min(var(--pgl-max), calc(100% - var(--pgl-gutter) * 2));
+  margin: 0 auto;
+  padding: 0 0 44px;
+  list-style: none;
+}
+.pgl-hero__rail::before,
+.pgl-hero__rail::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--pg-line-strong)); }
+.pgl-hero__rail::after { background: linear-gradient(90deg, var(--pg-line-strong), transparent); }
+.pgl-hero__rail li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--pg-ink);
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pgl-hero__rail-arrow { width: 18px; height: 18px; margin-right: clamp(4px, 1.4vw, 20px); color: var(--pg-line-strong); }
+
+@media (max-width: 1100px) {
+  .pgl-hero__art { width: 66%; opacity: 0.9; }
+  .pgl-hero__copy { max-width: 560px; }
+}
+@media (max-width: 900px) {
+  .pgl-hero { min-height: 0; }
+  .pgl-hero__art { position: relative; order: 2; width: 100%; height: auto; padding: 0; aspect-ratio: 4 / 3; object-fit: cover; object-position: 72% center; opacity: 1; mask-image: none; -webkit-mask-image: none; transform: none !important; }
+  .pgl-hero__inner { order: 1; padding-block: 40px 8px; }
+  .pgl-hero__rail { order: 3; flex-wrap: wrap; justify-content: flex-start; gap: 14px 18px; padding-top: 8px; }
+  .pgl-hero__rail::before, .pgl-hero__rail::after { display: none; }
+}
+@media (max-width: 620px) {
+  .pgl .pgl-hero__eyebrow { letter-spacing: 0.2em; margin-bottom: 20px; }
+  .pgl-hero__actions { flex-direction: column; align-items: stretch; }
+  .pgl-hero__actions .pgl-pill--xl { min-height: 54px; }
+  .pgl-hero__rail-arrow { display: none; }
+  .pgl-hero__rail li { width: calc(50% - 9px); }
+}
+
+/* ───────────────────────────────────────────────────────────────── bento */
+
+.pgl-bento { padding-block: var(--pgl-section-y-tight) var(--pgl-section-y-tight); }
+.pgl-bento__grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: var(--pgl-gap); }
+.pgl-bento__lead,
+.pgl-bento__side,
+.pgl-bento__wide {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--pgl-radius);
+  border: 1px solid var(--pg-line);
+  box-shadow: var(--pgl-shadow);
+  text-decoration: none;
+  color: inherit;
+}
+.pgl-bento__lead { background: var(--pgl-sky-deep); min-height: 380px; }
+/* Долгион нь зурагт зүүн доор байдаг; толин тусгаад тоолуурын доор, бичвэрээс хол. */
+.pgl-bento__lead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--pgl-bento-wave, none) center bottom / cover no-repeat;
+  transform: scaleX(-1);
+  pointer-events: none;
+}
+.pgl-bento__orb { z-index: 1; }
+.pgl-bento__orb {
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30%;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px color-mix(in srgb, var(--pg-navy) 25%, transparent));
+  pointer-events: none;
+}
+.pgl-bento__lead-copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding: clamp(24px, 3vw, 38px);
+  max-width: 56%;
+}
+.pgl-bento__lead-copy h2 { font-size: var(--pgl-fs-h2); font-weight: var(--pgl-w-head); line-height: var(--pgl-lh-head); letter-spacing: var(--pgl-ls-head); }
+.pgl-bento__lead-copy h2 em { display: block; color: var(--pg-blue); font-style: normal; }
+.pgl-bento__lead-copy > p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); max-width: 44ch; }
+.pgl-bento__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.pgl-bento__stats { display: flex; flex-wrap: wrap; gap: clamp(18px, 3vw, 34px); margin: 8px 0 0; }
+.pgl-bento__stats div { display: grid; gap: 3px; }
+.pgl-bento__stats dt { font: var(--pgl-w-head) 1.35rem/1.1 var(--pg-font); letter-spacing: var(--pgl-ls-sub); font-variant-numeric: tabular-nums; }
+.pgl-bento__stats dd { margin: 0; color: var(--pg-muted); font-size: var(--pgl-fs-small); line-height: 1.4; }
+.pgl-bento__foot { color: var(--pg-muted); font-size: 0.72rem !important; max-width: 44ch; }
+.pgl-bento__side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 240px;
+  padding: var(--pgl-card-pad) var(--pgl-card-pad) 0;
+  color: var(--pg-on-navy);
+  background: radial-gradient(120% 90% at 85% -10%, color-mix(in srgb, var(--pg-blue) 40%, var(--pg-navy)) 0%, var(--pg-navy) 50%, var(--pg-navy-3) 100%);
+  border-color: color-mix(in srgb, var(--pg-on-navy) 10%, transparent);
+  --pgl-spot: color-mix(in srgb, var(--pg-on-navy) 8%, transparent);
+}
+.pgl-bento__side h3,
+.pgl-bento__wide h3 { margin: 0 0 6px; font-size: var(--pgl-fs-h3); line-height: var(--pgl-lh-sub); }
+.pgl-bento__side h3 { color: var(--pg-on-navy); }
+.pgl-bento__side p { color: color-mix(in srgb, var(--pg-on-navy) 68%, transparent); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); }
+.pgl-bento__go { position: absolute; right: 20px; top: 20px; width: 22px; height: 22px; color: var(--pg-blue); transition: transform 0.3s var(--pgl-ease); }
+.pgl-bento__side:hover .pgl-bento__go,
+.pgl-bento__wide:hover .pgl-bento__go { transform: translate(2px, -2px); }
+.pgl-bento__side .pgl-bento__go { color: var(--pg-accent-on-dark); }
+/* Вэб дэлгэцийн зураг (тунгалаг PNG) navy карт дээр — доод ирмэгээс өргөгдөнө. */
+.pgl-bento__shot { position: relative; display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto -5%; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.35)); will-change: transform; }
+.pgl-bento__side-stage { position: relative; order: 3; margin: auto calc(var(--pgl-card-pad) * -1) 0; padding: 8px var(--pgl-card-pad) 0; overflow: hidden; }
+.pgl-bento__side-stage::before {
+  content: '';
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: -30%;
+  height: 60%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pg-blue) 55%, transparent);
+  filter: blur(50px);
+  pointer-events: none;
+}
+.pgl-bento__wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: center;
+  gap: clamp(20px, 3vw, 44px);
+  padding: var(--pgl-card-pad) clamp(24px, 3vw, 38px);
+  background: var(--pg-white);
+}
+.pgl-bento__device {
+  position: relative;
+  justify-self: center;
+  align-self: end;
+  margin-bottom: calc(var(--pgl-card-pad) * -1);
+  width: 100%;
+  max-width: 240px;
+  height: 290px;
+  overflow: hidden;
+}
+.pgl-bento__device::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -20%;
+  height: 50%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pg-blue) 24%, transparent);
+  filter: blur(40px);
+  pointer-events: none;
+}
+.pgl-bento__device img { position: relative; display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 28px color-mix(in srgb, var(--pg-navy) 22%, transparent)); will-change: transform; }
+.pgl-bento__wide > div { display: grid; gap: 10px; justify-items: start; }
+.pgl-bento__wide p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); max-width: 62ch; }
+
+/* ───────────────────────────────────────────────────────────────── about */
+
+.pgl-about { padding-block: var(--pgl-section-y); }
+.pgl-about__grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(30px, 5vw, 76px); align-items: center; }
+.pgl-about__copy { display: grid; justify-items: start; gap: 18px; }
+.pgl-about__copy h2 em { display: block; }
+.pgl-about__copy > p { color: var(--pg-muted); font-size: var(--pgl-fs-text); line-height: 1.75; max-width: 58ch; }
+.pgl-about__traits { display: flex; flex-wrap: wrap; gap: clamp(14px, 3vw, 30px); margin: 4px 0 0; padding: 0; list-style: none; }
+.pgl-about__traits li { display: grid; gap: 10px; max-width: 130px; font-size: var(--pgl-fs-small); font-weight: 600; line-height: 1.35; }
+.pgl-about__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+.pgl-about__stats {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: clamp(20px, 4vw, 44px);
+  margin: 10px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--pg-line);
+  width: 100%;
+}
+.pgl-about__stats div { display: grid; gap: 4px; align-content: start; }
+.pgl-about__stats dt { font: var(--pgl-w-head) var(--pgl-fs-stat)/1 var(--pg-font); letter-spacing: var(--pgl-ls-head); font-variant-numeric: tabular-nums; }
+.pgl-about__stats dd { margin: 0; color: var(--pg-muted); font-size: var(--pgl-fs-small); line-height: 1.4; max-width: 16ch; }
+.pgl-about__figure { margin: 0; }
+
+/* ───────────────────────────────────────────────────────────────── trust */
+
+/* Гүн navy самбар — хуудасны хэмнэлийн бараан цэг. Дотор нь цагаан картууд. */
+.pgl-trust { padding-block: var(--pgl-section-y-tight) var(--pgl-section-y); }
+.pgl-trust .pgl-panel { --pgl-spot: color-mix(in srgb, var(--pg-blue) 12%, transparent); }
+.pgl-trust__slides { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pgl-gap); margin-bottom: var(--pgl-gap); }
+.pgl-slide {
+  position: relative;
+  display: block;
+  min-height: 300px;
+  overflow: hidden;
+  border-radius: var(--pgl-radius);
+  color: inherit;
+  text-decoration: none;
+  box-shadow: var(--pgl-shadow-lg);
+  border: 1px solid color-mix(in srgb, var(--pg-on-navy) 14%, transparent);
+}
+.pgl-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--pgl-ease); }
+.pgl-slide:hover img { transform: scale(1.04); }
+.pgl-slide__body {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 8px;
+  height: 100%;
+  min-height: inherit;
+  align-content: end;
+  padding: var(--pgl-card-pad);
+  color: var(--pg-on-navy);
+  background: linear-gradient(180deg, transparent 20%, color-mix(in srgb, var(--pg-navy) 86%, transparent) 78%);
+}
+.pgl-slide__body span { font: 600 var(--pgl-fs-small)/1 var(--pg-font); color: color-mix(in srgb, var(--pg-on-navy) 65%, transparent); }
+.pgl-slide__body h3 { color: var(--pg-on-navy); font-size: var(--pgl-fs-h3); line-height: var(--pgl-lh-sub); }
+.pgl-slide__body p { color: color-mix(in srgb, var(--pg-on-navy) 74%, transparent); font-size: var(--pgl-fs-body); line-height: 1.55; }
+.pgl-trust__grid { display: grid; grid-template-columns: 1fr 1.45fr; gap: var(--pgl-gap); }
+.pgl-trust__map {
+  position: relative;
+  overflow: hidden;
+  min-height: 430px;
+  padding: var(--pgl-card-pad);
+  border-radius: var(--pgl-radius);
+  color: var(--pg-ink);
+  background: var(--pg-soft);
+  border: 1px solid color-mix(in srgb, var(--pg-on-navy) 14%, transparent);
+  box-shadow: var(--pgl-shadow-lg);
+}
+.pgl-trust__map > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }
+.pgl-trust__map-copy { position: relative; z-index: 2; display: grid; justify-items: start; gap: 4px; align-content: end; height: 100%; }
+.pgl-trust__map-copy small,
+.pgl-trust__map-copy b,
+.pgl-trust__map-copy span {
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--pg-white) 88%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.pgl-trust__map-copy small { color: var(--pg-muted); font-size: var(--pgl-fs-small); font-weight: 600; }
+.pgl-trust__map-copy b { color: var(--pg-ink); font: var(--pgl-w-head) var(--pgl-fs-stat)/1.1 var(--pg-font); letter-spacing: var(--pgl-ls-head); font-variant-numeric: tabular-nums; }
+.pgl-trust__map-copy span { margin-bottom: 14px; color: var(--pg-muted); font-size: var(--pgl-fs-small); }
+.pgl-trust__pills { position: absolute; right: 20px; top: 20px; z-index: 2; display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+.pgl-trust__pills li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border-radius: var(--pgl-radius-xs);
+  background: var(--pgl-glass);
+  border: 1px solid var(--pgl-glass-line);
+  box-shadow: var(--pgl-shadow);
+  backdrop-filter: blur(var(--pgl-glass-blur));
+  -webkit-backdrop-filter: blur(var(--pgl-glass-blur));
+  color: var(--pg-ink);
+  font-size: var(--pgl-fs-small);
+  font-weight: 500;
+}
+.pgl-trust__pills i { width: 8px; height: 8px; border-radius: 50%; background: var(--pg-muted); }
+.pgl-trust__pills li[data-tone="ok"] i { background: var(--pg-green); }
+.pgl-trust__pills li[data-tone="info"] i { background: var(--pg-blue); }
+.pgl-trust__pills b { margin-left: auto; font-weight: 600; padding-left: 10px; font-variant-numeric: tabular-nums; }
+.pgl-trust__pills em { color: var(--pg-muted); font-style: normal; font-weight: 500; }
+.pgl-trust__features { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pgl-gap); margin: 0; padding: 0; list-style: none; }
+.pgl-trust__features > article {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: var(--pgl-card-pad);
+  border-radius: var(--pgl-radius);
+  background: var(--pg-white);
+  box-shadow: var(--pgl-shadow);
+}
+.pgl-trust__features > article .pgl-icon--3d { margin: -2px 0 4px; }
+.pgl-trust__features > article em {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  color: var(--pg-muted);
+  font: 600 var(--pgl-fs-small)/1 var(--pg-font);
+  font-style: normal;
+}
+.pgl-trust__features h3 { font-size: var(--pgl-fs-h4); line-height: var(--pgl-lh-sub); }
+.pgl-trust__features p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); }
+/* Доод мөр: хоёр талдаа нимгэн шугамтай, самбарын ирмэгээс зайтай.
+   (`.pgl p { margin: 0 }`-оос илүү тодорхой байх ёстой — тэгэхгүй бол самбарт наалдана.) */
+.pgl .pgl-trust__foot {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  color: color-mix(in srgb, var(--pg-on-navy) 62%, transparent);
+  font: 600 var(--pgl-fs-small)/1.3 var(--pg-font);
+  letter-spacing: 0.14em;
+  text-align: center;
+}
+.pgl-trust__foot::before,
+.pgl-trust__foot::after { content: ''; flex: 1; height: 1px; background: color-mix(in srgb, var(--pg-on-navy) 14%, transparent); }
+
+/* ───────────────────────────────────────────────────────────────── chain */
+
+.pgl-chain { padding-block: var(--pgl-section-y); }
+.pgl-chain__figure { position: relative; margin-block: 0; overflow: hidden; border-radius: var(--pgl-radius-panel); box-shadow: var(--pgl-shadow-lg); background: var(--pgl-sky); border: 1px solid color-mix(in srgb, var(--pg-blue) 12%, transparent); }
+.pgl-chain__figure video { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; }
+.pgl-chain__figure figcaption {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: var(--pgl-fs-small);
+  font-weight: 600;
+}
+.pgl-chain__figure figcaption svg { width: 16px; height: 16px; color: var(--pg-blue); }
+.pgl-chain__rail { margin-top: var(--pgl-gap); }
+.pgl-chain__actions { display: flex; justify-content: center; margin-top: clamp(24px, 4vw, 38px); }
+
+/* Гинжин хэлхээний зурвас (FlowRail). */
+.pgl-flow-rail { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.pgl-flow-step {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--pgl-radius-sm);
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+  box-shadow: var(--pgl-shadow-xs);
+}
+.pgl-flow-step > span:not(.pgl-icon) { display: grid; gap: 2px; }
+.pgl-flow-step b { font-size: 0.9rem; letter-spacing: var(--pgl-ls-sub); }
+.pgl-flow-step small { color: var(--pg-muted); font-size: 0.75rem; line-height: 1.4; }
+.pgl-flow-step__line { position: absolute; right: -8px; top: 34px; width: 8px; height: 1px; background: var(--pg-line-strong); }
+.pgl-flow-step__line em { position: absolute; right: -2px; top: -2px; width: 5px; height: 5px; border-radius: 50%; background: var(--pg-blue); }
+
+/* ──────────────────────────────────────────────────────────────── report */
+
+.pgl-report { padding-block: 0 var(--pgl-section-y); }
+.pgl-report__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); align-items: stretch; }
+.pgl-report__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; grid-auto-rows: 1fr; }
+.pgl-report__list > article { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: var(--pgl-radius-sm); background: var(--pg-white); border: 1px solid var(--pg-line); box-shadow: var(--pgl-shadow); }
+.pgl-report__list div { display: grid; gap: 4px; }
+.pgl-report__list b { font-size: var(--pgl-fs-h4); letter-spacing: var(--pgl-ls-sub); }
+.pgl-report__list small { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); }
+.pgl-report__card { display: grid; gap: 14px; padding: var(--pgl-card-pad); border-radius: var(--pgl-radius); background: var(--pg-white); border: 1px solid var(--pg-line); box-shadow: var(--pgl-shadow-lg); }
+.pgl-report__card header { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.pgl-report__card header div { display: grid; gap: 6px; justify-items: start; }
+.pgl-report__card header b { font-size: var(--pgl-fs-h4); }
+.pgl-report__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  color: var(--pg-green);
+  background: var(--pg-success-soft);
+  font-size: var(--pgl-fs-small);
+  font-weight: 600;
+}
+.pgl-report__badge svg { width: 15px; height: 15px; }
+.pgl-report__rows { display: grid; margin: 0; border: 1px solid var(--pg-line); border-radius: var(--pgl-radius-xs); overflow: hidden; }
+.pgl-report__rows div { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--pg-line); font-size: var(--pgl-fs-small); }
+.pgl-report__rows div:last-child { border-bottom: 0; }
+.pgl-report__rows dt { color: var(--pg-muted); }
+.pgl-report__rows dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.pgl-report__residual { display: grid; gap: 3px; padding: 16px 18px; border-radius: var(--pgl-radius-xs); color: var(--pg-on-accent); background: linear-gradient(160deg, color-mix(in srgb, var(--pg-blue) 85%, white), var(--pg-blue) 60%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25); }
+.pgl-report__residual small { color: color-mix(in srgb, var(--pg-on-navy) 78%, transparent); font-size: var(--pgl-fs-small); }
+.pgl-report__residual b { font-size: 1.5625rem; letter-spacing: var(--pgl-ls-head); font-variant-numeric: tabular-nums; }
+.pgl-report__card footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: var(--pgl-fs-small); }
+.pgl-report__card footer small { color: var(--pg-muted); }
+.pgl-report__card code { color: var(--pg-blue); font-weight: 600; }
+
+/* ───────────────────────────────────────────────────────────────── roles */
+
+.pgl-roles { padding-block: var(--pgl-section-y); }
+.pgl-roles__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--pgl-gap); align-items: stretch; }
+.pgl-role {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: var(--pgl-card-pad);
+  border-radius: var(--pgl-radius);
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+  box-shadow: var(--pgl-shadow-sm);
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 0.3s var(--pgl-ease), border-color 0.3s var(--pgl-ease);
+}
+.pgl-role:hover { box-shadow: var(--pgl-shadow-lg); border-color: var(--pg-line-strong); }
+.pgl-role h3 { font-size: var(--pgl-fs-h3); line-height: var(--pgl-lh-sub); }
+.pgl-role p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); }
+.pgl-role .pgl-icon--3d { margin: -2px 0 4px; }
+.pgl-role__action { display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 14px; color: var(--pg-blue); font-size: var(--pgl-fs-small); font-weight: 600; }
+.pgl-role__action svg { width: 16px; height: 16px; transition: transform 0.25s var(--pgl-ease); }
+.pgl-role:hover .pgl-role__action svg { transform: translateX(3px); }
+.pgl-role.is-featured { color: var(--pg-on-navy); background: radial-gradient(120% 90% at 85% -10%, color-mix(in srgb, var(--pg-blue) 40%, var(--pg-navy)) 0%, var(--pg-navy) 50%, var(--pg-navy-3) 100%); border-color: var(--pg-navy); --pgl-spot: color-mix(in srgb, var(--pg-on-navy) 8%, transparent); }
+.pgl-role.is-featured h3 { color: var(--pg-on-navy); }
+.pgl-role.is-featured p { color: color-mix(in srgb, var(--pg-on-navy) 70%, transparent); }
+.pgl-role.is-featured .pgl-role__action { color: var(--pg-accent-on-dark); }
+
+/* ────────────────────────────────────────────────────────────────── band */
+
+.pgl-band {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--pgl-section-y);
+  color: var(--pg-on-navy);
+  background: radial-gradient(90% 120% at 50% 120%, color-mix(in srgb, var(--pg-blue) 48%, var(--pg-navy)) 0%, var(--pg-navy) 55%, var(--pg-navy-3) 100%);
+  --pgl-word-dim: color-mix(in srgb, var(--pg-on-navy) 30%, transparent);
+}
+.pgl-band::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -40%;
+  width: 60%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pg-blue) 40%, transparent);
+  filter: blur(120px);
+  pointer-events: none;
+}
+.pgl-band__inner { position: relative; display: grid; justify-items: center; gap: 16px; text-align: center; }
+.pgl-band .pgl-icon--3d { margin-bottom: 6px; }
+.pgl-band h2 { color: var(--pg-on-navy); max-width: 22ch; }
+.pgl-band p,
+.pgl-band .pgl-lede { max-width: 62ch; color: color-mix(in srgb, var(--pg-on-navy) 74%, transparent); }
+.pgl-band__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }
+.pgl-band small { color: color-mix(in srgb, var(--pg-on-navy) 52%, transparent); font-size: var(--pgl-fs-small); }
+.pgl-band--quote blockquote { margin: 0; max-width: 64ch; }
+.pgl-band--quote blockquote p { color: var(--pg-on-navy); font-size: clamp(1.25rem, 2.4vw, 1.5625rem); font-weight: var(--pgl-w-sub); line-height: 1.35; letter-spacing: var(--pgl-ls-sub); }
+.pgl-band--quote cite { color: color-mix(in srgb, var(--pg-on-navy) 55%, transparent); font-style: normal; font-size: var(--pgl-fs-small); }
+
+/* ─────────────────────────────────────────────────────────────────── faq */
+
+.pgl-faq { padding-block: var(--pgl-section-y); }
+.pgl-faq__list { max-width: 880px; display: grid; gap: 10px; }
+.pgl-faq__item { border-radius: var(--pgl-radius-sm); background: var(--pg-white); border: 1px solid var(--pg-line); overflow: hidden; box-shadow: var(--pgl-shadow-sm); transition: background 0.3s var(--pgl-ease), border-color 0.3s var(--pgl-ease), box-shadow 0.3s var(--pgl-ease); }
+.pgl-faq__item button {
+  width: 100%;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 22px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: 600 1rem/1.35 var(--pg-font);
+  letter-spacing: var(--pgl-ls-sub);
+  text-align: start;
+  cursor: pointer;
+}
+.pgl-faq__item button svg { flex: 0 0 auto; width: 20px; height: 20px; color: var(--pg-blue); }
+.pgl-faq__item div { padding: 0 22px 20px; }
+.pgl-faq__item p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: 1.7; }
+.pgl-faq__item.is-open { color: var(--pg-on-accent); background: linear-gradient(160deg, color-mix(in srgb, var(--pg-blue) 86%, white), var(--pg-blue) 60%); border-color: var(--pg-blue); box-shadow: var(--pgl-shadow); }
+.pgl-faq__item.is-open button svg { color: var(--pg-on-accent); }
+.pgl-faq__item.is-open p { color: color-mix(in srgb, var(--pg-on-navy) 84%, transparent); }
+
+/* ─────────────────────────────────────────────────────────────── contact */
+
+.pgl-contact { padding-block: var(--pgl-section-y); background: var(--pgl-sky-veil); }
+.pgl-contact--page { padding-top: clamp(36px, 6vw, 72px); }
+.pgl-contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(26px, 4vw, 60px); align-items: stretch; }
+.pgl-contact__side { display: flex; flex-direction: column; gap: var(--pgl-gap); min-width: 0; }
+.pgl-contact__copy { display: grid; justify-items: start; align-content: start; gap: 16px; }
+.pgl-contact__copy > p { color: var(--pg-muted); font-size: var(--pgl-fs-lede); line-height: var(--pgl-lh-lede); max-width: 54ch; }
+.pgl-contact__steps { display: grid; gap: 10px; margin: 6px 0 0; padding: 0; list-style: none; width: 100%; }
+.pgl-contact__steps li { display: flex; gap: 15px; padding: 16px 18px; border-radius: var(--pgl-radius-sm); background: var(--pg-white); border: 1px solid var(--pg-line); box-shadow: var(--pgl-shadow-sm); }
+.pgl-contact__steps li > span {
+  flex: 0 0 auto;
+  width: var(--pgl-icon-sm);
+  height: var(--pgl-icon-sm);
+  display: grid;
+  place-items: center;
+  border-radius: var(--pgl-icon-sm-r);
+  color: var(--pg-blue);
+  background: var(--pg-accent-soft);
+  font: 600 var(--pgl-fs-small)/1 var(--pg-font);
+  font-variant-numeric: tabular-nums;
+}
+.pgl-contact__steps div { display: grid; gap: 3px; }
+.pgl-contact__steps b { font-size: 0.9rem; letter-spacing: var(--pgl-ls-sub); }
+.pgl-contact__steps small { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: 1.55; }
+.pgl-contact__rows { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: var(--pgl-gap); margin: 0; padding: 0; list-style: none; width: 100%; }
+.pgl-contact__rows li { display: flex; align-items: center; gap: 14px; min-width: 0; padding: 16px 18px; border-radius: var(--pgl-radius-sm); background: var(--pg-white); border: 1px solid var(--pg-line); box-shadow: var(--pgl-shadow); }
+.pgl-contact__rows div { display: grid; gap: 2px; min-width: 0; }
+.pgl-contact__rows small { color: var(--pg-muted); font-size: var(--pgl-fs-small); }
+.pgl-contact__rows a { color: var(--pg-blue); font-size: var(--pgl-fs-small); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+.pgl-contact__rows a:focus-visible { outline: 2px solid var(--pg-blue); outline-offset: 3px; border-radius: 4px; }
+.pgl-contact__rows b { font-size: var(--pgl-fs-small); }
+.pgl-contact__panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(22px, 3vw, 34px);
+  border-radius: var(--pgl-radius);
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+  box-shadow: var(--pgl-shadow-lg);
+}
+.pgl-contact__panel h2,
+.pgl-contact__panel h3 { font-size: var(--pgl-fs-h3); }
+.pgl-contact__panel label { display: grid; gap: 7px; color: var(--pg-muted); font-size: var(--pgl-fs-small); font-weight: 600; }
+.pgl-contact__panel input,
+.pgl-contact__panel textarea,
+.pgl-contact__panel select {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--pg-line);
+  border-radius: var(--pgl-radius-xs);
+  background: var(--pg-soft);
+  color: var(--pg-ink);
+  font: 400 var(--pgl-fs-body)/1.5 var(--pg-font);
+  resize: vertical;
+}
+.pgl-contact__panel input:focus-visible,
+.pgl-contact__panel textarea:focus-visible,
+.pgl-contact__panel select:focus-visible { outline: none; border-color: var(--pg-blue); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pg-blue) 15%, transparent); }
+.pgl-contact__panel [aria-invalid="true"] { border-color: #dc2626; }
+.pgl-contact__two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.pgl-contact__note { color: var(--pg-muted); font-size: 0.8rem; line-height: 1.55; }
+.pgl-contact__error { color: #b91c1c; font-size: 0.75rem; font-weight: 500; }
+.pgl-contact__alert { padding: 12px 14px; border-radius: 12px; font-size: 0.8rem; line-height: 1.55; }
+.pgl-contact__alert--ok { background: var(--pg-success-soft); color: var(--pg-green); }
+.pgl-contact__alert--err { background: #fef2f2; color: #b91c1c; }
+.pgl-contact__alert--info { background: var(--pg-soft); color: var(--pg-muted); }
+.pgl-contact__alert a { font-weight: 600; text-decoration: underline; }
+.pgl-contact__fallback { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+.pgl-contact__fallback .pgl-pill { margin-top: auto; }
+.pgl-contact__fallback p { margin: 0; color: var(--pg-muted); font-size: 0.9rem; line-height: 1.7; }
+.pgl-contact__honeypot { position: absolute; left: -9999px; width: 0; height: 0; opacity: 0; }
+
+/* ────────────────────────────────────────────────────────────────── хөл */
+
+.pgl-footer { position: relative; z-index: 1; padding-top: clamp(44px, 6vw, 72px); color: var(--pg-on-navy); background: var(--pg-navy-3); }
+.pgl-footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: clamp(24px, 4vw, 54px); }
+.pgl-footer__brand { display: grid; justify-items: start; gap: 14px; }
+.pgl-footer__brand > a { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.pgl-footer__brand b { color: var(--pg-on-navy); font-size: 1.25rem; }
+.pgl-footer__brand p { margin: 0; max-width: 42ch; color: color-mix(in srgb, var(--pg-on-navy) 58%, transparent); font-size: 0.8rem; line-height: 1.7; }
+.pgl-footer__owner { color: color-mix(in srgb, var(--pg-on-navy) 44%, transparent) !important; }
+.pgl-footer__grid nav { display: grid; align-content: start; gap: 10px; }
+.pgl-footer__grid h2 { margin: 0 0 4px; color: var(--pg-on-navy); font-size: 0.8rem; letter-spacing: 0.04em; }
+.pgl-footer__grid nav a { color: color-mix(in srgb, var(--pg-on-navy) 62%, transparent); font-size: 0.8rem; text-decoration: none; }
+.pgl-footer__grid nav a:hover { color: var(--pg-on-navy); }
+.pgl-footer__news { width: 100%; max-width: 380px; display: grid; gap: 6px; }
+.pgl-footer__news small { color: color-mix(in srgb, var(--pg-on-navy) 58%, transparent); font-size: 0.8rem; }
+.pgl-footer__news form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 5px 5px 16px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--pg-on-navy) 16%, transparent);
+  background: color-mix(in srgb, var(--pg-on-navy) 5%, transparent);
+}
+.pgl-footer__news form:focus-within { border-color: color-mix(in srgb, var(--pg-on-navy) 40%, transparent); }
+.pgl-footer__news input { flex: 1; min-width: 0; height: 36px; border: 0; background: transparent; color: var(--pg-on-navy); font: 400 0.8rem/1 var(--pg-font); outline: none; }
+.pgl-footer__news input::placeholder { color: color-mix(in srgb, var(--pg-on-navy) 45%, transparent); }
+.pgl-footer__news button {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--pg-blue);
+  color: var(--pg-on-accent);
+  cursor: pointer;
+}
+.pgl-footer__news button:disabled { opacity: 0.6; }
+.pgl-footer__news button svg { width: 16px; height: 16px; }
+.pgl-footer__news p { font-size: 0.75rem !important; }
+.pgl-footer__news p[data-tone="ok"] { color: #86efac !important; }
+.pgl-footer__news p[data-tone="err"] { color: #fca5a5 !important; }
+.pgl-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: clamp(30px, 5vw, 56px);
+  padding-block: 22px;
+  border-top: 1px solid color-mix(in srgb, var(--pg-on-navy) 12%, transparent);
+  color: color-mix(in srgb, var(--pg-on-navy) 42%, transparent);
+  font-size: 0.8rem;
+}
+.pgl-footer__bottom a { color: inherit; text-decoration: none; }
+.pgl-footer__top { display: inline-flex; align-items: center; gap: 7px; color: var(--pg-accent-on-dark) !important; text-decoration: none; }
+.pgl-footer__top svg { width: 14px; height: 14px; }
+
+/* ──────────────────────────────────────────────────── дотоод хуудсууд */
+
+/* Хуудасны hero — зүүн талд бичвэр, баруун талд дүрслэл. */
+.pgl-page-hero { overflow: hidden; padding-block: clamp(36px, 6vw, 72px) clamp(40px, 6vw, 72px); }
+.pgl-page-hero__inner { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.pgl-page-hero__copy { display: grid; gap: 18px; justify-items: start; }
+.pgl-page-hero__copy .pgl-lede { max-width: 58ch; }
+.pgl-page-hero__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.pgl-page-hero__visual { position: relative; }
+.pgl-page-hero__visual > img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--pgl-radius-panel); box-shadow: var(--pgl-shadow-lg); border: 1px solid var(--pg-line); }
+/* Тунгалаг дэвсгэртэй бүтээгдэхүүний зураг: самбар хэвээр, тоолуур бүтнээрээ (тайрахгүй) */
+.pgl-page-hero__visual > img.is-product { object-fit: contain; padding: clamp(20px, 4vw, 40px); background: radial-gradient(120% 90% at 30% 15%, #ffffff 0%, #dcebff 45%, #a9cdf7 100%); }
+.pgl-page-hero--center .pgl-page-hero__inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+.pgl-page-hero--center .pgl-page-hero__copy { justify-items: center; max-width: 64ch; }
+.pgl-page-hero--center .pgl-page-hero__copy .pgl-lede { text-align: center; }
+.pgl-kicker { display: inline-flex; align-items: center; gap: 10px; color: var(--pg-blue); font-size: var(--pgl-fs-small); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.pgl-kicker span { width: 8px; height: 8px; border-radius: 50%; background: var(--pg-blue); box-shadow: 0 0 0 4px var(--pg-accent-soft); }
+
+/* Хэсэг: нэг босоо хэмнэл; цайвар хөх дэвсгэр нь тунгалаг тул Aurora ард нь харагдана. */
+.pgl-section { padding-block: var(--pgl-section-y); }
+.pgl-section--sky { background: var(--pgl-sky-veil); }
+.pgl-section--tight { padding-block: var(--pgl-section-y-tight); }
+
+/* Онцлог картуудын тор — нэг картын гэр бүл. */
+.pgl-feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pgl-gap); }
+.pgl-feature-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.pgl-feature-grid--4 { grid-template-columns: repeat(4, 1fr); }
+.pgl-feature-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: var(--pgl-card-pad);
+  border-radius: var(--pgl-radius);
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+  box-shadow: var(--pgl-shadow);
+  color: inherit;
+  text-decoration: none;
+}
+.pgl-feature-card > span.pgl-feature-card__num { position: absolute; right: 18px; top: 18px; color: var(--pg-muted); font: 600 var(--pgl-fs-small)/1 var(--pg-font); font-variant-numeric: tabular-nums; }
+.pgl-feature-card h3 { font-size: var(--pgl-fs-h3); line-height: var(--pgl-lh-sub); }
+.pgl-feature-card p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); }
+.pgl-feature-card .pgl-figure { font: var(--pgl-w-head) var(--pgl-fs-stat)/1 var(--pg-font); letter-spacing: var(--pgl-ls-head); font-variant-numeric: tabular-nums; }
+.pgl-feature-card .pgl-figure em { font-style: normal; font-size: 0.5em; color: var(--pg-muted); margin-left: 4px; }
+.pgl-feature-card--navy { background: radial-gradient(120% 90% at 85% -10%, color-mix(in srgb, var(--pg-blue) 40%, var(--pg-navy)) 0%, var(--pg-navy) 50%, var(--pg-navy-3) 100%); border-color: var(--pg-navy); color: var(--pg-on-navy); --pgl-spot: color-mix(in srgb, var(--pg-on-navy) 8%, transparent); }
+.pgl-feature-card--navy h3 { color: var(--pg-on-navy); }
+.pgl-feature-card--navy p { color: color-mix(in srgb, var(--pg-on-navy) 70%, transparent); }
+.pgl-feature-card--navy .pgl-feature-card__num { color: var(--pg-accent-on-dark); }
+.pgl-feature-card .pgl-icon--3d { margin: -2px 0 4px; }
+a.pgl-feature-card { transition: box-shadow 0.3s var(--pgl-ease); }
+a.pgl-feature-card:hover { box-shadow: var(--pgl-shadow-lg); }
+.pgl-feature-card .pgl-role__action { padding-top: 6px; }
+
+/* Шалгах жагсаалт. */
+.pgl-check-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.pgl-check-list li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--pg-white); border: 1px solid var(--pg-line); font-size: 0.9rem; line-height: 1.5; }
+.pgl-check-list svg { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; color: var(--pg-green); }
+.pgl-check-list--onnavy li { background: color-mix(in srgb, var(--pg-on-navy) 7%, transparent); border-color: color-mix(in srgb, var(--pg-on-navy) 12%, transparent); color: var(--pg-on-navy); }
+.pgl-check-list--onnavy svg { color: var(--pg-accent-on-dark); }
+
+/* Дугаарласан мөрүүд (зарчим, эрх). */
+.pgl-numbered { display: grid; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--pg-line); }
+.pgl-numbered li { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--pg-line); font-size: 0.95rem; line-height: 1.55; }
+.pgl-numbered li > span:first-child { flex: 0 0 auto; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: var(--pg-blue); background: var(--pg-accent-soft); font: 600 0.75rem/1 var(--pg-font); }
+.pgl-numbered--onnavy { border-color: color-mix(in srgb, var(--pg-on-navy) 12%, transparent); }
+.pgl-numbered--onnavy li { border-color: color-mix(in srgb, var(--pg-on-navy) 12%, transparent); color: var(--pg-on-navy); }
+.pgl-numbered--onnavy li > span:first-child { color: var(--pg-navy); background: var(--pg-white); }
+
+/* Хоёр баганат зураг + бичвэр. */
+.pgl-split { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(30px, 5vw, 76px); align-items: center; }
+.pgl-split--reverse > figure { order: -1; }
+.pgl-split figure { margin: 0; overflow: hidden; border-radius: var(--pgl-radius); box-shadow: var(--pgl-shadow-lg); }
+.pgl-split figure img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.pgl-split__copy { display: grid; justify-items: start; gap: 18px; }
+.pgl-split__copy h2 { font-size: var(--pgl-fs-h2); font-weight: var(--pgl-w-head); line-height: var(--pgl-lh-head); letter-spacing: var(--pgl-ls-head); }
+.pgl-split__copy h2 em { display: block; color: var(--pg-blue); font-style: normal; }
+.pgl-split__copy > p { color: var(--pg-muted); font-size: var(--pgl-fs-text); line-height: 1.75; }
+.pgl-split__copy .pgl-numbered { width: 100%; }
+
+/* Том статистик мөр. */
+.pgl-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pgl-gap); margin: 0; }
+.pgl-stats div { position: relative; display: grid; gap: 6px; padding: var(--pgl-card-pad); border-radius: var(--pgl-radius); background: var(--pg-white); border: 1px solid var(--pg-line); box-shadow: var(--pgl-shadow); }
+.pgl-stats dt { order: 2; color: var(--pg-muted); font-size: var(--pgl-fs-small); line-height: 1.5; }
+.pgl-stats dd { margin: 0; font: var(--pgl-w-head) var(--pgl-fs-stat)/1 var(--pg-font); letter-spacing: var(--pgl-ls-head); font-variant-numeric: tabular-nums; }
+.pgl-stats dd em { font-style: normal; font-size: 0.45em; color: var(--pg-muted); margin-left: 4px; }
+.pgl-stats small { order: 3; color: var(--pg-muted); font-size: 0.72rem; }
+
+/* Замын зураг (roadmap). */
+.pgl-roadmap { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; align-items: start; }
+.pgl-roadmap__live { display: grid; gap: 16px; padding: clamp(22px, 2.4vw, 30px); border-radius: var(--pgl-radius); color: var(--pg-on-navy); background: var(--pg-navy); }
+.pgl-roadmap__live small { color: color-mix(in srgb, var(--pg-on-navy) 55%, transparent); font-size: 0.8rem; line-height: 1.6; }
+.pgl-roadmap__phases { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.pgl-roadmap__phase {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+}
+.pgl-roadmap__phase.is-active { border-color: var(--pg-blue); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pg-blue) 12%, transparent); }
+.pgl-roadmap__num { font: 600 2rem/1 var(--pg-font); letter-spacing: -0.03em; color: var(--pg-line-strong); }
+.pgl-roadmap__phase.is-active .pgl-roadmap__num { color: var(--pg-blue); }
+.pgl-roadmap__phase > div { display: grid; gap: 6px; }
+.pgl-roadmap__phase header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.pgl-roadmap__phase h3 { margin: 0; font-size: 1.05rem; }
+.pgl-roadmap__phase h3 span { color: var(--pg-muted); font-weight: 600; margin-right: 6px; }
+.pgl-roadmap__phase.is-active h3 span { color: var(--pg-blue); }
+.pgl-roadmap__phase p { margin: 0; font-size: 0.85rem; line-height: 1.6; }
+.pgl-roadmap__phase p.pgl-muted { color: var(--pg-muted); font-size: 0.8rem; }
+.pgl-roadmap__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pgl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--pg-line);
+  background: var(--pg-white);
+  color: var(--pg-ink);
+  font: 600 0.72rem/1.2 var(--pg-font);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.pgl-chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--pg-green); }
+.pgl-chip--muted { color: var(--pg-muted); background: var(--pg-soft); }
+.pgl-chip--blue { color: var(--pg-blue); background: var(--pg-accent-soft); border-color: transparent; }
+button.pgl-chip { cursor: pointer; }
+button.pgl-chip[aria-pressed="true"] { background: var(--pg-ink); border-color: var(--pg-ink); color: var(--pg-white); }
+.pgl-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Багтаамжийн картууд (rollout). */
+.pgl-capacity { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; align-items: stretch; }
+.pgl-capacity__intro { display: grid; align-content: start; gap: 14px; padding: clamp(22px, 2.4vw, 30px); border-radius: var(--pgl-radius); background: var(--pg-white); border: 1px solid var(--pg-line); box-shadow: var(--pgl-shadow); }
+.pgl-capacity__intro h3 { margin: 0; font-size: 1.25rem; }
+.pgl-capacity__intro p { color: var(--pg-muted); font-size: 0.85rem; line-height: 1.65; }
+.pgl-capacity__box { display: grid; gap: 12px; padding: 12px; border-radius: var(--pgl-radius); background: var(--pgl-sky-deep); border: 1px solid var(--pg-line); }
+.pgl-capacity__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pgl-capacity__card { display: grid; align-content: start; gap: 10px; padding: 20px; border-radius: 16px; background: var(--pg-white); box-shadow: var(--pgl-shadow); }
+.pgl-capacity__card .pgl-tag { justify-self: start; }
+.pgl-capacity__card .pgl-num { font: 600 clamp(1.953rem, 3vw, 2.441rem)/1 var(--pg-font); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.pgl-capacity__card .pgl-num + small { color: var(--pg-muted); font-size: 0.8rem; }
+.pgl-capacity__card ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; border-top: 1px solid var(--pg-line); padding-top: 12px; }
+.pgl-capacity__card li { display: flex; gap: 8px; font-size: 0.8rem; color: var(--pg-muted); line-height: 1.5; }
+.pgl-capacity__card li::before { content: ""; flex: 0 0 auto; width: 6px; height: 6px; margin-top: 7px; border-radius: 50%; background: var(--pg-blue); }
+.pgl-capacity__card .pgl-threshold { padding: 10px 12px; border-radius: 12px; background: var(--pg-soft); color: var(--pg-ink); font-size: 0.78rem; font-weight: 600; }
+.pgl-capacity__card .pgl-pill { margin-top: auto; }
+
+/* Зураг + гарчиг бүхий карт (туршлага, мэдлэг, бусад модуль). */
+.pgl-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.pgl-cards--2 { grid-template-columns: repeat(2, 1fr); }
+.pgl-cards--4 { grid-template-columns: repeat(4, 1fr); }
+.pgl-cards--5 { grid-template-columns: repeat(5, 1fr); }
+.pgl-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 10px;
+  border-radius: var(--pgl-radius);
+  background: var(--pg-white);
+  border: 1px solid var(--pg-line);
+  box-shadow: var(--pgl-shadow);
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 0.3s var(--pgl-ease);
+}
+a.pgl-card:hover { box-shadow: var(--pgl-shadow-lg); }
+.pgl-card img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; }
+.pgl-card--portrait img { aspect-ratio: 4 / 5; }
+.pgl-card__body { display: grid; gap: 8px; padding: 6px 10px 12px; }
+.pgl-card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--pg-muted); font-size: 0.75rem; font-weight: 600; }
+.pgl-card h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -0.01em; }
+.pgl-card p { margin: 0; color: var(--pg-muted); font-size: 0.8rem; line-height: 1.6; }
+.pgl-card--plain { padding: clamp(22px, 2.4vw, 30px); gap: 14px; }
+.pgl-card--plain h3 { font-size: 1.25rem; }
+.pgl-card--navy { background: var(--pg-navy); border-color: var(--pg-navy); color: var(--pg-on-navy); }
+.pgl-card--navy h3 { color: var(--pg-on-navy); }
+.pgl-card--navy p { color: color-mix(in srgb, var(--pg-on-navy) 68%, transparent); }
+
+/* Нийтлэл. */
+.pgl-prose { max-width: 760px; margin-inline: auto; display: grid; gap: 22px; }
+.pgl-prose h2 { margin: 18px 0 0; font-size: clamp(1.5625rem, 3vw, 1.953rem); font-weight: var(--pgl-w-head); line-height: 1.15; letter-spacing: var(--pgl-ls-head); }
+.pgl-prose p { margin: 0; color: var(--pg-muted); font-size: 1rem; line-height: 1.8; }
+.pgl-prose p.pgl-prose__lead { color: var(--pg-ink); font-size: 1.125rem; }
+.pgl-prose figure { margin: 10px 0; overflow: hidden; border-radius: var(--pgl-radius); box-shadow: var(--pgl-shadow-lg); }
+.pgl-prose figure img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.pgl-prose blockquote { margin: 10px 0; padding: clamp(22px, 3vw, 34px); border-radius: var(--pgl-radius); background: var(--pg-navy); color: var(--pg-on-navy); display: grid; gap: 12px; }
+.pgl-prose blockquote p { color: var(--pg-on-navy); font-size: 1.125rem; font-weight: 600; line-height: 1.5; }
+.pgl-prose blockquote cite { color: color-mix(in srgb, var(--pg-on-navy) 55%, transparent); font-style: normal; font-size: 0.8rem; }
+.pgl-prose .pgl-numbered li { color: var(--pg-muted); }
+.pgl-prose .pgl-numbered strong { color: var(--pg-ink); }
+.pgl-prose--wide { max-width: 880px; }
+.pgl-prose__head { display: grid; gap: 14px; justify-items: start; }
+.pgl-prose__head h1 { margin: 0; color: var(--pg-navy); font-size: var(--pgl-fs-h1-page); font-weight: var(--pgl-w-display); line-height: var(--pgl-lh-display); letter-spacing: var(--pgl-ls-display); }
+.pgl-prose__head h1 em { color: var(--pg-blue); font-style: normal; }
+.pgl-prose a { color: var(--pg-blue); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Хүснэгт (хэн юуг харах вэ). */
+.pgl-table-wrap { overflow: hidden; border-radius: var(--pgl-radius); background: var(--pg-white); border: 1px solid var(--pg-line); box-shadow: var(--pgl-shadow); }
+.pgl-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.pgl-table th { padding: 14px 20px; text-align: start; color: var(--pg-muted); font: 600 0.72rem/1.2 var(--pg-font); letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid var(--pg-line); background: var(--pg-soft); }
+.pgl-table td { padding: 15px 20px; border-bottom: 1px solid var(--pg-line); vertical-align: top; color: var(--pg-muted); line-height: 1.5; }
+.pgl-table tr:last-child td { border-bottom: 0; }
+.pgl-table td:first-child { color: var(--pg-ink); font-weight: 600; }
+.pgl-table-cards { display: none; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.pgl-table-cards li { display: grid; gap: 8px; padding: 16px 18px; border-radius: 16px; background: var(--pg-white); border: 1px solid var(--pg-line); }
+.pgl-table-cards h3 { margin: 0; font-size: 1rem; }
+.pgl-table-cards dl { display: grid; gap: 6px; margin: 0; font-size: 0.8rem; }
+.pgl-table-cards dl div { display: flex; justify-content: space-between; gap: 12px; padding-top: 6px; border-top: 1px solid var(--pg-line); }
+.pgl-table-cards dt { color: var(--pg-muted); }
+.pgl-table-cards dd { margin: 0; text-align: end; }
+
+/* Navy тайз бүхий хэсэг (иргэний эрх). */
+.pgl-navy { color: var(--pg-on-navy); background: var(--pg-navy); }
+.pgl-navy h2 { color: var(--pg-on-navy); }
+.pgl-navy .pgl-split__copy > p { color: color-mix(in srgb, var(--pg-on-navy) 70%, transparent); }
+
+/* Хуудасны төгсгөлийн уриалга. */
+.pgl-page-cta {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--pgl-section-y);
+  color: var(--pg-on-navy);
+  background: radial-gradient(90% 120% at 90% 120%, color-mix(in srgb, var(--pg-blue) 48%, var(--pg-navy)) 0%, var(--pg-navy) 55%, var(--pg-navy-3) 100%);
+  --pgl-word-dim: color-mix(in srgb, var(--pg-on-navy) 30%, transparent);
+}
+.pgl-page-cta .pgl-container { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+.pgl-page-cta .pgl-container > div:first-child { display: grid; gap: 12px; }
+.pgl-page-cta h2 { color: var(--pg-on-navy); max-width: 22ch; }
+.pgl-page-cta p,
+.pgl-page-cta .pgl-lede { max-width: 58ch; color: color-mix(in srgb, var(--pg-on-navy) 74%, transparent); }
+.pgl-page-cta__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Багийн картын тайлбар. */
+.pgl-team-card { position: relative; overflow: hidden; border-radius: var(--pgl-radius); box-shadow: var(--pgl-shadow); aspect-ratio: 4 / 5; }
+.pgl-team-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pgl-team-card div { position: absolute; left: 10px; right: 10px; bottom: 10px; display: grid; gap: 2px; padding: 12px 14px; border-radius: 14px; background: var(--pgl-glass); border: 1px solid var(--pgl-glass-line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.pgl-team-card span { color: var(--pg-muted); font: 600 0.72rem/1 var(--pg-font); }
+.pgl-team-card h3 { margin: 0; font-size: 0.95rem; }
+.pgl-team-card small { color: var(--pg-muted); font-size: 0.75rem; }
+
+/* 404 */
+.pgl-404 { min-height: 70vh; display: grid; place-items: center; text-align: center; padding-block: clamp(50px, 8vw, 100px); }
+.pgl-404 > div { display: grid; justify-items: center; gap: 16px; }
+.pgl-404 b { font: 700 clamp(4rem, 14vw, 9rem)/1 var(--pg-font); letter-spacing: -0.04em; color: color-mix(in srgb, var(--pg-blue) 18%, transparent); }
+.pgl-404 h1 { margin: 0; font-size: var(--pgl-fs-h2); font-weight: var(--pgl-w-head); letter-spacing: var(--pgl-ls-head); }
+.pgl-404 p { color: var(--pg-muted); max-width: 44ch; line-height: 1.7; }
+
+/* ───────────────────────────────────────────────────────────── хөдөлгөөн */
+
+/* Lenis — инерцтэй гүйлгээ (AppProvidersWrapper нэг удаа асаана). */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* Aurora — агуулгын ард удаан хөвөх гурван том хөх гэрлийн толбо. */
+.pgl-aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.pgl-aurora i { position: absolute; display: block; width: 48vw; height: 48vw; min-width: 460px; min-height: 460px; border-radius: 50%; will-change: transform; }
+.pgl-aurora i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--pg-blue) 26%, transparent) 0%, color-mix(in srgb, var(--pg-blue) 9%, transparent) 45%, transparent 70%);
+  filter: blur(70px);
+  animation: pgl-drift 24s ease-in-out infinite alternate;
+}
+.pgl-aurora i:nth-child(1) { left: -14vw; top: 4vh; transform: translate3d(calc(var(--pgl-sy, 0) * 0.02px), calc(var(--pgl-sy, 0) * 0.03px), 0); }
+.pgl-aurora i:nth-child(2) { right: -16vw; top: 30vh; transform: translate3d(calc(var(--pgl-sy, 0) * -0.02px), calc(var(--pgl-sy, 0) * -0.05px), 0); }
+.pgl-aurora i:nth-child(2)::after { animation-delay: -9s; animation-duration: 30s; }
+.pgl-aurora i:nth-child(3) { left: 28vw; bottom: -36vh; transform: translate3d(calc(var(--pgl-sy, 0) * 0.015px), calc(var(--pgl-sy, 0) * -0.02px), 0); }
+.pgl-aurora i:nth-child(3)::after { animation-delay: -16s; animation-duration: 36s; }
+@keyframes pgl-drift {
+  from { transform: translate3d(-4%, -3%, 0) scale(0.94); }
+  to { transform: translate3d(5%, 4%, 0) scale(1.08); }
+}
+
+/* Илрэлт — хэсэг дэлгэцэнд ороход. Класс солигдоно, шилжилт энд. */
+.pgl-reveal { --pgl-delay: 0ms; }
+.pgl-reveal--fade,
+.pgl-reveal--fade-up,
+.pgl-reveal--rise {
+  opacity: 0;
+  transition: opacity var(--pgl-dur-reveal) var(--pgl-ease) var(--pgl-delay), transform var(--pgl-dur-reveal) var(--pgl-ease) var(--pgl-delay);
+  will-change: opacity, transform;
+}
+.pgl-reveal--fade-up { transform: translateY(18px); }
+.pgl-reveal--rise { transform: translateY(40px) scale(0.985); transition-duration: var(--pgl-dur-rise); transition-timing-function: var(--pgl-ease-rise); }
+.pgl-reveal.is-in { opacity: 1; transform: none; will-change: auto; }
+/* Ээлжлэн илрэх хүүхдүүд: `translate` ашиглана — `transform`-ыг tilt эзэмшдэг. */
+.pgl-reveal.pgl-stagger { opacity: 1; transform: none; transition: none; will-change: auto; }
+.pgl-stagger > * { opacity: 0; translate: 0 18px; transition: opacity 650ms var(--pgl-ease) var(--pgl-delay), translate 650ms var(--pgl-ease) var(--pgl-delay); }
+.pgl-stagger.is-in > * { opacity: 1; translate: 0 0; }
+.pgl-stagger.is-in > :nth-child(2) { transition-delay: calc(var(--pgl-delay) + 70ms); }
+.pgl-stagger.is-in > :nth-child(3) { transition-delay: calc(var(--pgl-delay) + 140ms); }
+.pgl-stagger.is-in > :nth-child(4) { transition-delay: calc(var(--pgl-delay) + 210ms); }
+.pgl-stagger.is-in > :nth-child(5) { transition-delay: calc(var(--pgl-delay) + 280ms); }
+.pgl-stagger.is-in > :nth-child(6) { transition-delay: calc(var(--pgl-delay) + 350ms); }
+.pgl-stagger.is-in > :nth-child(n + 7) { transition-delay: calc(var(--pgl-delay) + 420ms); }
+
+/* Гарчгийн үгс: бүдгээс бэх рүү, гүйлгээтэй уялдан. */
+.pgl-w { --wp: 1; display: inline-block; color: color-mix(in srgb, currentColor calc(var(--wp) * 100%), var(--pgl-word-dim)); transition: color 160ms linear; }
+
+/* Эхний дэлгэцийн орж ирэх хөдөлгөөн (hero, хуудасны hero). */
+.pgl-enter > * { animation: pgl-enter 900ms var(--pgl-ease-rise) backwards; }
+.pgl-enter > :nth-child(1) { animation-delay: 80ms; }
+.pgl-enter > :nth-child(2) { animation-delay: 180ms; }
+.pgl-enter > :nth-child(3) { animation-delay: 280ms; }
+.pgl-enter > :nth-child(4) { animation-delay: 380ms; }
+.pgl-enter > :nth-child(n + 5) { animation-delay: 480ms; }
+.pgl-enter--late > * { animation-delay: 360ms; }
+.pgl-hero__art { animation: pgl-enter-art 1200ms var(--pgl-ease-rise) 200ms backwards; }
+@keyframes pgl-enter {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pgl-enter-art {
+  from { opacity: 0; translate: 24px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Карт заагч руу налах (perspective tilt) ба заагчийн доорх гэрлийн толбо. */
+.pgl [data-tilt] {
+  position: relative;
+  transform: perspective(1100px) rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg)) translateY(var(--lift, 0px));
+  transform-style: preserve-3d;
+  transition: transform 600ms var(--pgl-ease), box-shadow 350ms var(--pgl-ease), border-color 350ms var(--pgl-ease), background 350ms var(--pgl-ease);
+}
+.pgl [data-tilt].is-tilting { transition-duration: 140ms, 350ms, 350ms, 350ms; }
+.pgl [data-tilt]:hover { --lift: -4px; }
+.pgl [data-tilt]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), var(--pgl-spot), transparent 70%);
+  opacity: 0;
+  transition: opacity 350ms var(--pgl-ease);
+  pointer-events: none;
+}
+.pgl [data-tilt].is-tilting::after { opacity: 1; }
+
+
+/* ──────────────────────────────────────────────────────────── дэлгэцүүд */
+
+@media (max-width: 1100px) {
+  .pgl-nav__links { display: none; }
+  .pgl-bento__grid { grid-template-columns: 1fr; }
+  .pgl-bento__lead-copy { max-width: 62%; }
+  .pgl-bento__orb { right: 3%; width: 32%; max-width: 260px; }
+  .pgl-trust__grid { grid-template-columns: 1fr; }
+  .pgl-trust__features { grid-template-columns: repeat(2, 1fr); }
+  .pgl-roles__grid { grid-template-columns: repeat(2, 1fr); }
+  .pgl-footer__grid { grid-template-columns: 1fr 1fr; }
+  .pgl-flow-rail { grid-template-columns: repeat(3, 1fr); }
+  .pgl-flow-step__line { display: none; }
+  .pgl-feature-grid,
+  .pgl-feature-grid--4,
+  .pgl-cards,
+  .pgl-cards--4 { grid-template-columns: repeat(2, 1fr); }
+  .pgl-cards--5 { grid-template-columns: repeat(3, 1fr); }
+  .pgl-roadmap,
+  .pgl-capacity { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .pgl-nav__wide { display: none; }
+  .pgl-nav__burger { display: grid; }
+  .pgl-about__grid,
+  .pgl-report__grid,
+  .pgl-contact__grid,
+  .pgl-split,
+  .pgl-page-hero__inner,
+  .pgl-head--split { grid-template-columns: 1fr; }
+  .pgl-head--split { gap: var(--pgl-head-gap); }
+  .pgl-about__figure { order: -1; }
+  .pgl-split--reverse > figure { order: 0; }
+  .pgl-trust__slides { grid-template-columns: 1fr; }
+  .pgl-slide { min-height: 240px; }
+  /* Нарийн дэлгэцэнд тоолуур бичвэрийн ард биш, доор нь — бичвэр зургийн доогуур гүйхгүй. */
+  .pgl-bento__lead { display: flex; flex-direction: column; min-height: 0; }
+  .pgl-bento__lead-copy { max-width: 100%; order: 1; padding-bottom: 0; }
+  .pgl-bento__orb { position: static; order: 2; transform: none; width: 52%; max-width: 240px; margin: -24px 6% 0 auto; }
+  .pgl-bento__wide { grid-template-columns: 1fr; }
+  .pgl-bento__device { height: 210px; justify-self: start; }
+  .pgl-trust__map { min-height: 380px; }
+  .pgl-trust__pills { position: static; grid-auto-flow: row; margin-bottom: 14px; }
+  .pgl-stats { grid-template-columns: 1fr; }
+  .pgl-table-wrap { display: none; }
+  .pgl-table-cards { display: grid; }
+  .pgl-capacity__cards { grid-template-columns: 1fr; }
+  .pgl-page-cta .pgl-container { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 620px) {
+  .pgl-trust__features,
+  .pgl-roles__grid,
+  .pgl-footer__grid,
+  .pgl-feature-grid,
+  .pgl-feature-grid--2,
+  .pgl-feature-grid--4,
+  .pgl-cards,
+  .pgl-cards--2,
+  .pgl-cards--4,
+  .pgl-cards--5,
+  .pgl-flow-rail,
+  .pgl-contact__two { grid-template-columns: 1fr; }
+  .pgl-about__traits li { max-width: none; }
+  .pgl-about__stats { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .pgl-head__main h2, .pgl-head--center .pgl-head__main h2 { max-width: none; }
+  .pgl-footer__bottom { flex-direction: column; align-items: flex-start; }
+  .pgl-roadmap__phase { grid-template-columns: 1fr; }
+  .pgl-roadmap__num { font-size: 1.5rem; }
+  .pgl-page-hero__actions .pgl-pill,
+  .pgl-page-cta__actions .pgl-pill { width: 100%; }
+  .pgl-page-hero__actions,
+  .pgl-page-cta__actions { width: 100%; flex-direction: column; }
+}
+
+/* Хөдөлгөөн багасгах: юу ч гүйхгүй, нуугдахгүй, налахгүй — агуулга шууд харагдана. */
+@media (prefers-reduced-motion: reduce) {
+  .pgl-reveal,
+  .pgl-stagger > * { opacity: 1 !important; transform: none !important; translate: none !important; transition: none !important; }
+  .pgl-enter > *,
+  .pgl-hero__art,
+  .pgl-aurora i::after { animation: none !important; }
+  .pgl [data-tilt] { transform: none !important; transition: none !important; }
+  .pgl [data-tilt]::after { display: none; }
+  .pgl-w { color: inherit !important; transition: none; }
+  .pgl-slide:hover img,
+  .pgl-pill:hover,
+  .pgl-pill:hover svg,
+  .pgl-textlink:hover svg,
+  .pgl-role:hover .pgl-role__action svg,
+  .pgl-bento__side:hover .pgl-bento__go,
+  .pgl-bento__wide:hover .pgl-bento__go { transform: none !important; }
+  .pgl-stage img,
+  .pgl-bento__shot,
+  .pgl-bento__device img { transform: none !important; }
+}
