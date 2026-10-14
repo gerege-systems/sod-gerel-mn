@@ -1,7 +1,7 @@
-import module1 from '@/assets/images/platform/smart-meter.jpg'
+import meter from '@zasvar/bento-meter.webp'
 import { useLang, type Text } from '@/i18n/context'
-import PillButton from '@/components/PillButton'
-import SectionMeta from '@/components/SectionMeta'
+import { PageHero, Pill } from '@/components/site/ui'
+import FlowRail from '@/components/site/FlowRail'
 
 const componentsData: Text[] = [
   { mn: 'HES адаптер (DLMS/COSEM, TEAMI)', en: 'HES adapters (DLMS/COSEM, TEAMI)' },
@@ -21,51 +21,42 @@ const PlatformHero = () => {
   const { t } = useLang()
 
   return (
-    <section className="relative size-full overflow-hidden py-10 md:py-14.5">
-      <div className="container">
-        <SectionMeta left={t('Платформ', 'Platform')} right="PowerGrid" className="mb-10 md:mb-14" />
-        <div className="grid gap-12 lg:grid-cols-5 lg:gap-20">
-          <div className="lg:col-span-3">
-            <div className="flex h-full flex-col gap-10 lg:gap-16">
-              <div>
-                <h1 className="display mixed mb-6">
-                  <b>{t('Хэмжилтийн өгөгдлийн', 'Metering data')}</b> {t('платформ', 'platform')}
-                  <span className="accent">.</span>
-                </h1>
-                <p className="max-w-[36rem]">
-                  {t(
-                    'PowerGrid тоолуурын заалтыг эх төхөөрөмжөөс авч, хадгалж, баталгаажуулж, дахин гаргаж үзүүлэх баталгаатай урсгалыг бүрдүүлнэ. Төлбөр ба хэрэглэгчийн үйлчилгээ энэ баталгаатай өгөгдөл дээр нэмэгдэнэ. Модуль бүр тусдаа хариуцлагатай, тусдаа тестээр нотлогдож, үе шаттайгаар нэвтэрнэ.',
-                    'PowerGrid builds a verified flow that takes each meter reading from its source device, stores it, validates it and can reproduce it on demand. Billing and customer services are added on top of this verified data. Every module has its own responsibility, is proven by its own tests, and is rolled out in phases.',
-                  )}
-                </p>
-                <div className="mt-9">
-                  <PillButton to="/contact" variant="dark">
-                    {t('Туршилт эхлүүлэх', 'Start a pilot')}
-                  </PillButton>
-                </div>
-              </div>
-              <div className="mt-auto">
-                <h2 className="meta mb-4">{t('Платформын бүрэлдэхүүн', 'Platform components')}</h2>
-                <div className="flex flex-wrap items-center gap-2">
-                  {componentsData.map((component, index) => (
-                    <span key={index} className="chip">
-                      {t(component)}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="lg:col-span-2">
-            <img
-              className="rounded-card size-full object-cover"
-              src={module1}
-              alt={t('Хэмжилтийн өгөгдлийн платформ', 'Metering data platform')}
-            />
+    <>
+      <PageHero
+        eyebrow={t('Платформ', 'Platform')}
+        title={t('Хэмжилтийн өгөгдлийн', 'The metering data')}
+        accent={t('платформ.', 'platform.')}
+        body={t(
+          'PowerGrid тоолуурын заалтыг эх төхөөрөмжөөс авч, хадгалж, баталгаажуулж, дахин гаргаж үзүүлэх баталгаатай урсгалыг бүрдүүлнэ. Төлбөр ба хэрэглэгчийн үйлчилгээ энэ баталгаатай өгөгдөл дээр нэмэгдэнэ. Модуль бүр тусдаа хариуцлагатай, тусдаа тестээр нотлогдож, үе шаттайгаар нэвтэрнэ.',
+          'PowerGrid builds a verified flow that takes each meter reading from its source device, stores it, validates it and can reproduce it on demand. Billing and customer services are added on top of this verified data. Every module has its own responsibility, is proven by its own tests, and is rolled out in phases.',
+        )}
+        actions={
+          <>
+            <Pill to="/contact" variant="solid">
+              {t('Туршилт эхлүүлэх', 'Start a pilot')}
+            </Pill>
+            <Pill to="/platform#roadmap" variant="ghost" icon={false}>
+              {t('Хаана явна', 'Where we are')}
+            </Pill>
+          </>
+        }
+      >
+        <img className="is-product" src={meter} alt={t('Ухаалаг цахилгааны тоолуур', 'A smart electricity meter')} width={628} height={760} />
+      </PageHero>
+
+      <section className="pgl-section pgl-section--tight">
+        <div className="pgl-container grid gap-6">
+          <FlowRail />
+          <div className="pgl-chips" aria-label={t('Платформын бүрэлдэхүүн', 'Platform components')}>
+            {componentsData.map((component) => (
+              <span key={component.en} className="pgl-chip">
+                {t(component)}
+              </span>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 

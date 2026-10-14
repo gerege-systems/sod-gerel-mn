@@ -1,6 +1,6 @@
-import { Icon } from '@iconify/react'
 import { useLang, type Text } from '@/i18n/context'
-import SectionMeta from '@/components/SectionMeta'
+import { SectionHeading, Tile } from '@/components/site/ui'
+import { icon3d } from '@/components/site/icons3d'
 
 type AdvantageType = {
   icon: string
@@ -10,7 +10,7 @@ type AdvantageType = {
 
 const advantagesData: AdvantageType[] = [
   {
-    icon: 'tabler:wifi-off',
+    icon: icon3d.completeness,
     title: { mn: 'Холбоо тасарсан ч алдагдахгүй', en: 'Survives lost connections' },
     body: {
       mn: 'Шалтгаанаас хамаарсан retry, exponential backoff, тусдаа backfill квот. 72 цагийн нөхөн таталтаар 99.9% бүрэн байдлыг зорьдог; сервер хадгалаагүй заалтыг «хүлээн авсан» гэж хэзээ ч хариулахгүй.',
@@ -18,7 +18,7 @@ const advantagesData: AdvantageType[] = [
     },
   },
   {
-    icon: 'tabler:receipt',
+    icon: icon3d.invoice,
     title: { mn: 'Тайлбарлагдах төлбөр', en: 'Billing you can explain' },
     body: {
       mn: 'Нэхэмжлэх бүр ашигласан заалт ба тарифын хувилбарыг заана. Төлбөрийн callback давтагдсан ч данс нэг удаа цэнэглэгдэнэ. Хоцорсон заалт хуучин нэхэмжлэхийг чимээгүй өөрчлөхгүй — засварын баримт үүснэ.',
@@ -26,7 +26,7 @@ const advantagesData: AdvantageType[] = [
     },
   },
   {
-    icon: 'tabler:user-shield',
+    icon: icon3d.customer,
     title: { mn: 'Иргэн өөрийн өгөгдлийн эзэн', en: 'Customers own their data' },
     body: {
       mn: 'Иргэн хэрэглээгээ татаж, банк, ESCO зэрэг гуравдагч талд хугацаатай зөвшөөрөл олгож, хүссэн үедээ цуцална. Цуцалмагц хандалт тэр даруй зогсоно.',
@@ -34,7 +34,7 @@ const advantagesData: AdvantageType[] = [
     },
   },
   {
-    icon: 'tabler:bolt-off',
+    icon: icon3d.monitoring,
     title: { mn: 'Тасралтыг хурдан илрүүлэх', en: 'Outages found faster' },
     body: {
       mn: 'Нэг фидерийн олон тоолуурын дохиоллыг нэг incident болгон бүлэглэнэ. Холбоо тасарсныг цахилгаан тасарсан гэж андуурахгүй; сэргэлтийг тоолуураас шалгаж батална.',
@@ -42,7 +42,7 @@ const advantagesData: AdvantageType[] = [
     },
   },
   {
-    icon: 'tabler:test-pipe',
+    icon: icon3d.certified,
     title: { mn: 'Нийцлийг нотолгоогоор', en: 'Compatibility by evidence' },
     body: {
       mn: 'Тоолуурыг «DLMS дэмждэг» гэсэн шошгоор бус, үйлдвэрлэгч, загвар, firmware, OBIS mapping тус бүрийн лабораторийн туршилтаар баталгаажуулна. Зөвхөн уншдаг тоолуурт таслах товч идэвхжихгүй.',
@@ -50,7 +50,7 @@ const advantagesData: AdvantageType[] = [
     },
   },
   {
-    icon: 'tabler:chart-dots-3',
+    icon: icon3d.kpi,
     title: { mn: 'Өдөр бүрийн хэмжигдэх KPI', en: 'KPIs measured every day' },
     body: {
       mn: 'D+1 бодит заалтын бүрэн байдал ≥99%, давхардсан төлбөр 0, худал VERIFIED команд 0, сэргэлт RPO ≤15 минут, RTO ≤4 цаг. Суурилуулсан, холбогдсон, төлбөрт бэлэн тоолуурыг тусад нь тоолно.',
@@ -63,34 +63,25 @@ const Advantages = () => {
   const { t } = useLang()
 
   return (
-    <section className="bg-stage py-15 md:py-25 lg:py-27.5">
-      <div className="container">
-        <SectionMeta left={t('Давуу тал', 'Why PowerGrid')} right="03 — 08" />
-        <div className="mx-auto mt-10 mb-12 max-w-[52rem] text-center lg:mt-14 lg:mb-16">
-          <h2 className="h-section mixed">
-            <b>{t('Дэлхийн шилдэг туршлагыг', "The world's best practice,")}</b>{' '}
-            {t('Монголд тохируулсан', 'fitted to Mongolia')}
-            <span className="accent">.</span>
-          </h2>
-          <p className="mx-auto mt-6 max-w-[34rem]">
-            {t(
-              'Нэг бүтээгдэхүүнийг хуулбарласангүй. Улс бүрээс хамгийн сайн шийдлийг нь авч, Монголын тариф, хууль, сүлжээнд тохируулан нэг платформд нэгтгэв.',
-              "We did not copy one product. We took the best answer from each country and fitted it to Mongolia's tariffs, laws and grid in one platform.",
-            )}
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+    <section className="pgl-section pgl-section--sky">
+      <div className="pgl-container">
+        <SectionHeading
+          align="center"
+          label={t('Давуу тал', 'WHY POWERGRID')}
+          title={t('Дэлхийн шилдэг туршлагыг Монголд тохируулсан', "The world's best practice, fitted to Mongolia")}
+          body={t(
+            'Нэг бүтээгдэхүүнийг хуулбарласангүй. Улс бүрээс хамгийн сайн шийдлийг нь авч, Монголын тариф, хууль, сүлжээнд тохируулан нэг платформд нэгтгэв.',
+            "We did not copy one product. We took the best answer from each country and fitted it to Mongolia's tariffs, laws and grid in one platform.",
+          )}
+        />
+        <div className="pgl-feature-grid">
           {advantagesData.map((item, index) => (
-            <div key={item.icon} className="card flex flex-col p-7 lg:p-8">
-              <div className="mb-8 flex items-start justify-between gap-4">
-                <div className="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-full">
-                  <Icon icon={item.icon} className="size-6" aria-hidden="true" />
-                </div>
-                <span className="meta">{String(index + 1).padStart(2, '0')} — 06</span>
-              </div>
-              <h3 className="mb-3 text-xl">{t(item.title)}</h3>
+            <article key={item.icon} className="pgl-feature-card" data-tilt>
+              <Tile image={item.icon} />
+              <span className="pgl-feature-card__num">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{t(item.title)}</h3>
               <p>{t(item.body)}</p>
-            </div>
+            </article>
           ))}
         </div>
       </div>
