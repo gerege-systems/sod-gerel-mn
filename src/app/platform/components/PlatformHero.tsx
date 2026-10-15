@@ -1,4 +1,4 @@
-import meter from '@zasvar/bento-meter.webp'
+import heroImage from '@zasvar/platform-hero.webp'
 import { useLang, type Text } from '@/i18n/context'
 import { PageHero, Pill } from '@/components/site/ui'
 import FlowRail from '@/components/site/FlowRail'
@@ -41,7 +41,7 @@ const PlatformHero = () => {
           </>
         }
       >
-        <img className="is-product" src={meter} alt={t('Ухаалаг цахилгааны тоолуур', 'A smart electricity meter')} width={628} height={760} />
+        <img src={heroImage} alt={t('Цасан тал дахь салхин цахилгаан станц ба нарны хавтан', 'Wind turbines and solar panels on snowy hills')} width={1600} height={900} fetchPriority="high" />
       </PageHero>
 
       <section className="pgl-section pgl-section--tight">

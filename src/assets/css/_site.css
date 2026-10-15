@@ -1036,6 +1036,14 @@
 .pgl-band .pgl-lede { max-width: 62ch; color: color-mix(in srgb, var(--pg-on-navy) 74%, transparent); }
 .pgl-band__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }
 .pgl-band small { color: color-mix(in srgb, var(--pg-on-navy) 52%, transparent); font-size: var(--pgl-fs-small); }
+/* Зургийн дэвсгэртэй navy хэсэг: зураг харагдах хэмжээнд navy бүрхүүл, бичвэр уншигдана. */
+.pgl-band.pgl-photo-bg,
+.pgl-page-cta.pgl-photo-bg {
+  background:
+    linear-gradient(100deg, color-mix(in srgb, var(--pg-navy) 94%, transparent) 0%, color-mix(in srgb, var(--pg-navy) 84%, transparent) 50%, color-mix(in srgb, var(--pg-navy) 62%, transparent) 100%),
+    var(--pgl-photo) center / cover no-repeat,
+    var(--pg-navy);
+}
 .pgl-band--quote blockquote { margin: 0; max-width: 64ch; }
 .pgl-band--quote blockquote p { color: var(--pg-on-navy); font-size: clamp(1.25rem, 2.4vw, 1.5625rem); font-weight: var(--pgl-w-sub); line-height: 1.35; letter-spacing: var(--pgl-ls-sub); }
 .pgl-band--quote cite { color: color-mix(in srgb, var(--pg-on-navy) 55%, transparent); font-style: normal; font-size: var(--pgl-fs-small); }

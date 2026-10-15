@@ -56,8 +56,8 @@ const Index = () => {
               <h1>{t('Нууцлалын бодлого', 'Privacy policy')}</h1>
               <p className="pgl-prose__lead">
                 {t(
-                  'Энэ бодлого нь PowerGrid-ийн танилцуулга сайтад хамаарна. PowerGrid систем дэх хэмжилтийн өгөгдлийн эрх, нууцлалын хамгаалалтыг «Эрх ба нууцлал» хуудаснаас үзнэ үү.',
-                  'This policy covers the PowerGrid information site. For how PowerGrid itself protects metering data, see the Access & privacy page.',
+                  'Энэ бодлого нь PowerGrid-ийн танилцуулга сайтад хамаарна. Ухаалаг тоолуурын платформ дахь хэмжилтийн өгөгдлийн эрх, нууцлалын хамгаалалтыг «Эрх ба нууцлал» хуудаснаас үзнэ үү.',
+                  'This policy covers the PowerGrid information site. For how the metering platform itself protects metering data, see the Access & privacy page.',
                 )}{' '}
                 <Link to="/trust">{t('Эрх ба нууцлал', 'Access & privacy')}</Link>
               </p>

@@ -1,4 +1,4 @@
-import detailsImage from '@/assets/images/platform/control-panel-team.jpg'
+import detailsImage from '@zasvar/platform-story.webp'
 import { useLang, type Text } from '@/i18n/context'
 import { Pill } from '@/components/site/ui'
 
@@ -18,7 +18,7 @@ const PlatformStory = () => {
       <div className="pgl-container">
         <div className="pgl-split pgl-split--reverse">
           <figure>
-            <img src={detailsImage} alt={t('PowerGrid платформ', 'PowerGrid platform')} width={1200} height={900} loading="lazy" decoding="async" />
+            <img src={detailsImage} alt={t('Дэд станц, цахилгаан дамжуулах шугам ба сэргээгдэх эрчим хүч', 'A substation, transmission lines and renewable energy')} width={1600} height={900} loading="lazy" decoding="async" />
           </figure>
           <div className="pgl-split__copy">
             <span className="pgl-tag">{t('Таван зарчим', 'FIVE PRINCIPLES')}</span>

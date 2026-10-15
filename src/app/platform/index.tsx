@@ -2,6 +2,9 @@ import PageMeta from '@/components/PageMeta'
 import SiteShell from '@/components/site/SiteShell'
 import Reveal from '@/components/site/Reveal'
 import { PageCta, Pill } from '@/components/site/ui'
+import type { CSSProperties } from 'react'
+import quoteImage from '@zasvar/platform-quote.webp'
+import ctaImage from '@zasvar/platform-cta.webp'
 import { useLang } from '@/i18n/context'
 import PlatformHero from './components/PlatformHero'
 import PlatformStory from './components/PlatformStory'
@@ -28,7 +31,7 @@ const Index = () => {
         <Rollout />
       </Reveal>
       <Reveal effect="fade-up">
-        <section className="pgl-band pgl-band--quote">
+        <section className="pgl-band pgl-band--quote pgl-photo-bg" style={{ '--pgl-photo': `url(${quoteImage})` } as CSSProperties}>
           <div className="pgl-band__inner">
             <span className="pgl-tag pgl-tag--onnavy">{t('Бүтээгдэхүүний зарчим', 'Product principle')}</span>
             <blockquote>
@@ -48,6 +51,7 @@ const Index = () => {
       </Reveal>
       <Reveal effect="fade-up">
         <PageCta
+          image={ctaImage}
           title={t('Нэг сая тоолуурын хэмжилтийг өнөөдрөөс төлөвлөе.', "Let's plan metering for a million meters, starting today.")}
           body={t(
             'Туршилтын трансформатор, тоолуурын протокол, TEAMI-ийн эрхийн талаар ярилцъя.',
