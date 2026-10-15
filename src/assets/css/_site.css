@@ -552,6 +552,23 @@
   pointer-events: none;
   user-select: none;
 }
+/* Брэндийн бүдэг том үг (PetroNet-ийн ghost wordmark). Голлуулалт left/right-аар —
+   transform-ыг parallax эзэмшдэг. Зурагны (z 0) урд, бичвэрийн (z 2) ард. */
+.pgl-hero__ghost {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: clamp(24px, 5vw, 64px);
+  z-index: 1;
+  color: color-mix(in srgb, var(--pg-blue) 9%, transparent);
+  font: 800 clamp(3.815rem, 15vw, 13rem)/1 var(--pg-font);
+  letter-spacing: -0.03em;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.pgl-hero__art { z-index: 0; }
 .pgl-hero__inner { position: relative; z-index: 2; display: flex; flex: 1; align-items: center; padding-block: 56px 32px; }
 .pgl-hero__copy { min-width: 0; max-width: 700px; }
 .pgl .pgl-hero__eyebrow { margin: 0 0 28px; }
@@ -599,6 +616,7 @@
   .pgl-hero__copy { max-width: 560px; }
 }
 @media (max-width: 900px) {
+  .pgl-hero__ghost { top: auto; bottom: 34%; color: color-mix(in srgb, var(--pg-blue) 6%, transparent); }
   .pgl-hero { min-height: 0; }
   .pgl-hero__art { position: relative; order: 2; width: 100%; height: auto; padding: 0; aspect-ratio: 4 / 3; object-fit: cover; object-position: 72% center; opacity: 1; mask-image: none; -webkit-mask-image: none; transform: none !important; }
   .pgl-hero__inner { order: 1; padding-block: 40px 8px; }
