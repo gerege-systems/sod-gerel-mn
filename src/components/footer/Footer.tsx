@@ -25,8 +25,8 @@ const Footer = () => {
           </Link>
           <p>
             {t(
-              'Монгол Улсын ухаалаг тоолуурын үндэсний платформ. Заалт бүр тоолуураас нэхэмжлэх хүртэл мөрдөгдөнө.',
-              "Mongolia's national smart metering platform. Every reading traced from the meter to the invoice.",
+              'Монгол Улсын эрчим хүчний үндэсний дижитал дэд бүтэц. Дэд станцаас иргэний гар утас хүртэл — нэг урсгал, нэг үнэн тоо.',
+              "Mongolia's national digital energy infrastructure. From the substation to the citizen's phone — one flow, one true number.",
             )}
           </p>
           <p className="pgl-footer__owner">
@@ -74,7 +74,7 @@ const Footer = () => {
 
       <div className="pgl-footer__bottom">
         <span>© {new Date().getFullYear()} Gerege Systems · PowerGrid</span>
-        <span>{t('Ухаалаг тоолуурын үндэсний платформ', 'National Smart Metering Platform')}</span>
+        <span>{t('Эрчим хүчний үндэсний дижитал дэд бүтэц', 'National Digital Energy Infrastructure')}</span>
         <LanguageSwitch dark />
         <a href="#top" className="pgl-footer__top">
           {t('Дээш', 'Back to top')} <Icon icon="lucide:arrow-up" aria-hidden />
