@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
 import { RevealText } from '@/components/site/Reveal'
@@ -149,16 +149,22 @@ export const PageHero = ({
 )
 
 /** Хуудасны төгсгөлийн navy уриалга. */
+/** Хуудасны төгсгөлийн уриалга. `image` өгвөл navy бүрхүүлтэй зургийн дэвсгэртэй болно. */
 export const PageCta = ({
   title,
   body,
   actions,
+  image,
 }: {
   title: ReactNode
   body: ReactNode
   actions: ReactNode
+  image?: string
 }) => (
-  <section className="pgl-page-cta">
+  <section
+    className={cx('pgl-page-cta', image && 'pgl-photo-bg')}
+    style={image ? ({ '--pgl-photo': `url(${image})` } as CSSProperties) : undefined}
+  >
     <div className="pgl-container">
       <div>
         <h2 className="pgl-h2">
