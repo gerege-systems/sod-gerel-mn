@@ -25,9 +25,14 @@ const RAIL = [
 const Hero = () => {
   const { t } = useLang()
   const artRef = useParallax<HTMLImageElement>(0.1, 900)
+  const ghostRef = useParallax<HTMLSpanElement>(0.08)
 
   return (
     <section className="pgl-hero">
+      {/* PetroNet-ийн hero шиг брэндийн том, бүдэг үг — чимэг тул дэлгэц уншигч алгасна. */}
+      <span ref={ghostRef} className="pgl-hero__ghost" aria-hidden>
+        POWERGRID
+      </span>
       <img ref={artRef} className="pgl-hero__art" src={art} alt={t(site.hero_art_alt)} width={1672} height={941} fetchPriority="high" />
 
       <div className="pgl-hero__inner">
