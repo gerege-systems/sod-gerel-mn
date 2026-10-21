@@ -81,7 +81,7 @@ export const site = {
   trust_map_lead: { mn: 'Улсын хэмжээнд', en: 'Nationwide' },
   trust_map_note: { mn: 'тоолуур · төлөвлөлтийн таамаглал', en: 'meters · planning assumption' },
   trust_map_cta: { mn: 'Нэвтрүүлэх төлөвлөгөө', en: 'The rollout plan' },
-  trust_panel_alt: { mn: 'Хананд суурилуулсан ухаалаг тоолуур', en: 'A smart meter mounted on a wall' },
+  trust_panel_alt: { mn: 'Хамгаалалттай серверийн байрны шилэн хаалга', en: 'The glass entrance to a secured server hall' },
   trust_pill_d1: { mn: 'D+1 бүрэн байдал', en: 'D+1 completeness' },
   trust_pill_verified: { mn: 'Худал VERIFIED', en: 'False VERIFIED' },
   trust_pill_rpo: { mn: 'Сэргэлт RPO', en: 'Recovery RPO' },
