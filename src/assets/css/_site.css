@@ -784,14 +784,22 @@
 
 /* ───────────────────────────────────────────────────────────────── trust */
 
-/* Гүн navy самбар — хуудасны хэмнэлийн бараан цэг. Дотор нь цагаан картууд. */
+/* Гүн navy самбар — хуудасны хэмнэлийн бараан цэг. Дөрвөн давхарга дээрээс доош:
+   толгой → гурван зураг (нэг мөр) → зургаан карт (3×2) → улсын хэмжээний зурвас.
+   Давхарга хоорондын зай нэг л утга (--pgl-head-mb) — толгойноос агуулга хүртэлх
+   зайтай ижил, тэгж нэг хэмнэл үүснэ. */
 .pgl-trust { padding-block: var(--pgl-section-y-tight) var(--pgl-section-y); }
 .pgl-trust .pgl-panel { --pgl-spot: color-mix(in srgb, var(--pg-blue) 12%, transparent); }
-.pgl-trust__slides { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pgl-gap); margin-bottom: var(--pgl-gap); }
+.pgl-trust__slides,
+.pgl-trust__features,
+.pgl-trust__band { margin-bottom: var(--pgl-head-mb); }
+
+/* Гурван зураг: ижил харьцаа, тайлбар нь доод ирмэгээс ижил зайд, нэг шугаманд. */
+.pgl-trust__slides { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pgl-gap); }
 .pgl-slide {
   position: relative;
   display: block;
-  min-height: 300px;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--pgl-radius);
   color: inherit;
@@ -807,63 +815,17 @@
   display: grid;
   gap: 8px;
   height: 100%;
-  min-height: inherit;
   align-content: end;
   padding: var(--pgl-card-pad);
   color: var(--pg-on-navy);
-  background: linear-gradient(180deg, transparent 20%, color-mix(in srgb, var(--pg-navy) 86%, transparent) 78%);
+  background: linear-gradient(180deg, transparent 28%, color-mix(in srgb, var(--pg-navy) 55%, transparent) 60%, color-mix(in srgb, var(--pg-navy) 92%, transparent) 100%);
 }
-.pgl-slide__body span { font: 600 var(--pgl-fs-small)/1 var(--pg-font); color: color-mix(in srgb, var(--pg-on-navy) 65%, transparent); }
+.pgl-slide__body span { font: 600 var(--pgl-fs-small)/1 var(--pg-font); letter-spacing: 0.08em; color: color-mix(in srgb, var(--pg-on-navy) 62%, transparent); }
 .pgl-slide__body h3 { color: var(--pg-on-navy); font-size: var(--pgl-fs-h3); line-height: var(--pgl-lh-sub); }
-.pgl-slide__body p { color: color-mix(in srgb, var(--pg-on-navy) 74%, transparent); font-size: var(--pgl-fs-body); line-height: 1.55; }
-.pgl-trust__grid { display: grid; grid-template-columns: 1fr 1.45fr; gap: var(--pgl-gap); }
-.pgl-trust__map {
-  position: relative;
-  overflow: hidden;
-  min-height: 430px;
-  padding: var(--pgl-card-pad);
-  border-radius: var(--pgl-radius);
-  color: var(--pg-ink);
-  background: var(--pg-soft);
-  border: 1px solid color-mix(in srgb, var(--pg-on-navy) 14%, transparent);
-  box-shadow: var(--pgl-shadow-lg);
-}
-.pgl-trust__map > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }
-.pgl-trust__map-copy { position: relative; z-index: 2; display: grid; justify-items: start; gap: 4px; align-content: end; height: 100%; }
-.pgl-trust__map-copy small,
-.pgl-trust__map-copy b,
-.pgl-trust__map-copy span {
-  padding: 3px 10px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--pg-white) 88%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.pgl-trust__map-copy small { color: var(--pg-muted); font-size: var(--pgl-fs-small); font-weight: 600; }
-.pgl-trust__map-copy b { color: var(--pg-ink); font: var(--pgl-w-head) var(--pgl-fs-stat)/1.1 var(--pg-font); letter-spacing: var(--pgl-ls-head); font-variant-numeric: tabular-nums; }
-.pgl-trust__map-copy span { margin-bottom: 14px; color: var(--pg-muted); font-size: var(--pgl-fs-small); }
-.pgl-trust__pills { position: absolute; right: 20px; top: 20px; z-index: 2; display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
-.pgl-trust__pills li {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 14px;
-  border-radius: var(--pgl-radius-xs);
-  background: var(--pgl-glass);
-  border: 1px solid var(--pgl-glass-line);
-  box-shadow: var(--pgl-shadow);
-  backdrop-filter: blur(var(--pgl-glass-blur));
-  -webkit-backdrop-filter: blur(var(--pgl-glass-blur));
-  color: var(--pg-ink);
-  font-size: var(--pgl-fs-small);
-  font-weight: 500;
-}
-.pgl-trust__pills i { width: 8px; height: 8px; border-radius: 50%; background: var(--pg-muted); }
-.pgl-trust__pills li[data-tone="ok"] i { background: var(--pg-green); }
-.pgl-trust__pills li[data-tone="info"] i { background: var(--pg-blue); }
-.pgl-trust__pills b { margin-left: auto; font-weight: 600; padding-left: 10px; font-variant-numeric: tabular-nums; }
-.pgl-trust__pills em { color: var(--pg-muted); font-style: normal; font-weight: 500; }
-.pgl-trust__features { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pgl-gap); margin: 0; padding: 0; list-style: none; }
+.pgl-slide__body p { color: color-mix(in srgb, var(--pg-on-navy) 76%, transparent); font-size: var(--pgl-fs-body); line-height: 1.55; text-wrap: pretty; }
+/* Зургаан карт: 3×2, бүгд ижил өндөр (grid-auto-rows), дотор нь дүрс + дугаар
+   нэг мөрөнд, дараа нь гарчиг, тайлбар. Багана бүтэн өргөнтэй тул бичвэр ~36ch. */
+.pgl-trust__features { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: var(--pgl-gap); }
 .pgl-trust__features > article {
   position: relative;
   display: grid;
@@ -874,24 +836,91 @@
   background: var(--pg-white);
   box-shadow: var(--pgl-shadow);
 }
-.pgl-trust__features > article .pgl-icon--3d { margin: -2px 0 4px; }
-.pgl-trust__features > article em {
-  position: absolute;
-  right: 18px;
-  top: 18px;
+.pgl-trust__feature-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.pgl-trust__feature-top em {
+  padding-top: 4px;
   color: var(--pg-muted);
   font: 600 var(--pgl-fs-small)/1 var(--pg-font);
   font-style: normal;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
 }
-.pgl-trust__features h3 { font-size: var(--pgl-fs-h4); line-height: var(--pgl-lh-sub); }
-.pgl-trust__features p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); }
+.pgl-trust__features h3 { font-size: var(--pgl-fs-h3); line-height: var(--pgl-lh-sub); text-wrap: balance; }
+.pgl-trust__features p { color: var(--pg-muted); font-size: var(--pgl-fs-body); line-height: var(--pgl-lh-body); text-wrap: pretty; }
+
+/* Улсын хэмжээний зурвас: бүтэн өргөн зураг, зүүн талд тоо, баруун талд гурван
+   зорилт нэг шилэн жагсаалтад. Зүүнээс navy бүрхүүл — бичвэр зурган дээр биш,
+   бүрхүүл дээр уншигдана. */
+.pgl-trust__band {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: end;
+  gap: var(--pgl-card-pad);
+  overflow: hidden;
+  min-height: 320px;
+  padding: var(--pgl-card-pad);
+  border-radius: var(--pgl-radius);
+  color: var(--pg-on-navy);
+  background: var(--pg-navy);
+  border: 1px solid color-mix(in srgb, var(--pg-on-navy) 14%, transparent);
+  box-shadow: var(--pgl-shadow-lg);
+}
+.pgl-trust__band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.pgl-trust__band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--pg-navy) 90%, transparent) 0%, color-mix(in srgb, var(--pg-navy) 72%, transparent) 42%, color-mix(in srgb, var(--pg-navy) 28%, transparent) 100%),
+    linear-gradient(180deg, transparent 40%, color-mix(in srgb, var(--pg-navy) 55%, transparent) 100%);
+}
+.pgl-trust__band-copy { position: relative; z-index: 2; display: grid; justify-items: start; gap: 6px; }
+.pgl-trust__band-copy small { color: color-mix(in srgb, var(--pg-on-navy) 70%, transparent); font: 600 var(--pgl-fs-small)/1.3 var(--pg-font); letter-spacing: var(--pgl-ls-tag); text-transform: uppercase; }
+.pgl-trust__band-copy b { color: var(--pg-on-navy); font: var(--pgl-w-display) var(--pgl-fs-h1-page)/1 var(--pg-font); letter-spacing: var(--pgl-ls-display); font-variant-numeric: tabular-nums; }
+.pgl-trust__band-copy span { color: color-mix(in srgb, var(--pg-on-navy) 72%, transparent); font-size: var(--pgl-fs-body); }
+.pgl-trust__band-copy .pgl-pill { margin-top: 14px; }
+.pgl-trust__status {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  max-width: 400px;
+  justify-self: end;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  border-radius: var(--pgl-radius-sm);
+  background: var(--pgl-glass);
+  border: 1px solid var(--pgl-glass-line);
+  box-shadow: var(--pgl-shadow);
+  backdrop-filter: blur(var(--pgl-glass-blur));
+  -webkit-backdrop-filter: blur(var(--pgl-glass-blur));
+  color: var(--pg-ink);
+}
+.pgl-trust__status li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  font-size: var(--pgl-fs-small);
+  font-weight: 500;
+}
+.pgl-trust__status li + li { border-top: 1px solid color-mix(in srgb, var(--pg-navy) 10%, transparent); }
+.pgl-trust__status i { flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; background: var(--pg-muted); }
+.pgl-trust__status li[data-tone="ok"] i { background: var(--pg-green); }
+.pgl-trust__status li[data-tone="info"] i { background: var(--pg-blue); }
+.pgl-trust__status b { margin-left: auto; padding-left: 12px; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pgl-trust__status em { color: var(--pg-muted); font-style: normal; font-weight: 500; }
+
 /* Доод мөр: хоёр талдаа нимгэн шугамтай, самбарын ирмэгээс зайтай.
    (`.pgl p { margin: 0 }`-оос илүү тодорхой байх ёстой — тэгэхгүй бол самбарт наалдана.) */
 .pgl .pgl-trust__foot {
   display: flex;
   align-items: center;
   gap: 18px;
-  margin: clamp(32px, 4vw, 48px) 0 0;
+  margin: 0;
   color: color-mix(in srgb, var(--pg-on-navy) 62%, transparent);
   font: 600 var(--pgl-fs-small)/1.3 var(--pg-font);
   letter-spacing: 0.14em;
@@ -1567,7 +1596,6 @@ html.lenis, html.lenis body { height: auto; }
   .pgl-bento__grid { grid-template-columns: 1fr; }
   .pgl-bento__lead-copy { max-width: 62%; }
   .pgl-bento__orb { right: 3%; width: 40%; max-width: 340px; }
-  .pgl-trust__grid { grid-template-columns: 1fr; }
   .pgl-trust__features { grid-template-columns: repeat(2, 1fr); }
   .pgl-roles__grid { grid-template-columns: repeat(2, 1fr); }
   .pgl-footer__grid { grid-template-columns: 1fr 1fr; }
@@ -1595,15 +1623,17 @@ html.lenis, html.lenis body { height: auto; }
   .pgl-about__figure { order: -1; }
   .pgl-split--reverse > figure { order: 0; }
   .pgl-trust__slides { grid-template-columns: 1fr; }
-  .pgl-slide { min-height: 240px; }
+  .pgl-slide { aspect-ratio: 16 / 10; }
   /* Нарийн дэлгэцэнд тоолуур бичвэрийн ард биш, доор нь — бичвэр зургийн доогуур гүйхгүй. */
   .pgl-bento__lead { display: flex; flex-direction: column; min-height: 0; }
   .pgl-bento__lead-copy { max-width: 100%; order: 1; padding-bottom: 0; }
   .pgl-bento__orb { position: static; order: 2; transform: none; width: 62%; max-width: 300px; margin: -24px 6% 0 auto; }
   .pgl-bento__wide { grid-template-columns: 1fr; }
   .pgl-bento__device { height: 210px; justify-self: start; }
-  .pgl-trust__map { min-height: 380px; }
-  .pgl-trust__pills { position: static; grid-auto-flow: row; margin-bottom: 14px; }
+  /* Зурвас босоо болно: тоо дээр, зорилтын жагсаалт доор, бүтэн өргөн. */
+  .pgl-trust__band { grid-template-columns: 1fr; align-items: start; min-height: 0; gap: var(--pgl-card-pad); }
+  .pgl-trust__band::before { background: color-mix(in srgb, var(--pg-navy) 78%, transparent); }
+  .pgl-trust__status { max-width: none; justify-self: stretch; }
   .pgl-stats { grid-template-columns: 1fr; }
   .pgl-table-wrap { display: none; }
   .pgl-table-cards { display: grid; }
