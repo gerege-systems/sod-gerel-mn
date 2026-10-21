@@ -1,4 +1,4 @@
-import detailsImage from '@zasvar/platform-story.webp'
+import detailsImage from '@/assets/images/platform/platform-story.webp'
 import { useLang, type Text } from '@/i18n/context'
 import { Pill } from '@/components/site/ui'
 

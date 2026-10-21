@@ -1,5 +1,5 @@
-import articleHero from '@/assets/images/knowledge/substation-aerial.webp'
-import dataCenter from '@/assets/images/knowledge/data-center.webp'
+import articleHero from '@/assets/images/architecture/substation-city.webp'
+import dataCenter from '@/assets/images/architecture/data-centre-campus.webp'
 import { useLang } from '@/i18n/context'
 
 const ArticleContent = () => {

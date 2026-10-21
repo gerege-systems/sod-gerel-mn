@@ -15,8 +15,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"],
-      "@zasvar/*": ["../zasvariin file/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Linting */

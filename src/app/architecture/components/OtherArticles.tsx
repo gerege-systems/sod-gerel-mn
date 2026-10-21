@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import article2 from '@/assets/images/knowledge/server-rack.webp'
-import article3 from '@/assets/images/knowledge/control-switches.webp'
-import article4 from '@/assets/images/knowledge/pylons-field.webp'
+import article2 from '@/assets/images/architecture/meter-cabinets.webp'
+import article3 from '@/assets/images/architecture/control-room.webp'
+import article4 from '@/assets/images/architecture/meter-hall-racks.webp'
 import { useLang, type Text } from '@/i18n/context'
 import { SectionHeading } from '@/components/site/ui'
 

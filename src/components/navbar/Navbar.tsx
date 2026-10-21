@@ -1,7 +1,7 @@
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { Icon } from '@iconify/react'
 import { Link, useLocation } from 'react-router-dom'
-import logoIcon from '@zasvar/powergrid-logo-mark.svg'
+import logoIcon from '@/assets/images/powergrid-logo-mark.svg'
 import { LOGIN_URL } from '@/config'
 import { useLang } from '@/i18n/context'
 import { getLenis } from '@/lib/motion'

@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
-import laptop from '@zasvar/about-laptop.webp'
+import laptop from '@/assets/images/home/about-laptop.webp'
 import { useLang } from '@/i18n/context'
 import { site } from '@/i18n/site'
 import Reveal, { RevealText } from '@/components/site/Reveal'

@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
-import logoIcon from '@zasvar/powergrid-logo-mark.svg'
+import logoIcon from '@/assets/images/powergrid-logo-mark.svg'
 import { ADMIN_URL, APP_URL, CONTACT_EMAIL, LOGIN_URL } from '@/config'
 import { useLang } from '@/i18n/context'
 import LanguageSwitch from '@/components/LanguageSwitch'
