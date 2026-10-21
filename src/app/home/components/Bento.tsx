@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
 import wave from '@zasvar/section2-bg.webp'
-import meter from '@zasvar/bento-meter.webp'
+import meter from '@zasvar/bento-meter-v2.webp'
 import monitor from '@zasvar/bento-monitor.webp'
 import phone from '@zasvar/bento-phone.webp'
 import { useLang } from '@/i18n/context'
@@ -36,7 +36,7 @@ const Bento = () => {
     <section className="pgl-bento">
       <Reveal stagger className="pgl-bento__grid">
         <article className="pgl-bento__lead" style={{ '--pgl-bento-wave': `url(${wave})` } as CSSProperties}>
-          <img className="pgl-bento__orb" src={meter} alt={t(site.bento_orb_alt)} width={628} height={760} loading="lazy" decoding="async" />
+          <img className="pgl-bento__orb" src={meter} alt={t(site.bento_orb_alt)} width={846} height={760} loading="lazy" decoding="async" />
           <div className="pgl-bento__lead-copy">
             <span className="pgl-tag">{t(site.bento_tag)}</span>
             <h2>
