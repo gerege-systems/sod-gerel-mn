@@ -662,8 +662,8 @@
   right: 2%;
   top: 50%;
   transform: translateY(-50%);
-  width: 30%;
-  max-width: 300px;
+  width: 42%;
+  max-width: 420px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 30px 40px color-mix(in srgb, var(--pg-navy) 25%, transparent));
@@ -1566,7 +1566,7 @@ html.lenis, html.lenis body { height: auto; }
   .pgl-nav__links { display: none; }
   .pgl-bento__grid { grid-template-columns: 1fr; }
   .pgl-bento__lead-copy { max-width: 62%; }
-  .pgl-bento__orb { right: 3%; width: 32%; max-width: 260px; }
+  .pgl-bento__orb { right: 3%; width: 40%; max-width: 340px; }
   .pgl-trust__grid { grid-template-columns: 1fr; }
   .pgl-trust__features { grid-template-columns: repeat(2, 1fr); }
   .pgl-roles__grid { grid-template-columns: repeat(2, 1fr); }
@@ -1599,7 +1599,7 @@ html.lenis, html.lenis body { height: auto; }
   /* Нарийн дэлгэцэнд тоолуур бичвэрийн ард биш, доор нь — бичвэр зургийн доогуур гүйхгүй. */
   .pgl-bento__lead { display: flex; flex-direction: column; min-height: 0; }
   .pgl-bento__lead-copy { max-width: 100%; order: 1; padding-bottom: 0; }
-  .pgl-bento__orb { position: static; order: 2; transform: none; width: 52%; max-width: 240px; margin: -24px 6% 0 auto; }
+  .pgl-bento__orb { position: static; order: 2; transform: none; width: 62%; max-width: 300px; margin: -24px 6% 0 auto; }
   .pgl-bento__wide { grid-template-columns: 1fr; }
   .pgl-bento__device { height: 210px; justify-self: start; }
   .pgl-trust__map { min-height: 380px; }
