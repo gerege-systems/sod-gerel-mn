@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Архитектур — PowerGrid (sodoo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&display=swap" rel="stylesheet" />
+<style>
+/* ── Токен: харанхуй суурь, ганц акцент (PowerGrid хөх) ───────────────── */
+:root{
+  --bg:#0B0B0C; --surface:#141417; --line:#26262B;
+  --text:#F2F2F0; --muted:#8A8A90;
+  --accent:#1E7BF0; --on-accent:#05080E;
+  --radius-s:8px; --radius-m:16px; --radius-l:28px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --meta:11px; --meta-track:.14em;
+  --gut:24px; --mar:clamp(20px,5vw,80px);
+}
+/* Цайвар хэсгийн хувилбар — акцент хэвээр */
+.light{ --bg:#F2F2F0; --surface:#fff; --line:#DEDEDA; --text:#0B0B0C; --muted:#6B6B72; }
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:400 16px/1.45 var(--font); font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;
+}
+section{ background:var(--bg); color:var(--text); position:relative; overflow:hidden; }
+.wrap{
+  max-width:1680px; margin-inline:auto; padding-inline:var(--mar);
+  display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gut);
+}
+/* ── Meta: булангийн жижиг том үсэг ──────────────────────────────────── */
+.meta{
+  font-size:var(--meta); font-weight:600; letter-spacing:var(--meta-track);
+  text-transform:uppercase; color:var(--muted); line-height:1.35;
+}
+.meta-row{
+  grid-column:1/-1; display:flex; flex-wrap:wrap; justify-content:space-between;
+  gap:8px 24px; padding:18px 0; border-bottom:1px solid var(--line);
+}
+.dot{ width:5px; height:5px; border-radius:99px; background:var(--accent); display:inline-block; vertical-align:middle; margin-inline-end:8px; }
+/* ── Аварга үсэг ─────────────────────────────────────────────────────── */
+.giant{
+  grid-column:1/-1; margin:0;
+  font-size:clamp(72px,19vw,320px); font-weight:800;
+  line-height:.82; letter-spacing:-.05em; white-space:nowrap;
+}
+.giant--crop{ margin-inline-start:-.04em; }
+.giant .fade{ color:var(--muted); }
+/* ── Гарчиг, бичвэр ──────────────────────────────────────────────────── */
+h2{
+  margin:0; font-size:clamp(28px,4.2vw,64px); font-weight:700;
+  line-height:1.02; letter-spacing:-.035em; text-wrap:balance;
+}
+.mixed{ color:var(--muted); }
+.mixed b{ font-weight:inherit; color:var(--text); }
+p{ margin:0; font-size:17px; line-height:1.5; color:var(--muted); }
+p.lead{ font-size:clamp(19px,2vw,26px); line-height:1.35; letter-spacing:-.015em; color:var(--text); }
+.accent{ color:var(--accent); }
+/* ── Pill товч ───────────────────────────────────────────────────────── */
+.pill{
+  display:inline-flex; align-items:center; gap:14px; height:52px; padding:0 6px 0 24px;
+  border:0; border-radius:999px; background:var(--accent); color:var(--on-accent);
+  font:600 15px/1 var(--font); letter-spacing:-.01em; text-decoration:none; cursor:pointer;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);
+}
+.pill:hover{ transform:translateY(-2px); }
+.pill i{
+  width:40px; height:40px; border-radius:999px; background:var(--on-accent); color:var(--accent);
+  display:grid; place-items:center; font-style:normal; font-size:16px;
+}
+.pill--ghost{ background:transparent; color:var(--text); box-shadow:inset 0 0 0 1px var(--line); }
+.pill--ghost i{ background:var(--accent); color:var(--on-accent); }
+/* ── Хэсгийн зай ─────────────────────────────────────────────────────── */
+.pad{ padding-block:clamp(72px,11vw,172px); }
+.pad-sm{ padding-block:clamp(48px,7vw,96px); }
+/* ── Hero ────────────────────────────────────────────────────────────── */
+.hero__head{ grid-column:1/-1; margin-top:clamp(40px,7vw,92px); }
+.hero__title{ grid-column:1/8; margin-top:clamp(24px,3vw,44px); }
+.hero__side{ grid-column:9/-1; margin-top:clamp(24px,3vw,44px); align-self:end; display:grid; gap:24px; }
+/* ── Гурван систем ───────────────────────────────────────────────────── */
+.sys{ grid-column:1/-1; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border-block:1px solid var(--line); margin-top:clamp(40px,5vw,72px); }
+.sys article{ background:var(--bg); padding:clamp(28px,3vw,48px) clamp(20px,2vw,36px); display:grid; gap:14px; align-content:start; }
+.num{ font-size:clamp(56px,7vw,112px); font-weight:700; line-height:.9; letter-spacing:-.05em; font-variant-numeric:tabular-nums; }
+.num--on{ color:var(--accent); }
+.sys h3{ margin:0; font-size:clamp(22px,2.4vw,34px); font-weight:700; letter-spacing:-.03em; line-height:1.05; }
+.sys p{ font-size:15px; }
+.sys-note{ grid-column:1/-1; padding:28px 0 0; }
+/* ── Томьёо ──────────────────────────────────────────────────────────── */
+.formula{ grid-column:1/-1; font-size:clamp(24px,3.6vw,56px); font-weight:700; line-height:1.14; letter-spacing:-.035em; text-wrap:balance; }
+.formula .op{ color:var(--accent); font-weight:800; padding-inline:.12em; }
+/* ── Зураг ───────────────────────────────────────────────────────────── */
+.shot{ grid-column:1/-1; margin-top:clamp(32px,4vw,64px); border-radius:var(--radius-l); overflow:hidden; background:var(--surface); }
+.shot img{ display:block; width:100%; height:auto; aspect-ratio:16/7; object-fit:cover; }
+.shot--tall img{ aspect-ratio:16/9; }
+.cap{ grid-column:1/-1; padding-top:14px; }
+/* ── Урсгалын алхмууд ────────────────────────────────────────────────── */
+.flow{ grid-column:1/-1; display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line); border-block:1px solid var(--line); margin-top:clamp(36px,4vw,64px); }
+.flow li{ list-style:none; background:var(--bg); padding:26px clamp(16px,1.6vw,26px) 30px; display:grid; gap:10px; align-content:start; }
+.flow .step{ color:var(--accent); }
+.flow h4{ margin:0; font-size:17px; font-weight:700; letter-spacing:-.02em; line-height:1.15; }
+.flow p{ font-size:14px; line-height:1.45; }
+/* ── Ишлэл ───────────────────────────────────────────────────────────── */
+.quote{ grid-column:2/12; text-align:center; display:grid; gap:28px; justify-items:center; }
+.quote blockquote{ margin:0; font-size:clamp(22px,3.1vw,46px); font-weight:600; line-height:1.22; letter-spacing:-.03em; text-wrap:balance; }
+.quote cite{ font-style:normal; }
+/* ── Текстийн багана ─────────────────────────────────────────────────── */
+.col{ grid-column:1/7; display:grid; gap:20px; align-content:start; }
+.col--r{ grid-column:7/-1; }
+.col--wide{ grid-column:1/9; }
+/* ── Хаалтын блок ────────────────────────────────────────────────────── */
+.end__note{ grid-column:1/7; margin-top:clamp(28px,3vw,48px); display:grid; gap:22px; }
+/* ── Хөдөлгөөн ───────────────────────────────────────────────────────── */
+.rise{ opacity:0; transform:translateY(18px); transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+.rise.in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){
+  .rise{ opacity:1; transform:none; transition:none; }
+  .pill{ transition:none; }
+}
+/* ── Нарийн дэлгэц ───────────────────────────────────────────────────── */
+@media (max-width:1000px){
+  .hero__title,.hero__side,.col,.col--r,.col--wide,.end__note,.quote{ grid-column:1/-1; }
+  .sys,.flow{ grid-template-columns:1fr; }
+  .giant{ white-space:normal; letter-spacing:-.045em; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO: аварга тайрсан үсэг ══════════════════════════════════════ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="meta-row">
+      <span class="meta"><i class="dot"></i>POWERGRID · АРХИТЕКТУР</span>
+      <span class="meta">2026.10.02</span>
+      <span class="meta">ADR — САНАЛ ШАТАНД</span>
+    </div>
+
+    <h1 class="giant giant--crop hero__head rise">АРХИТЕКТУР</h1>
+
+    <div class="hero__title rise">
+      <h2 class="mixed"><b>Яагаад гурван тусдаа систем:</b> Core, Grouping, Analytics</h2>
+    </div>
+
+    <div class="hero__side rise">
+      <p class="lead mixed">
+        Хэн, юуг, ямар үндэслэлээр харахыг <b>өгөгдлийн сан өөрөө хамгаалах ёстой.</b>
+        PowerGrid үүний тулд хэмжилт, бүлэглэл, аналитикийг тус тусын хилтэй гурван системд хуваасан.
+      </p>
+      <a class="pill" href="#systems">Гурван систем <i>→</i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ЗУРАГ ═════════════════════════════════════════════════════════ -->
+<section class="pad-sm">
+  <div class="wrap">
+    <figure class="shot rise" style="margin:0">
+      <img src="/src/assets/images/architecture/substation-city.webp" alt="Хотын захын дэд станц" width="1600" height="900" />
+    </figure>
+    <div class="cap"><span class="meta">01 — Дэд станцаас иргэний гар утас хүртэл</span></div>
+  </div>
+</section>
+
+<!-- ══ ГУРВАН СИСТЕМ ═════════════════════════════════════════════════ -->
+<section class="pad" id="systems">
+  <div class="wrap">
+    <div class="meta-row">
+      <span class="meta"><i class="dot"></i>ХИЛ ТУС БҮРД ӨӨРИЙН СИСТЕМ</span>
+      <span class="meta">03 СИСТЕМ</span>
+    </div>
+
+    <div class="col--wide col rise" style="margin-top:clamp(32px,4vw,56px)">
+      <h2 class="mixed"><b>Эрхийг засаг захиргаагаар бус,</b> үүргээр олгоно</h2>
+      <p>
+        Ухаалаг тоолуурын өгөгдлийг олон тал хэрэглэнэ: түгээх компани, Эрчим хүчний зохицуулах хороо,
+        аймаг, дүүрэг, банк ба ESCO зэрэг гуравдагч тал, аудитор, хамгийн гол нь иргэн өөрөө. Эрхийг
+        засаг захиргааны хилээр олгох нь энгийн мэт боловч нэг айлын хэрэглээ цөөн өрхтэй бүлгээс тодрох,
+        шүүлтүүр санамсаргүйгээр эрхийг өргөтгөх эрсдэлтэй.
+      </p>
+    </div>
+
+    <div class="sys rise">
+      <article>
+        <span class="num num--on">01</span>
+        <h3>Core</h3>
+        <p>PostgreSQL + RLS — хэмжилт, төлбөр, команд; owner_org, grid area, topology.</p>
+      </article>
+      <article>
+        <span class="num">02</span>
+        <h3>Grouping</h3>
+        <p>Засаг захиргааны bitemporal мод ба дурын бүлэг, snapshot хувилбартай.</p>
+      </article>
+      <article>
+        <span class="num">03</span>
+        <h3>Analytics</h3>
+        <p>k ≥ 10 босготой нэгтгэл, ялгавар халдлагаас хамгаалалт.</p>
+      </article>
+    </div>
+
+    <div class="sys-note rise">
+      <p class="lead mixed">Нутгийн захиргаа түүхий хүснэгтэд хүрэх зам <b>бүтцээрээ байхгүй.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ТОМЬЁО — цайвар хэсэг ═════════════════════════════════════════ -->
+<section class="pad light">
+  <div class="wrap">
+    <div class="meta-row">
+      <span class="meta"><i class="dot"></i>SCOPE CELL</span>
+      <span class="meta">TRANSACTION БҮРД НЭГ УДАА</span>
+    </div>
+    <p class="formula rise" style="margin-top:clamp(32px,4vw,56px)">
+      Эрх <span class="op">=</span> байгууллагын grant-уудын нэгдэл <span class="op">∩</span>
+      үүргийн эрх <span class="op">∩</span> хэрэглэгчийн хамрах хүрээ
+    </p>
+    <div class="col rise" style="margin-top:clamp(28px,3vw,44px)">
+      <p>
+        Энэ тооцоог scope cell хэлбэрээр transaction бүрт нэг удаа хийж, PostgreSQL-ийн Row Level
+        Security бодлогоор хэрэгжүүлнэ. Зөвшөөрөгдөөгүй мөр API, экспорт, тайлан, background job —
+        аль ч замаар гарахгүй бөгөөд эрхийн матрицыг pgTAP тестээр баталгаажуулна.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ЗААЛТЫН УРСГАЛ ════════════════════════════════════════════════ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="meta-row">
+      <span class="meta"><i class="dot"></i>ЗААЛТ ХЭРХЭН УРСДАГ ВЭ</span>
+      <span class="meta">05 АЛХАМ</span>
+    </div>
+
+    <div class="col--wide col rise" style="margin-top:clamp(32px,4vw,56px)">
+      <h2 class="mixed">Заалт <b>хэрхэн урсдаг вэ</b></h2>
+    </div>
+
+    <ol class="flow rise">
+      <li>
+        <span class="meta step">01</span>
+        <h4>HES адаптер</h4>
+        <p>Тоолуур эсвэл TEAMI-аас ирсэн заалт бүсийн дараалалд орно — эхний сонголт NATS JetStream.</p>
+      </li>
+      <li>
+        <span class="meta step">02</span>
+        <h4>Idempotent ingest</h4>
+        <p>(source_system, source_record_id, checksum) түлхүүрээр raw receipt. Давхардсан бол юу ч хийхгүй.</p>
+      </li>
+      <li>
+        <span class="meta step">03</span>
+        <h4>VEE шалгалт</h4>
+        <p>Давхардал, интервалын цоорхой, хүрээнээс гарсан утга, индекс буурах, rollover, цагийн зөрүү.</p>
+      </li>
+      <li>
+        <span class="meta step">04</span>
+        <h4>Тэнцсэн / Quarantine</h4>
+        <p>Тэнцсэн нь баланс, billing, порталд. Унасан нь quarantine — төлбөрт автоматаар хэзээ ч орохгүй.</p>
+      </li>
+      <li>
+        <span class="meta step">05</span>
+        <h4>Шинэ хувилбар</h4>
+        <p>Хожуу ирсэн бодит заалт шинэ хувилбар болж, нөлөөлсөн баланс, нэхэмжлэхийг дахин тооцно.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ ИШЛЭЛ ═════════════════════════════════════════════════════════ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="quote rise">
+      <span class="meta"><i class="dot"></i>БҮТЭЭГДЭХҮҮНИЙ ЗАРЧИМ</span>
+      <blockquote class="mixed">
+        <b>«Түүхий заалтыг дарж засахгүй — засвар бүр шинэ хувилбар.</b>
+        Өгөгдлийн сангийн төлөв өөрчлөгдсөн нь төхөөрөмж дээр биелсэн гэсэн үг биш.
+        «Exactly once»-д найдахгүй — хүлээн авагч бүр idempotent.»
+      </blockquote>
+      <cite class="meta">— PowerGrid-ийн бүтээгдэхүүний зарчмууд</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ЗУРАГ 02 ══════════════════════════════════════════════════════ -->
+<section class="pad-sm">
+  <div class="wrap">
+    <figure class="shot shot--tall rise" style="margin:0">
+      <img src="/src/assets/images/architecture/data-centre-campus.webp" alt="Өгөгдлийн төв" width="1600" height="900" loading="lazy" />
+    </figure>
+    <div class="cap"><span class="meta">02 — Өгөгдлийн төв</span></div>
+  </div>
+</section>
+
+<!-- ══ ХААЛТ: аварга үсэг дахин ══════════════════════════════════════ -->
+<section class="pad light">
+  <div class="wrap">
+    <div class="meta-row">
+      <span class="meta"><i class="dot"></i>ШИЙДВЭР БҮР ADR-ЭЭР БАТЛАГДАНА</span>
+      <span class="meta">ҮЕ 0</span>
+    </div>
+
+    <h2 class="giant giant--crop rise" style="margin-top:clamp(36px,5vw,76px)">ADR<span class="fade">-001</span></h2>
+
+    <div class="end__note rise">
+      <p>
+        Энэ архитектур одоогоор санал шатандаа бөгөөд шийдвэр бүрийг ADR-ээр батална. Эхний хувилбар
+        Gerege Nexus суурь дээр ажиллаж, тоолуурын бүртгэл, заалт цуглуулалт, VEE, баланс, тариф,
+        командын модулиуд үе шаттай нэмэгдэнэ.
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="pill" href="#">Холбогдох <i>→</i></a>
+        <a class="pill pill--ghost" href="#">Нэвтрүүлэх төлөвлөгөө <i>→</i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Гүйлгэхэд зөөлөн илрэх — reduced-motion үед CSS өөрөө унтраана.
+const io = new IntersectionObserver((es) => {
+  for (const e of es) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}, { rootMargin: '0px 0px -12% 0px' });
+document.querySelectorAll('.rise').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

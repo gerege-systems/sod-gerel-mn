@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
-import art from '@zasvar/hero-meter-city-v2.webp'
+import art from '@/assets/images/home/hero-meter-city-v2.webp'
 import { useLang } from '@/i18n/context'
 import { site } from '@/i18n/site'
 import { useParallax } from '@/lib/motion-hooks'

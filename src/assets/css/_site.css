@@ -1421,6 +1421,14 @@ a.pgl-card:hover { box-shadow: var(--pgl-shadow-lg); }
 .pgl-card--navy { background: var(--pg-navy); border-color: var(--pg-navy); color: var(--pg-on-navy); }
 .pgl-card--navy h3 { color: var(--pg-on-navy); }
 .pgl-card--navy p { color: color-mix(in srgb, var(--pg-on-navy) 68%, transparent); }
+/* Зургийг картын бүтэн дэвсгэр болгоно: дээд, доод талд navy бүрхүүл тавьж
+   бичвэрийг уншигдахуйц байлгаад, голд зураг бүтнээрээ харагдана. */
+.pgl-card--photo {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--pg-navy) 88%, transparent) 0%, color-mix(in srgb, var(--pg-navy) 42%, transparent) 40%, color-mix(in srgb, var(--pg-navy) 94%, transparent) 100%),
+    var(--pgl-photo) center / cover no-repeat,
+    var(--pg-navy);
+}
 
 /* Нийтлэл. */
 .pgl-prose { max-width: 760px; margin-inline: auto; display: grid; gap: 22px; }

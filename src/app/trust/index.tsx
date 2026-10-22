@@ -1,5 +1,8 @@
+import type { CSSProperties } from 'react'
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
+import secureHall from '@/assets/images/trust/secure-hall.webp'
+import accessRoom from '@/assets/images/trust/access-room.webp'
 import PageMeta from '@/components/PageMeta'
 import SiteShell from '@/components/site/SiteShell'
 import Reveal from '@/components/site/Reveal'
@@ -89,13 +92,13 @@ const Index = () => {
           </>
         }
       >
-        <div className="pgl-card pgl-card--navy pgl-card--plain" style={{ minHeight: '26rem', justifyContent: 'space-between' }}>
+        <div
+          className="pgl-card pgl-card--navy pgl-card--plain pgl-card--photo"
+          style={{ minHeight: '28rem', alignContent: 'space-between', '--pgl-photo': `url(${secureHall})` } as CSSProperties}
+        >
           <div className="flex items-start justify-between gap-4">
             <span className="pgl-tag pgl-tag--onnavy">PostgreSQL · Row Level Security</span>
             <span className="pgl-tag pgl-tag--onnavy">scope cell</span>
-          </div>
-          <div className="mx-auto my-6 grid size-44 place-items-center rounded-full bg-white/92 md:size-52">
-            <Tile image={icon3d.guard} size="lg" />
           </div>
           <p style={{ color: 'var(--pg-on-navy)', fontWeight: 600, fontSize: '1.05rem' }}>
             {t(
@@ -129,6 +132,24 @@ const Index = () => {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+      </Reveal>
+
+      {/* Аудитын амлалт — зургийн дэвсгэртэй navy зурвас, картуудын хэмнэлийг тасална. */}
+      <Reveal effect="fade-up">
+        <section className="pgl-band pgl-band--quote pgl-photo-bg" style={{ '--pgl-photo': `url(${accessRoom})` } as CSSProperties}>
+          <div className="pgl-band__inner">
+            <span className="pgl-tag pgl-tag--onnavy">{t('Аудит', 'Audit')}</span>
+            <blockquote>
+              <p>
+                {t(
+                  '«Хэн, юуг, хэзээ, ямар үндэслэлээр харсан нь бүртгэгдэнэ. Аудитын мөр энгийн CRUD-аар устгагдахгүй — шүүлтүүр эрхийг хэзээ ч өргөтгөхгүй.»',
+                  '“Who saw what, when and on which grant is recorded. The audit trail cannot be deleted through ordinary CRUD — and a filter never widens a permission.”',
+                )}
+              </p>
+            </blockquote>
+            <cite>{t('— PowerGrid эрхийн загвар', '— PowerGrid access model')}</cite>
           </div>
         </section>
       </Reveal>

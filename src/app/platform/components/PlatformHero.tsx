@@ -1,4 +1,4 @@
-import heroImage from '@zasvar/platform-hero.webp'
+import heroImage from '@/assets/images/platform/platform-hero.webp'
 import { useLang, type Text } from '@/i18n/context'
 import { PageHero, Pill } from '@/components/site/ui'
 import FlowRail from '@/components/site/FlowRail'
