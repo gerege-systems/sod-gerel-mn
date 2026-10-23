@@ -1,5 +1,5 @@
 // Builds the static site and publishes dist/ to the gh-pages branch of package.json "site.repo".
-// GitHub Pages serves that branch at "site.domain".
+// GitHub Pages serves that branch at "site.url".
 //
 // Usage: npm run deploy
 import { execFileSync } from 'node:child_process';
@@ -23,4 +23,4 @@ git('commit', '-q', '-m', `Deploy ${new Date().toISOString()}`);
 git('push', '-q', '--force', site.repo, 'gh-pages');
 fs.rmSync(path.join(dist, '.git'), { recursive: true, force: true });
 
-console.log(`\nDeployed → https://${site.domain}`);
+console.log(`\nDeployed → ${site.url}`);

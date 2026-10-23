@@ -25,6 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Scroll-spy for in-page sections (home page only)
     if (document.querySelector("#how")) {
-        new Gumshoe('#navbar a[href^="/#"]', { offset: 80, reflow: true, events: true });
+        new Gumshoe('#navbar a[href*="/#"]', { offset: 80, reflow: true, events: true });
     }
 });

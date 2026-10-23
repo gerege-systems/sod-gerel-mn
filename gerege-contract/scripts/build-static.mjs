@@ -35,11 +35,12 @@ for (const route of routes) {
 	console.log(`rendered ${route}`);
 }
 
-// 2. Bundle with Vite
+// 2. Bundle with Vite (site.base: sub-path the site is served under, e.g. "/gerege-appstore")
+const base = (pkg.site?.base ?? '').replace(/\/$/, '');
 await build({
 	configFile: false,
 	root,
-	base: '/',
+	base: base + '/',
 	publicDir: 'public',
 	logLevel: 'warn',
 	plugins: [tailwindcss()],
@@ -52,8 +53,20 @@ fs.cpSync(built, outDir, { recursive: true });
 fs.rmSync(built, { recursive: true, force: true });
 fs.rmSync(srcDir, { recursive: true, force: true });
 
+// Pages, images and nav links are written root-relative ("/trust", "/images/…"); prefix them with the base
+if (base) {
+	const prefix = (html) => html
+		.replace(/(href|src)="\/(?!\/)/g, (m, attr) => `${attr}="${base}/`)
+		.replace(/url\('\/(?!\/)/g, `url('${base}/`)
+		.replaceAll(`${base}${base}/`, `${base}/`); // Vite already prefixed its own assets
+	for (const route of routes) {
+		const file = path.join(outDir, route === '/' ? '' : route, 'index.html');
+		fs.writeFileSync(file, prefix(fs.readFileSync(file, 'utf8')));
+	}
+}
+
 // 3. GitHub Pages extras
 if (pkg.site?.domain) fs.writeFileSync(path.join(outDir, 'CNAME'), pkg.site.domain + '\n');
 fs.writeFileSync(path.join(outDir, '.nojekyll'), '');
 
-console.log(`\ndist/ ready${pkg.site?.domain ? ` for https://${pkg.site.domain}` : ''}`);
+console.log(`\ndist/ ready${pkg.site?.url ? ` for ${pkg.site.url}` : ''}`);

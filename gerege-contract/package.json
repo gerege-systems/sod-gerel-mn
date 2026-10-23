@@ -44,7 +44,8 @@
     "tailwindcss-motion": "^1.1.1"
   },
   "site": {
+    "url": "https://contract.sod-gerel.mn/",
     "domain": "contract.sod-gerel.mn",
-    "repo": "git@github.com:gerege-systems/contract-sod-gerel-mn.git"
+    "repo": "git@github.com:gerege-systems/gerege-contract.git"
   }
 }

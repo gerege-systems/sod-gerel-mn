@@ -44,7 +44,8 @@
     "tailwindcss-motion": "^1.1.1"
   },
   "site": {
+    "url": "https://enotary.sod-gerel.mn/",
     "domain": "enotary.sod-gerel.mn",
-    "repo": "git@github.com:gerege-systems/enotary-sod-gerel-mn.git"
+    "repo": "git@github.com:gerege-systems/gerege-enotary.git"
   }
 }
