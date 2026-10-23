@@ -1,0 +1,12 @@
+{
+	"$schema": "https://getcomposer.org/schema.json",
+	"name": "gerege/gerege-enotary",
+	"description": "e-Notary — нотариатын цахим платформын вэб сайт",
+	"version": "1.0.0",
+	"type": "project",
+	"repositories": [],
+	"require": {
+		"php": ">=7.3",
+		"nikic/fast-route": "^1.3"
+	}
+}

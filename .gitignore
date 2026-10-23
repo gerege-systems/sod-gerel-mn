@@ -1,0 +1,8 @@
+node_modules
+vendor
+dist
+.php-tmp*
+.playwright-mcp
+.env
+.DS_Store
+*.local
