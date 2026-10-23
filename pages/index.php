@@ -54,7 +54,7 @@
                     <div class="absolute inset-x-[-10%] top-[22%] h-px dashed-h"></div>
                     <div class="absolute inset-[8%] rounded-full glow-accent blur-2xl"></div>
 
-                    <img src="%BASE%/images/home/appstore-phone.webp" alt="Гарт барьсан утсан дээр нээлттэй Gerege App Store" class="relative lg:max-h-150 max-h-105 w-auto">
+                    <img src="%BASE%/images/home/hero.webp" alt="Гарт барьсан утсан дээр нээлттэй Gerege апп" class="relative lg:max-h-150 max-h-105 w-auto">
                 </div>
             </div>
         </div>
