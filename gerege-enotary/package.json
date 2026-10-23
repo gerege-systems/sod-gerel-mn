@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "composer": "php ./bin/composer.phar"
+    "build": "node scripts/build-static.mjs",
+    "composer": "php ./bin/composer.phar",
+    "deploy": "node scripts/deploy.mjs"
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.22.4",
@@ -41,5 +42,9 @@
     "smoothscroll-for-websites": "^1.5.1",
     "tailwindcss": "^4.1.18",
     "tailwindcss-motion": "^1.1.1"
+  },
+  "site": {
+    "domain": "enotary.sod-gerel.mn",
+    "repo": "git@github.com:gerege-systems/enotary-sod-gerel-mn.git"
   }
 }

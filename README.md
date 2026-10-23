@@ -36,8 +36,19 @@ npm run dev
 | Лого, hero зураг, шилэн 3D icon-ууд | `public/images/` |
 | App Store-ийн каталог | `gerege-appstore/configs/catalog.php` |
 
-## Build
+## Build ба байршуулалт
+
+Сайт бүр GitHub Pages дээр статик HTML-ээр байршина (PowerGrid-тэй адил):
+
+| Сайт | Хаяг | Pages repo |
+| --- | --- | --- |
+| Gerege Contract | https://contract.sod-gerel.mn | [`gerege-systems/contract-sod-gerel-mn`](https://github.com/gerege-systems/contract-sod-gerel-mn) |
+| e-Notary | https://enotary.sod-gerel.mn | [`gerege-systems/enotary-sod-gerel-mn`](https://github.com/gerege-systems/enotary-sod-gerel-mn) |
+| Gerege App Store | https://appstore.sod-gerel.mn | [`gerege-systems/appstore-sod-gerel-mn`](https://github.com/gerege-systems/appstore-sod-gerel-mn) |
 
 ```sh
-npm run build              # dist/ — байршуулах файлууд
+npm run build              # dist/ — PHP-ээр хуудас бүрийг HTML болгож, Vite-ээр багцална
+npm run deploy             # build + dist/-ийг Pages repo-ийн gh-pages салбар руу push
 ```
+
+Домэйн, Pages repo нь сайт бүрийн `package.json` → `"site"` дотор. DNS (dns.mn): `contract`, `enotary`, `appstore` → CNAME `gerege-systems.github.io`.
