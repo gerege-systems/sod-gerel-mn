@@ -1,0 +1,85 @@
+/* Themes Config — Noir system, Gerege blue accent, light / dark */
+
+:root {
+    --accent: #1531fd;
+    --on-accent: #ffffff;
+    --accent-2: var(--accent);
+    --on-accent-2: var(--on-accent);
+
+    --bg: #ffffff;
+    --surface: #f3f4f7;
+    --surface-2: #e9ebf0;
+    --fg: #0a0a0b;
+    --muted: #6b6f7a;
+    --inv: #0a0a0b;
+    --inv-fg: #ffffff;
+}
+
+:root[data-theme="dark"] {
+    --accent: #3a54ff;
+    --on-accent: #ffffff;
+
+    --bg: #010101;
+    --surface: #111111;
+    --surface-2: #1a1a1a;
+    --fg: #ffffff;
+    --muted: #8a8a8a;
+    --inv: #ffffff;
+    --inv-fg: #0a0a0b;
+}
+
+/* Gerege App Store: indigo (appstore.gerege.mn brand) */
+:root[data-site="appstore"] {
+    --accent: #3e43bb;
+}
+
+:root[data-site="appstore"][data-theme="dark"] {
+    --accent: #787cdd;
+    --on-accent: #0a0a0b;
+}
+
+@theme inline {
+    --font-body: "Inter Tight", system-ui, sans-serif;
+    --font-heading: "Inter Tight", system-ui, sans-serif;
+
+    --color-accent: var(--accent);
+    --color-on-accent: var(--on-accent);
+    --color-accent-2: var(--accent-2);
+    --color-on-accent-2: var(--on-accent-2);
+    --color-bg: var(--bg);
+    --color-surface: var(--surface);
+    --color-surface-2: var(--surface-2);
+    --color-fg: var(--fg);
+    --color-muted: var(--muted);
+    --color-inv: var(--inv);
+    --color-inv-fg: var(--inv-fg);
+
+    --color-primary: var(--accent);
+
+    --color-body-bg: var(--bg);
+    --color-body-color: var(--fg);
+}
+
+@theme {
+    --color-default-50: var(--color-slate-50);
+    --color-default-100: var(--color-slate-100);
+    --color-default-200: var(--color-slate-200);
+    --color-default-300: var(--color-slate-300);
+    --color-default-400: var(--color-slate-400);
+    --color-default-500: var(--color-slate-500);
+    --color-default-600: var(--color-slate-600);
+    --color-default-700: var(--color-slate-700);
+    --color-default-800: var(--color-slate-800);
+    --color-default-900: var(--color-slate-900);
+    --color-default-950: var(--color-slate-950);
+
+    --tw-leading: 1.5em;
+    --text-xs--line-height: 1.5em;
+    --text-sm--line-height: 1.5em;
+    --text-base--line-height: 1.5em;
+    --text-lg--line-height: 1.5em;
+    --text-xl--line-height: 1.5em;
+    --text-2xl--line-height: 1.5em;
+    --text-3xl--line-height: 1.5em;
+    --text-7xl--line-height: 1.5em;
+}
